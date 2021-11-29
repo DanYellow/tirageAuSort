@@ -53,7 +53,7 @@ function genererNom(){
     // 1 === "1" : false
     if(typeof(liste[0]) == 'undefined'){
         btn.removeEventListener("click", genererNom, false);
-        // Il existe l'attribut "disabled", il est plus
+        // Il existe l'attribut "disabled", il est plus approprié
         btn.className="hidden";
     }
 }
