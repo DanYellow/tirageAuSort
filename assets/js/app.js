@@ -16,7 +16,7 @@ fetch("assets/liste.json").then((data) => {
 
         liste.forEach((elem, index) => {
             let li = document.createElement('li');
-            li.id = `etudiant${index + 1}`;
+            li.id = `etudiant${index}`;
             li.textContent = elem.nom + " " + elem.prenom;
             listeEtudiant.append(li);
         })
