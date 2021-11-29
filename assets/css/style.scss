@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
+// Inutile de mettre tous les éléments dans le sélecteur body
+// Ils héritent tous de body initialement.
 body{
     height: 100vh;
     background-color: white;
@@ -30,6 +32,9 @@ body{
             font-size: 2rem;
         }
 
+        // Même s'il n'y a qu'un seul élément, prévilégiez les classes
+        // L'id a une spécificité plus forte que la classe CSS
+        // Ceci peut créer des problèmes après.
         #listeEtudiant{
             padding-top: 15px;
             li{
@@ -49,8 +54,11 @@ body{
                 border: 2px #2e4acd solid;
                 transition: 0.3s;
                 &:hover{
+                    // Votre bleu "#2e4acd" est utilisé 3 fois, pensez à la variable css
+                    // https://developer.mozilla.org/fr/docs/Web/CSS/Using_CSS_custom_properties
                     background-color: #2e4acd;
                     color: #f4f5f7;
+                    // Inutile
                     transition: 0.3s;
                 }
             }
@@ -79,6 +87,7 @@ body{
         }
     }
 
+    // Un peu trop général ce sélecteur
     button{
         background-color: #2e4acd;
         color: #f4f5f7;
