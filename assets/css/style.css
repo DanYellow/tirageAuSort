@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+body {
+  height: 100vh;
+  background-color: white;
+  color: #131313;
+  position: relative;
+  overflow-y: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+body .global-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 95%;
+}
+
+body .content {
+  padding-top: 50px;
+  width: 80%;
+  margin: 0 auto;
+  line-height: 1.2;
+}
+
+body .left-content {
+  background-color: #f4f5f7;
+  width: 25%;
+  position: relative;
+}
+
+body .left-content h2 {
+  font-size: 2rem;
+}
+
+body .left-content #listeEtudiant {
+  padding-top: 15px;
+}
+
+body .left-content #listeEtudiant li {
+  padding-top: 7px;
+}
+
+body .left-content .content-button {
+  position: absolute;
+  bottom: 50px;
+  width: 80%;
+}
+
+body .left-content .content-button button {
+  width: 100%;
+  background-color: transparent;
+  color: #131313;
+  border: 2px #2e4acd solid;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+body .left-content .content-button button:hover {
+  background-color: #2e4acd;
+  color: #f4f5f7;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+body .right-content {
+  width: 75%;
+}
+
+body .right-content .titre {
+  font-size: 3.5rem;
+}
+
+body .right-content .explication {
+  color: #7d7d7d;
+  padding: 25px 0 30px 0;
+  width: 70%;
+  line-height: 1.5;
+}
+
+body .right-content #nomPrenom {
+  padding-top: 50px;
+  font-size: 5rem;
+  font-weight: bold;
+}
+
+body button {
+  background-color: #2e4acd;
+  color: #f4f5f7;
+  padding: 19px 59px;
+  border-radius: 8px;
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+body button:hover {
+  background-color: #243daa;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+body footer {
+  background-color: #243daa;
+  color: #f4f5f7;
+  height: 5%;
+}
+
+body footer .contenu {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/*# sourceMappingURL=style.css.map */
