@@ -10,17 +10,31 @@ btn.addEventListener('click', genererNom);
 
 btnRe.addEventListener('click', recommencer);
 
-fetch("assets/liste.json").then((data) => {
-    data.json().then((data) => {
-        liste = [...data];
+// fetch("assets/liste.json").then((data) => {
+//     data.json().then((data) => {
+//         liste = [...data];
         
-        liste.forEach((elem, index) => {
-            let li = document.createElement('li');
-            li.setAttribute("data-etudiant", `${index}`);
-            li.textContent = `${elem.nom} ${elem.prenom}`;
-            listeEtudiant.append(li);
-        })
-    });
+//         liste.forEach((elem, index) => {
+//             let li = document.createElement('li');
+//             li.setAttribute("data-etudiant", `${index}`);
+//             li.textContent = `${elem.nom} ${elem.prenom}`;
+//             listeEtudiant.append(li);
+//         })
+//     });
+// });
+
+fetch("assets/liste.json").then((data) => {
+    return data.json()
+}).then((data) => {
+    liste = [...data];
+    console.log(liste);
+
+    liste.forEach((elem, index) => {
+        let li = document.createElement('li');
+        li.setAttribute("data-etudiant", `${index}`);
+        li.textContent = `${elem.nom} ${elem.prenom}`;
+        listeEtudiant.append(li);
+    })
 });
 
 function genererNom(){
