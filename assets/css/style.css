@@ -1,91 +1,97 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+:root {
+  --blue: #2e4acd;
+  --black: #131313;
+  --white1: #fffafa;
+  --white2: #f4f5f7;
+  --grey: #7d7d7d;
+}
+
 body {
   height: 100vh;
-  background-color: white;
-  color: #131313;
+  background-color: var(--white1);
+  color: var(--black);
   position: relative;
   overflow-y: hidden;
   font-family: 'Inter', sans-serif;
 }
 
-body .global-content {
+.global-content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   height: 95%;
 }
 
-body .content {
+.content {
   padding-top: 50px;
   width: 80%;
   margin: 0 auto;
   line-height: 1.2;
 }
 
-body .left-content {
-  background-color: #f4f5f7;
+.left-content {
+  background-color: var(--white2);
   width: 25%;
   position: relative;
 }
 
-body .left-content h2 {
+.left-content h2 {
   font-size: 2rem;
 }
 
-body .left-content #listeEtudiant {
+.left-content .listeEtudiant {
   padding-top: 15px;
 }
 
-body .left-content #listeEtudiant li {
+.left-content .listeEtudiant li {
   padding-top: 7px;
 }
 
-body .left-content .content-button {
+.left-content .content-button {
   position: absolute;
   bottom: 50px;
   width: 80%;
 }
 
-body .left-content .content-button button {
+.left-content .content-button .btn {
   width: 100%;
   background-color: transparent;
-  color: #131313;
-  border: 2px #2e4acd solid;
+  color: var(--black);
+  border: 2px var(--blue) solid;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 
-body .left-content .content-button button:hover {
-  background-color: #2e4acd;
-  color: #f4f5f7;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
+.left-content .content-button .btn:hover {
+  background-color: var(--blue);
+  color: var(--white2);
 }
 
-body .right-content {
+.right-content {
   width: 75%;
 }
 
-body .right-content .titre {
+.right-content .titre {
   font-size: 3.5rem;
 }
 
-body .right-content .explication {
-  color: #7d7d7d;
+.right-content .explication {
+  color: var(--grey);
   padding: 25px 0 30px 0;
   width: 70%;
   line-height: 1.5;
 }
 
-body .right-content #nomPrenom {
+.right-content #nomPrenom {
   padding-top: 50px;
   font-size: 5rem;
   font-weight: bold;
 }
 
-body button {
+.btn {
   background-color: #2e4acd;
-  color: #f4f5f7;
+  color: var(--white2);
   padding: 19px 59px;
   border-radius: 8px;
   cursor: pointer;
@@ -93,19 +99,19 @@ body button {
   transition: 0.2s;
 }
 
-body button:hover {
+.btn:hover {
   background-color: #243daa;
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
-body footer {
+footer {
   background-color: #243daa;
-  color: #f4f5f7;
+  color: var(--white2);
   height: 5%;
 }
 
-body footer .contenu {
+footer .contenu {
   height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
