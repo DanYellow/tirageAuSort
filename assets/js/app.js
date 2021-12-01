@@ -1,19 +1,19 @@
 let liste = [];
 const btn = document.getElementById('btnTirageAuSort');
+const btnRe = document.getElementById('btn-re');
 const nom = document.getElementById('nom');
 const prenom = document.getElementById('prenom');
 const nomPrenom = document.getElementById('nomPrenom');
 const listeEtudiant = document.getElementById('liste');
 
-
 btn.addEventListener('click', genererNom);
 
+btnRe.addEventListener('click', recommencer);
 
 fetch("assets/liste.json").then((data) => {
     data.json().then((data) => {
         liste = [...data];
-        console.log(liste);
-
+        
         liste.forEach((elem, index) => {
             let li = document.createElement('li');
             li.setAttribute("data-etudiant", `${index}`);
@@ -41,23 +41,18 @@ function genererNom(){
         li.dataset.etudiant = index;
     })
 
-    console.log(allLi);
-    
-    console.log(liste)
-    
-    console.log(random);
-    console.log(randomName);
-
     let nameValue = randomName["nom"];
     let prenomValue = randomName["prenom"];
-    
+
     nom.innerText = nameValue;
     prenom.innerText = prenomValue;
-
-    
 
     if(typeof(liste[0]) === 'undefined'){
         btn.removeEventListener("click", genererNom, false);
         btn.remove();
     }
+}
+
+function recommencer(){
+    location.reload();
 }
