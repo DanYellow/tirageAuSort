@@ -70,6 +70,7 @@ body {
 
 .right-content {
   width: 75%;
+  position: relative;
 }
 
 .right-content .titre {
@@ -87,6 +88,21 @@ body {
   padding-top: 50px;
   font-size: 5rem;
   font-weight: bold;
+}
+
+.right-content .logos {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+}
+
+.right-content .logos .logo-cyu {
+  width: 100px;
+  margin-right: 15px;
+}
+
+.right-content .logos .logo-mmi {
+  width: 50px;
 }
 
 .btn {
