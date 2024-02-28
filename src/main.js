@@ -3,10 +3,12 @@ import gsap from "gsap";
 import './index.css'
 
 let listParticipants = []
+let nbTotalParticipants = 0;
 
 const btnFetchParticipant = document.querySelector("[data-btn-random-participant]")
 const listParticipantsContainer = document.querySelector("[data-list-participants]")
 const participantName = document.querySelector("[data-participant-name]")
+const nbParticipants = document.querySelector("[data-nb-participants]")
 
 const tplParticipantRaw = document.querySelector("[data-tpl-id='participant']");
 
@@ -39,6 +41,11 @@ const displayParticipant = () => {
         { opacity: 1, ease: "power2.out", translateY: "0px", duration: 0.5 }
     );
     listParticipants.splice(randomIndex, 1);
+    nbParticipants.textContent = `(${listParticipants.length}/${nbTotalParticipants})`;
+
+    if(listParticipants.length === 0) {
+        btnFetchParticipant.setAttribute("disabled", "disabled");
+    }
 }
 
 const generateListParticipants = () => {
@@ -57,5 +64,7 @@ btnFetchParticipant.addEventListener("click", displayParticipant);
 (async () => {
     const mainFile = "/liste.dist.json";
     listParticipants = await loadFile(mainFile);
+    nbTotalParticipants = listParticipants.length;
+    nbParticipants.textContent = `(${listParticipants.length}/${nbTotalParticipants})`;
     generateListParticipants();
 })();
