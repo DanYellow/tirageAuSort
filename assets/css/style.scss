@@ -1,107 +1,130 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
+:root {
+    --blue : #2e4acd;
+    --black : #131313;
+    --white1 : #fffafa;
+    --white2 : #f4f5f7;
+    --grey : #7d7d7d;
+
+
+}
+
 body{
     height: 100vh;
-    background-color: white;
-    color: #131313;
+    background-color: var(--white1);
+    color: var(--black);
     position: relative;
     overflow-y: hidden;
     font-family: 'Inter', sans-serif;
+}
 
+.global-content{
+    display: flex;
+    height: 95%;
+}
 
-    .global-content{
-        display: flex;
-        height: 95%;
+.content{
+    padding-top: 50px;
+    width: 80%;
+    margin: 0 auto;
+    line-height: 1.2;
+}
+
+.left-content{
+    background-color: var(--white2);
+    width: 25%;
+    position: relative;
+
+    h2{
+        font-size: 2rem;
     }
 
-    .content{
-        padding-top: 50px;
+    .listeEtudiant{
+        padding-top: 15px;
+        li{
+            padding-top: 7px;
+        }
+    }
+
+    .content-button{
+        position: absolute;
+        bottom: 50px;
         width: 80%;
-        margin: 0 auto;
-        line-height: 1.2;
-    }
 
-    .left-content{
-        background-color: #f4f5f7;
-        width: 25%;
-        position: relative;
-
-        h2{
-            font-size: 2rem;
-        }
-
-        #listeEtudiant{
-            padding-top: 15px;
-            li{
-                padding-top: 7px;
-            }
-        }
-
-        .content-button{
-            position: absolute;
-            bottom: 50px;
-            width: 80%;
-
-            button{
-                width: 100%;
-                background-color: transparent;
-                color: #131313;
-                border: 2px #2e4acd solid;
-                transition: 0.3s;
-                &:hover{
-                    background-color: #2e4acd;
-                    color: #f4f5f7;
-                    transition: 0.3s;
-                }
+        .btn{
+            width: 100%;
+            background-color: transparent;
+            color: var(--black);
+            border: 2px var(--blue) solid;
+            transition: 0.3s;
+            &:hover{
+                background-color: var(--blue);
+                color: var(--white2);
             }
         }
     }
+}
 
-    .right-content{
-        width: 75%;
+.right-content{
+    width: 75%;
+    position: relative;
 
-        .titre{
-            font-size: 3.5rem;
+    .titre{
+        font-size: 3.5rem;
 
-        }
-
-        .explication{
-            color: #7d7d7d;
-            padding: 25px 0 30px 0;
-            width: 70%;
-            line-height: 1.5;
-        }
-
-        #nomPrenom{
-            padding-top: 50px;
-            font-size: 5rem;
-            font-weight: bold;
-        }
     }
 
-    button{
-        background-color: #2e4acd;
-        color: #f4f5f7;
-        padding: 19px 59px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: 0.2s;
-        &:hover{
-            background-color: #243daa;
-            transition: 0.2s;
-        }
+    .explication{
+        color: var(--grey);
+        padding: 25px 0 30px 0;
+        width: 70%;
+        line-height: 1.5;
     }
 
-    footer{
+    #nomPrenom{
+        padding-top: 50px;
+        font-size: 5rem;
+        font-weight: bold;
+    }
+
+    .logos{
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        .logo-cyu{
+            width: 100px;
+            margin-right: 15px;
+        }
+        .logo-mmi{
+            width: 50px;
+        }
+
+    }
+}
+
+.btn{
+    background-color: #2e4acd;
+    color: var(--white2);
+    padding: 19px 59px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    &:hover{
         background-color: #243daa;
-        color: #f4f5f7;
-        height: 5%;
+        transition: 0.2s;
+    }
+}
 
-        .contenu{
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+footer{
+    background-color: #243daa;
+    color: var(--white2);
+    height: 5%;
+
+    .contenu{
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
