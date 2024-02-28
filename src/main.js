@@ -12,6 +12,8 @@ const nbParticipants = document.querySelector("[data-nb-participants]")
 
 const tplParticipantRaw = document.querySelector("[data-tpl-id='participant']");
 
+const dataFileFolder = "/data";
+
 const loadFile = async (url) => {
     try {
         const res = await fetch(url);
@@ -19,7 +21,7 @@ const loadFile = async (url) => {
 
         return [...resJson].sort(({ nom: a }, { nom: b }) => b < a).map((item, idx) => ({...item, id: idx}));
     } catch (error) {
-        const fallbackFile = "/liste.json";
+        const fallbackFile = `${dataFileFolder}/liste.json`;
 
         return await loadFile(fallbackFile);
     }
@@ -62,7 +64,7 @@ const generateListParticipants = () => {
 btnFetchParticipant.addEventListener("click", displayParticipant);
 
 (async () => {
-    const mainFile = "/liste.diste.json";
+    const mainFile = `${dataFileFolder}/liste.diste.json`;
     listParticipants = await loadFile(mainFile);
     nbTotalParticipants = listParticipants.length;
     nbParticipants.textContent = `(${listParticipants.length}/${nbTotalParticipants})`;
