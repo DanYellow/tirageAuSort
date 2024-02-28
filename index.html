@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
+<!doctype html>
+<html lang="en">
+  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,53 +8,32 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/style.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js" defer></script>
-    <script src="assets/js/app.js" defer></script>
-</head>
-<body>
-    <div class="global-content">
-        <div class="left-content">
-            <div class="content">
-                <h2>Orateurs en liste :</h2>
-                <ul id="liste" class="listeEtudiant">
-
-                </ul>
-                <div class="content-button">
-                    <button id="btn-re" class="btn">Recommencer</button>
-                </div>
+  </head>
+  <body class="h-screen">
+    <main class="flex h-[95%]">
+        <section class="flex-none w-3/12 bg-blue-50 py-12 flex flex-col px-10">
+            <h1 class="text-3xl mb-4">Orateurs en lice :</h1>
+            <ul data-list-participants>
+                <li class="pb-2">eee</li>
+            </ul>
+            <a href="" class="border-2 border-blue-600 border-solid py-5 px-11 text-center rounded-lg mt-auto hover:bg-blue-600 hover:text-slate-50">Recommencer</a>
+        </section>
+        <section class="flex-none w-9/12 py-12 px-10 pl-12">
+            <header>
+                <h1 class="text-6xl">Tirage au sort<br> concours d'éloquence 🎤</h1>
+            </header>
+            <div>
+                <p class="text-7xl text-transparent">Invisible</p>
+                <button data-btn-random-participant></button>
             </div>
-        </div>
-        <div class="right-content">
-            <div class="content">
-                <h1 class="titre">Tirage au sort<br> concours d'éloquence 🎤</h1>
-                <p class="explication">Cliquer sur "tirer au sort" pour tirer au sort l'un
-                    des orateurs présents dans la liste du concours d'éloquence.
-                </p>
-                <section data-tpl-container></section>
-                <button id="btnTirageAuSort" class="btn">Tirer au sort</button>
-            </div>
-            <div class="logos">
-                <img class="logo-cyu" src="assets/images/logo-cyu.png" alt="Logo IUT Cergy Pontoise">
-                <img class="logo-mmi" src="assets/images/logo-mmi.png" alt="Logo département MMI">
-            </div>
-        </div>
-    </div>
-    <footer class="footer">
-        <p>
-            Made with ❤️ by Maxime PETIT (Promotion MMI 2020-2022)
-        </p>
-        <p class="small">et amélioré chaque année par le département MMI de Sarcelles</p>
-    </footer>
+        </section>
+    </main>
+    <script type="module" src="src/main.js"></script>
 
     <template data-tpl-id="participant">
-        <p class="participant">
-            <span data-firstname></span>
-            <span data-lastname></span>
-        </p>
+        <li class="pb-2"></li>
     </template>
-</body>
-
+  </body>
 </html>
