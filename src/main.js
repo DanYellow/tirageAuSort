@@ -62,7 +62,7 @@ const generateListParticipants = () => {
 btnFetchParticipant.addEventListener("click", displayParticipant);
 
 (async () => {
-    const mainFile = "/liste.dist.json";
+    const mainFile = "/liste.diste.json";
     listParticipants = await loadFile(mainFile);
     nbTotalParticipants = listParticipants.length;
     nbParticipants.textContent = `(${listParticipants.length}/${nbTotalParticipants})`;

@@ -12,10 +12,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js" defer></script>
   </head>
   <body class="h-screen">
-    <main class="flex h-[95%]">
+    <main class="flex h-[94%]">
         <section class="flex-none w-3/12 bg-blue-50 py-12 flex flex-col px-10">
             <h1 class="text-3xl mb-4">Orateurs en lice <span data-nb-participants></span> :</h1>
-            <ul data-list-participants>
+            <ul data-list-participants class="mb-6 overflow-y-auto">
             </ul>
             <a href="" class="border-2 border-blue-700 border-solid py-5 px-11 text-center rounded-lg mt-auto hover:bg-blue-700 hover:text-slate-50">Recommencer</a>
         </section>
@@ -29,6 +29,12 @@
             </div>
         </section>
     </main>
+    <footer class="h-[6%] bg-blue-700 text-white text-center flex justify-center flex-col">
+        <p>
+            Made with ❤️ by Maxime PETIT (Promotion MMI 2020-2022)
+        </p>
+        <p class="text-sm">et amélioré chaque année par le département MMI de Sarcelles</p>
+    </footer>
     <script type="module" src="src/main.js"></script>
 
     <template data-tpl-id="participant">
