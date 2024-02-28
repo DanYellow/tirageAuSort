@@ -82,8 +82,7 @@ body{
         line-height: 1.5;
     }
 
-    #nomPrenom{
-        padding-top: 50px;
+    .participant {
         font-size: 5rem;
         font-weight: bold;
     }
@@ -111,20 +110,20 @@ body{
     cursor: pointer;
     transition: 0.2s;
     &:hover{
-        background-color: #243daa;
+        background-color: var(--blue);
         transition: 0.2s;
     }
 }
 
-footer{
-    background-color: #243daa;
+.footer {
+    background-color: var(--blue);
     color: var(--white2);
-    height: 5%;
+    height: fit-content;
+    min-height: 5%;
+    padding: 10px;
+    text-align: center;
 
-    .contenu{
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .small {
+        font-size: 0.85rem;
     }
 }

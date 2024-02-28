@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
 </head>
 <body>
     <div class="global-content">
@@ -24,8 +26,6 @@
                     <button id="btn-re" class="btn">Recommencer</button>
                 </div>
             </div>
-
-            
         </div>
         <div class="right-content">
             <div class="content">
@@ -33,8 +33,8 @@
                 <p class="explication">Cliquer sur "tirer au sort" pour tirer au sort l'un
                     des orateurs présents dans la liste du concours d'éloquence.
                 </p>
+                <section data-tpl-container></section>
                 <button id="btnTirageAuSort" class="btn">Tirer au sort</button>
-                <p id="nomPrenom"><span id="nom"></span> <span id="prenom"></span></p>
             </div>
             <div class="logos">
                 <img class="logo-cyu" src="assets/images/logo-cyu.png" alt="Logo IUT Cergy Pontoise">
@@ -42,14 +42,19 @@
             </div>
         </div>
     </div>
-    <footer>
-        <div class="contenu">
-            <span>Made with ❤️ by Maxime PETIT</span>
-        </div>
+    <footer class="footer">
+        <p>
+            Made with ❤️ by Maxime PETIT (Promotion MMI 2020-2022)
+        </p>
+        <p class="small">et amélioré chaque année par le département MMI de Sarcelles</p>
     </footer>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
-    <script src="assets/js/app.js"></script>
+
+    <template data-tpl-id="participant">
+        <p class="participant">
+            <span data-firstname></span>
+            <span data-lastname></span>
+        </p>
+    </template>
 </body>
 
 </html>

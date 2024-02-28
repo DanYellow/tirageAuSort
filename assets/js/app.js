@@ -6,6 +6,12 @@ const prenom = document.getElementById("prenom");
 const nomPrenom = document.getElementById("nomPrenom");
 const listeEtudiant = document.getElementById("liste");
 
+const templateParticipantRaw = document.querySelector("[data-tpl-id='participant']");
+
+const templateContainer = document.querySelector("[data-tpl-container]")
+
+// templateContainer.appendChild(templateParticipant)
+
 const chargementFichier = (url) => {
     fetch(url)
         .then((data) => data.json())
@@ -50,11 +56,16 @@ const genererNom = () => {
         li.dataset.etudiant = index;
     });
 
-    let nameValue = randomName["nom"];
-    let prenomValue = randomName["prenom"];
+    let lastname = randomName["nom"];
+    let firstname = randomName["prenom"];
+    
+    const templateParticipant = templateParticipantRaw.content.cloneNode(true);
+    templateParticipant.querySelector("[data-firstname]").textContent = firstname;
+    templateParticipant.querySelector("[data-lastname]").textContent = lastname;
 
-    nom.innerText = nameValue;
-    prenom.innerText = prenomValue;
+    templateContainer.replaceChildren(templateParticipant)
+
+    
 
     if (typeof liste[0] === "undefined") {
         btn.removeEventListener("click", genererNom, false);
