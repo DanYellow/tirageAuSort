@@ -41,6 +41,8 @@ const displayParticipant = () => {
     participantName.textContent = `${randomParticipant.prenom} ${randomParticipant.nom}`;
     
     const selectedParticipant = document.querySelector(`[data-participant-id="${randomParticipant.id}"]`);
+    const order = (nbTotalParticipants - listParticipants.length) + 1
+    selectedParticipant.textContent = `${order}. ${selectedParticipant.textContent}`
     selectedParticipant.classList.add("line-through")
     
     gsap.fromTo(
@@ -66,8 +68,6 @@ const generateListParticipants = () => {
         listParticipantsContainer.append(tplParticipant);
     });
 }
-
-
 
 let isExpanded = true;
 const toggleLayout = () => {
