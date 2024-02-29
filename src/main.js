@@ -103,16 +103,16 @@ const toggleLayout = () => {
     title.classList.toggle("text-4xl");
     btnToggleLayout.classList.toggle("rotate-180");
     if (isExpanded) {
-        sideMenu.classList.remove("w-[8%]");
-        sideMenu.classList.add("w-3/12");
+        sideMenu.classList.remove("lg:w-[8%]");
+        sideMenu.classList.add("lg:w-3/12", "max-h-[35%]");
         listParticipantsContainer.classList.remove("hidden");
         listParticipantsContainer.classList.add("block");
         content.classList.remove("w-[92%]");
         content.classList.add("w-9/12");
         btnReloadLink.innerHTML = "Recommencer";
     } else {
-        sideMenu.classList.remove("w-3/12");
-        sideMenu.classList.add("w-[8%]");
+        sideMenu.classList.remove("lg:w-3/12");
+        sideMenu.classList.add("lg:w-[8%]");
         listParticipantsContainer.classList.remove("block");
         listParticipantsContainer.classList.add("hidden");
         content.classList.remove("w-9/12");
