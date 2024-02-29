@@ -5,6 +5,7 @@ import reloadIcon from "./reload-icon";
 
 let listParticipants = []
 let nbTotalParticipants = 0;
+let isExpanded = true;
 
 const btnFetchParticipant = document.querySelector("[data-btn-random-participant]")
 const btnToggleLayout = document.querySelector("[data-btn-toggle-layout]")
@@ -15,6 +16,8 @@ const sideMenu = document.querySelector("[data-side-menu]")
 const title = document.querySelector("[data-title]")
 const content = document.querySelector("[data-content]")
 const btnReloadLink = document.querySelector("[data-reload-link]")
+const btnForceReload = document.querySelector("[data-btn-force-reload]")
+const btnCancelReload = document.querySelector("[data-btn-cancel-reload]")
 
 const tplParticipantRaw = document.querySelector("[data-tpl-id='participant']");
 
@@ -69,11 +72,12 @@ const generateListParticipants = () => {
     });
 }
 
-let isExpanded = true;
+
 const toggleLayout = () => {
     isExpanded = !isExpanded;
 
     title.classList.toggle("horizontal-text")
+    btnToggleLayout.classList.toggle("rotate-180")
     if(isExpanded) {
         sideMenu.classList.remove("w-[8%]")
         sideMenu.classList.add("w-3/12")
@@ -93,9 +97,8 @@ const toggleLayout = () => {
     }
 }
 
-document.querySelector("[data-warning-modal]").showModal()
 const reload = () => {
-    if(listParticipants.length != 0) {
+    if(listParticipants.length < nbTotalParticipants && listParticipants.length != 0) {
         document.querySelector("[data-warning-modal]").showModal()
     } else {
         location.reload();
@@ -105,9 +108,15 @@ const reload = () => {
 btnFetchParticipant.addEventListener("click", displayParticipant);
 btnToggleLayout.addEventListener("click", toggleLayout);
 btnReloadLink.addEventListener("click", reload);
+btnForceReload.addEventListener("click", () => {
+    location.reload();
+})
+btnCancelReload.addEventListener("click", () => {
+    document.querySelector("[data-warning-modal]").close()
+});
 
 (async () => {
-    const mainFile = `${dataFileFolder}/liste.diste.json`;
+    const mainFile = `${dataFileFolder}/liste.dist.json`;
     listParticipants = await loadFile(mainFile);
     nbTotalParticipants = listParticipants.length;
     nbParticipants.textContent = `(${listParticipants.length}/${nbTotalParticipants})`;

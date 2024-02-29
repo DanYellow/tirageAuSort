@@ -1,7 +1,7 @@
 [*]
 indent_style = space
 
-[*.{js,ts,json}]
+[*.{js,ts,json,css}]
 indent_size = 4
 
 [*.java]
