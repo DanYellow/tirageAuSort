@@ -131,15 +131,10 @@ const reload = () => {
     }
 };
 
-const preventRefresh = (e) => {
-    e.preventDefault();
-};
-
 btnFetchParticipant.addEventListener("click", displayParticipant);
 btnToggleLayout.addEventListener("click", toggleLayout);
 btnReloadLink.addEventListener("click", reload);
 btnToggleFullscreen.addEventListener("click", toggleFullScreen);
-// window.addEventListener("beforeunload", preventRefresh);
 btnForceReload.addEventListener("click", () => {
     location.reload();
 });
