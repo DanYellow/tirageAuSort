@@ -6,6 +6,11 @@ body{
     font-family: 'Inter', sans-serif;
 }
 
+::backdrop {
+    background-color: theme("colors.gray.950");
+    opacity: 0.75;
+}
+
 @layer components {
     .horizontal-text {
         writing-mode: vertical-rl;
