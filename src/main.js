@@ -25,9 +25,12 @@ const content = document.querySelector("[data-content]");
 const btnReloadLink = document.querySelector("[data-reload-link]");
 const btnForceReload = document.querySelector("[data-btn-force-reload]");
 const btnCancelReload = document.querySelector("[data-btn-cancel-reload]");
-const btnToggleFullscreen = document.querySelector("[data-btn-toggle-fullscreen]");
+const btnToggleFullscreen = document.querySelector(
+    "[data-btn-toggle-fullscreen]"
+);
 
 const tplParticipantRaw = document.querySelector("[data-tpl-id='participant']");
+const warningModal = document.querySelector("[data-warning-modal]");
 
 const loadFile = async (url) => {
     try {
@@ -39,7 +42,6 @@ const loadFile = async (url) => {
             .map((item, idx) => ({ ...item, id: idx }));
     } catch (error) {
         // const fallbackFile = `${dataFileFolder}/liste.json`;
-
         // return await loadFile(fallbackFile);
     }
 };
@@ -49,6 +51,7 @@ const displayParticipant = () => {
     const randomParticipant = listParticipants[randomIndex];
 
     participantName.classList.remove("text-transparent");
+    participantName.classList.add("text-gray-800");
     participantName.textContent = `${randomParticipant.prenom} ${randomParticipant.nom}`;
 
     const selectedParticipant = document.querySelector(
@@ -96,6 +99,7 @@ const toggleLayout = () => {
     isExpanded = !isExpanded;
 
     title.classList.toggle("horizontal-text");
+    title.classList.toggle("text-4xl");
     btnToggleLayout.classList.toggle("rotate-180");
     if (isExpanded) {
         sideMenu.classList.remove("w-[8%]");
@@ -121,27 +125,34 @@ const reload = () => {
         listParticipants.length < nbTotalParticipants &&
         listParticipants.length != 0
     ) {
-        document.querySelector("[data-warning-modal]").showModal();
+        warningModal.showModal();
     } else {
         location.reload();
     }
+};
+
+const preventRefresh = (e) => {
+    e.preventDefault();
 };
 
 btnFetchParticipant.addEventListener("click", displayParticipant);
 btnToggleLayout.addEventListener("click", toggleLayout);
 btnReloadLink.addEventListener("click", reload);
 btnToggleFullscreen.addEventListener("click", toggleFullScreen);
+// window.addEventListener("beforeunload", preventRefresh);
 btnForceReload.addEventListener("click", () => {
     location.reload();
 });
 btnCancelReload.addEventListener("click", () => {
-    document.querySelector("[data-warning-modal]").close();
+    warningModal.close();
 });
 
 (async () => {
+    btnFetchParticipant.setAttribute("disabled", "disabled");
     const mainFile = `${dataFileFolder}/liste.dist.json`;
     listParticipants = await loadFile(mainFile);
     nbTotalParticipants = listParticipants.length;
     nbParticipants.textContent = `(${listParticipants.length}/${nbTotalParticipants})`;
     generateListParticipants();
+    btnFetchParticipant.removeAttribute("disabled");
 })();
