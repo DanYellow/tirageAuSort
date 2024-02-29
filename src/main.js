@@ -1,4 +1,5 @@
 import gsap from "gsap";
+import _ from "lodash";
 
 import "./index.css";
 import reloadIcon from "./reload-icon";
@@ -37,9 +38,9 @@ const loadFile = async (url) => {
         const res = await fetch(url);
         const resJson = await res.json();
 
-        return [...resJson]
-            .sort(({ nom: a }, { nom: b }) => b < a)
-            .map((item, idx) => ({ ...item, id: idx }));
+        const resSorted = _.orderBy(resJson, ['nom'], ['asc']);
+
+        return resSorted.map((item, idx) => ({ ...item, id: idx }));
     } catch (error) {
         // const fallbackFile = `${dataFileFolder}/liste.json`;
         // return await loadFile(fallbackFile);
