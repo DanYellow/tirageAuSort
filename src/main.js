@@ -8,7 +8,7 @@ import reduceIcon from "./reduce-icon";
 let listParticipants = [];
 let nbTotalParticipants = 0;
 let isExpanded = true;
-const dataFileFolder = "/data";
+const dataFileFolder = "./data";
 
 const btnFetchParticipant = document.querySelector(
     "[data-btn-random-participant]"
@@ -38,9 +38,9 @@ const loadFile = async (url) => {
             .sort(({ nom: a }, { nom: b }) => b < a)
             .map((item, idx) => ({ ...item, id: idx }));
     } catch (error) {
-        const fallbackFile = `${dataFileFolder}/liste.json`;
+        // const fallbackFile = `${dataFileFolder}/liste.json`;
 
-        return await loadFile(fallbackFile);
+        // return await loadFile(fallbackFile);
     }
 };
 
