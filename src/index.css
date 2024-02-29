@@ -5,3 +5,10 @@
 body{
     font-family: 'Inter', sans-serif;
 }
+
+@layer components {
+    .horizontal-text {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+    }
+  }

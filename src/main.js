@@ -1,14 +1,20 @@
 import gsap from "gsap";
 
-import './index.css'
+import './index.css';
+import reloadIcon from "./reload-icon";
 
 let listParticipants = []
 let nbTotalParticipants = 0;
 
 const btnFetchParticipant = document.querySelector("[data-btn-random-participant]")
+const btnToggleLayout = document.querySelector("[data-btn-toggle-layout]")
 const listParticipantsContainer = document.querySelector("[data-list-participants]")
 const participantName = document.querySelector("[data-participant-name]")
 const nbParticipants = document.querySelector("[data-nb-participants]")
+const sideMenu = document.querySelector("[data-side-menu]")
+const title = document.querySelector("[data-title]")
+const content = document.querySelector("[data-content]")
+const reloadLink = document.querySelector("[data-reload-link]")
 
 const tplParticipantRaw = document.querySelector("[data-tpl-id='participant']");
 
@@ -61,7 +67,34 @@ const generateListParticipants = () => {
     });
 }
 
+
+
+let isExpanded = true;
+const toggleLayout = () => {
+    isExpanded = !isExpanded;
+
+    title.classList.toggle("horizontal-text")
+    if(isExpanded) {
+        sideMenu.classList.remove("w-[8%]")
+        sideMenu.classList.add("w-3/12")
+        listParticipantsContainer.classList.remove("hidden")
+        listParticipantsContainer.classList.add("block")
+        content.classList.remove("w-[92%]")
+        content.classList.add("w-9/12")
+        reloadLink.innerHTML = "Recommencer";
+    } else {
+        sideMenu.classList.remove("w-3/12")
+        sideMenu.classList.add("w-[8%]")
+        listParticipantsContainer.classList.remove("block")
+        listParticipantsContainer.classList.add("hidden")
+        content.classList.remove("w-9/12")
+        content.classList.add("w-[92%]")
+        reloadLink.innerHTML = reloadIcon;
+    }
+}
+
 btnFetchParticipant.addEventListener("click", displayParticipant);
+btnToggleLayout.addEventListener("click", toggleLayout);
 
 (async () => {
     const mainFile = `${dataFileFolder}/liste.diste.json`;
