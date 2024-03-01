@@ -22,7 +22,7 @@ export default (screen = "") => {
                 ? `(min-width: ${size})`
                 : `(max-width: ${size.max})`;
 
-        results[name] = window.matchMedia(mediaQuery).matches;
+        results[name] = window.matchMedia(mediaQuery);
 
         return results;
     }, {});

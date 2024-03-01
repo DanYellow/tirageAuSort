@@ -124,7 +124,7 @@ const toggleLayout = () => {
 };
 
 const updateReloadButtonLayout = (isExpanded) =>{
-    if (!isExpanded && screenIs('lg')) {
+    if (!isExpanded && screenIs('lg').matches) {
         btnReloadLink.innerHTML = reloadIcon;
     } else {
         btnReloadLink.innerHTML = "Recommencer";
@@ -153,7 +153,11 @@ btnCancelReload.addEventListener("click", () => {
     warningModal.close();
 });
 
-(async () => {
+screenIs('lg').addEventListener("change", () => {
+    updateReloadButtonLayout(isExpanded)
+});
+
+;(async () => {
     btnFetchParticipant.setAttribute("disabled", "disabled");
     const mainFile = `${dataFileFolder}/liste.dist.json`;
     listParticipants = await loadFile(mainFile);
