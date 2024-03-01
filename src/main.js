@@ -63,6 +63,9 @@ const displayParticipant = () => {
     const order = nbTotalParticipants - listParticipants.length + 1;
     selectedParticipant.textContent = `${order}. ${selectedParticipant.textContent}`;
     selectedParticipant.classList.add("line-through");
+    selectedParticipant.scrollIntoView({
+        behavior: "auto"
+    });
 
     gsap.fromTo(
         participantName,
