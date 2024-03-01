@@ -2,9 +2,11 @@ import gsap from "gsap";
 import _ from "lodash";
 
 import "./index.css";
+
 import reloadIcon from "./reload-icon";
 import expandIcon from "./expand-icon";
 import reduceIcon from "./reduce-icon";
+import screenIs from './tailwind.breakpoints'
 
 let listParticipants = [];
 let nbTotalParticipants = 0;
@@ -102,24 +104,32 @@ const toggleLayout = () => {
     title.classList.toggle("horizontal-text");
     title.classList.toggle("text-4xl");
     btnToggleLayout.classList.toggle("rotate-180");
+    updateReloadButtonLayout(isExpanded)
     if (isExpanded) {
         sideMenu.classList.remove("lg:w-[8%]");
         sideMenu.classList.add("lg:w-3/12", "max-h-[35%]");
         listParticipantsContainer.classList.remove("hidden");
         listParticipantsContainer.classList.add("block");
-        content.classList.remove("w-[92%]");
-        content.classList.add("w-9/12");
+        content.classList.remove("lg:w-[92%]");
+        content.classList.add("lg:w-9/12");
         btnReloadLink.innerHTML = "Recommencer";
     } else {
         sideMenu.classList.remove("lg:w-3/12");
         sideMenu.classList.add("lg:w-[8%]");
         listParticipantsContainer.classList.remove("block");
         listParticipantsContainer.classList.add("hidden");
-        content.classList.remove("w-9/12");
-        content.classList.add("w-[92%]");
-        btnReloadLink.innerHTML = reloadIcon;
+        content.classList.remove("lg:w-9/12");
+        content.classList.add("lg:w-[92%]");
     }
 };
+
+const updateReloadButtonLayout = (isExpanded) =>{
+    if (!isExpanded && screenIs('lg')) {
+        btnReloadLink.innerHTML = reloadIcon;
+    } else {
+        btnReloadLink.innerHTML = "Recommencer";
+    }
+}
 
 const reload = () => {
     if (
