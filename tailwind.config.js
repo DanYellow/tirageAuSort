@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+import containerQueries from "@tailwindcss/container-queries";
+
 export default {
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
@@ -12,8 +15,10 @@ export default {
             fontSize: {
                 "11xl": "10rem",
             },
+            containers: {
+                "2xs": "12rem",
+            },
         },
-        
     },
-    plugins: [],
+    plugins: [containerQueries],
 };
