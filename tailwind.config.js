@@ -6,7 +6,14 @@ export default {
             transitionProperty: {
                 width: "width",
             },
+            screens: {
+                fullscreen: { raw: "(display-mode: fullscreen)" },
+            },
+            fontSize: {
+                "11xl": "10rem",
+            },
         },
+        
     },
     plugins: [],
 };
