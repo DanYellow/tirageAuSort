@@ -3,10 +3,8 @@ import _ from "lodash";
 
 import "./index.css";
 
-import reloadIcon from "./reload-icon";
 import expandIcon from "./expand-icon";
 import reduceIcon from "./reduce-icon";
-import screenIs from './tailwind.breakpoints'
 
 let listParticipants = [];
 let nbTotalParticipants = 0;
@@ -107,7 +105,6 @@ const toggleLayout = () => {
     title.classList.toggle("horizontal-text");
     title.classList.toggle("text-4xl");
     btnToggleLayout.classList.toggle("rotate-180");
-    // updateReloadButtonLayout(isExpanded)
     if (isExpanded) {
         sideMenu.classList.remove("lg:w-[8%]");
         sideMenu.classList.add("lg:w-3/12", "max-h-[35%]");
@@ -124,14 +121,6 @@ const toggleLayout = () => {
         content.classList.add("lg:w-[92%]");
     }
 };
-
-const updateReloadButtonLayout = (isExpanded) =>{
-    if (!isExpanded && screenIs('lg').matches) {
-        btnReloadLink.innerHTML = reloadIcon;
-    } else {
-        btnReloadLink.innerHTML = "Recommencer";
-    }
-}
 
 const reload = () => {
     if (
@@ -154,10 +143,6 @@ btnForceReload.addEventListener("click", () => {
 btnCancelReload.addEventListener("click", () => {
     warningModal.close();
 });
-
-// screenIs('lg').addEventListener("change", () => {
-//     updateReloadButtonLayout(isExpanded)
-// });
 
 ;(async () => {
     btnFetchParticipant.setAttribute("disabled", "disabled");
