@@ -60,8 +60,8 @@ const displayParticipant = () => {
     const selectedParticipant = document.querySelector(
         `[data-participant-id="${randomParticipant.id}"]`
     );
-    const order = nbTotalParticipants - listParticipants.length + 1;
-    selectedParticipant.textContent = `${order}. ${selectedParticipant.textContent}`;
+    // const order = nbTotalParticipants - listParticipants.length + 1;
+    // selectedParticipant.textContent = `${order}. ${selectedParticipant.textContent}`;
     selectedParticipant.classList.add("line-through");
     selectedParticipant.scrollIntoView({
         behavior: "auto"
@@ -107,7 +107,7 @@ const toggleLayout = () => {
     title.classList.toggle("horizontal-text");
     title.classList.toggle("text-4xl");
     btnToggleLayout.classList.toggle("rotate-180");
-    updateReloadButtonLayout(isExpanded)
+    // updateReloadButtonLayout(isExpanded)
     if (isExpanded) {
         sideMenu.classList.remove("lg:w-[8%]");
         sideMenu.classList.add("lg:w-3/12", "max-h-[35%]");
@@ -115,7 +115,6 @@ const toggleLayout = () => {
         listParticipantsContainer.classList.add("block");
         content.classList.remove("lg:w-[92%]");
         content.classList.add("lg:w-9/12");
-        btnReloadLink.innerHTML = "Recommencer";
     } else {
         sideMenu.classList.remove("lg:w-3/12");
         sideMenu.classList.add("lg:w-[8%]");
@@ -156,9 +155,9 @@ btnCancelReload.addEventListener("click", () => {
     warningModal.close();
 });
 
-screenIs('lg').addEventListener("change", () => {
-    updateReloadButtonLayout(isExpanded)
-});
+// screenIs('lg').addEventListener("change", () => {
+//     updateReloadButtonLayout(isExpanded)
+// });
 
 ;(async () => {
     btnFetchParticipant.setAttribute("disabled", "disabled");
