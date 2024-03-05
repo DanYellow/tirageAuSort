@@ -42,8 +42,8 @@ const loadFile = async (url) => {
 
         return resSorted.map((item, idx) => ({ ...item, id: idx }));
     } catch (error) {
-        // const fallbackFile = `${dataFileFolder}/liste.json`;
-        // return await loadFile(fallbackFile);
+        const fallbackFile = `${dataFileFolder}/liste.json`;
+        return await loadFile(fallbackFile);
     }
 };
 
@@ -148,6 +148,7 @@ btnCancelReload.addEventListener("click", () => {
     btnFetchParticipant.setAttribute("disabled", "disabled");
     const mainFile = `${dataFileFolder}/liste.dist.json`;
     listParticipants = await loadFile(mainFile);
+
     nbTotalParticipants = listParticipants.length;
     nbParticipants.textContent = `(${listParticipants.length}/${nbTotalParticipants})`;
     generateListParticipants();
