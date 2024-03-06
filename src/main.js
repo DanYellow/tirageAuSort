@@ -31,6 +31,12 @@ const btnToggleFullscreen = document.querySelector(
 );
 
 const tplParticipantRaw = document.querySelector("[data-tpl-id='participant']");
+const tplFullscreenBtnRaw = document.querySelector(
+    "[data-tpl-id='fullscreen']"
+);
+const tplReduceScreenBtnRaw = document.querySelector(
+    "[data-tpl-id='reduce-screen']"
+);
 const warningModal = document.querySelector("[data-warning-modal]");
 
 const loadFile = async (url) => {
@@ -38,7 +44,7 @@ const loadFile = async (url) => {
         const res = await fetch(url);
         const resJson = await res.json();
 
-        const resSorted = _.orderBy(resJson, ['nom'], ['asc']);
+        const resSorted = _.orderBy(resJson, ["nom"], ["asc"]);
 
         return resSorted.map((item, idx) => ({ ...item, id: idx }));
     } catch (error) {
@@ -62,7 +68,7 @@ const displayParticipant = () => {
     // selectedParticipant.textContent = `${order}. ${selectedParticipant.textContent}`;
     selectedParticipant.classList.add("line-through");
     selectedParticipant.scrollIntoView({
-        behavior: "auto"
+        behavior: "auto",
     });
 
     gsap.fromTo(
@@ -91,10 +97,13 @@ const generateListParticipants = () => {
 
 const toggleFullScreen = (e) => {
     if (!document.fullscreenElement) {
-        e.currentTarget.innerHTML = reduceIcon;
+        const tplReduceScreenBtn = tplReduceScreenBtnRaw.content.cloneNode(true);
+        e.currentTarget.replaceChildren(tplReduceScreenBtn);
         document.documentElement.requestFullscreen();
     } else if (document.exitFullscreen) {
-        e.currentTarget.innerHTML = expandIcon;
+        const tplFullscreenBtn = tplFullscreenBtnRaw.content.cloneNode(true);
+        e.currentTarget.replaceChildren(tplFullscreenBtn);
+        // e.currentTarget.innerHTML = expandIcon;
         document.exitFullscreen();
     }
 };
@@ -144,7 +153,7 @@ btnCancelReload.addEventListener("click", () => {
     warningModal.close();
 });
 
-;(async () => {
+(async () => {
     btnFetchParticipant.setAttribute("disabled", "disabled");
     const mainFile = `${dataFileFolder}/liste.dist.json`;
     listParticipants = await loadFile(mainFile);
