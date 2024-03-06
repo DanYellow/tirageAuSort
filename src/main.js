@@ -3,9 +3,6 @@ import _ from "lodash";
 
 import "./index.css";
 
-import expandIcon from "./expand-icon";
-import reduceIcon from "./reduce-icon";
-
 let listParticipants = [];
 let nbTotalParticipants = 0;
 let isExpanded = true;
