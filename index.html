@@ -4,13 +4,14 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Tirage au sort - Concours d'éloquence</title>
+        <title>Tirage au sort - Concours d'éloquence %CURRENT_YEAR%</title>
         <link rel="shortcut icon" href="images/logo-talents-iut.png" type="image/x-icon">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
     </head>
     <body class="h-screen">
+        
         <main class="flex h-[94%] flex-col lg:flex-row">
             <aside class="flex-none max-h-[35%] w-full lg:w-3/12 bg-blue-50 py-12 flex flex-col px-10 transition-max-height transition-width lg:max-h-[initial] @container" data-side-menu="">
                 <h1 class="text-3xl mb-4 flex justify-between items-center z-10" data-title>
@@ -21,6 +22,7 @@
                         </svg>
                     </button>
                 </h1>
+
                 <ul data-list-participants class="mb-6 overflow-y-auto list-inside list-disc"></ul>
                 <button class="border-2 border-blue-700 border-solid py-5 text-center rounded-lg mt-auto hover:bg-blue-700 hover:text-slate-50 flex items-center justify-center min-w-[65px] -translate-x-2/4 left-1/2 relative" data-reload-link>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 @xs:hidden inline">
@@ -37,7 +39,7 @@
                     </svg>
                 </button>
                 <header class="flex justify-between flex-col-reverse lg:flex-row">
-                    <h1 class="text-3xl lg:text-5xl">Tirage au sort<br>Concours d'éloquence 🎤</h1>
+                    <h1 class="text-3xl lg:text-5xl"><span class="text-2xl">Tirage au sort</span><br>Concours d'éloquence <br>%CURRENT_YEAR% 🎤</h1>
                     <section class="flex gap-x-6 flex-wrap">
                         <img class="w-10 lg:w-20 object-contain" src="images/logo-cyu.png" alt="Logo CY IUT">
                         <img class="w-10 lg:w-20 object-contain" src="images/logo-mmi.png" alt="Logo MMI">
@@ -74,7 +76,7 @@
         <script type="module" src="src/main.js"></script>
 
         <template data-tpl-id="participant">
-            <li class="pb-1 text-gray-700" data-participant-id></li>
+            <li class="pb-1 text-gray-900 fullscreen:text-xl" data-participant-id></li>
         </template>
 
         <template data-tpl-id="fullscreen">
