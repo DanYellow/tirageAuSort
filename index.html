@@ -1,94 +1,94 @@
 <!doctype html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tirage au sort - Concours d'éloquence</title>
-    <link rel="shortcut icon" href="images/logo-talents-iut.png" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-  </head>
-  <body class="h-screen">
-    <main class="flex h-[94%] flex-col lg:flex-row">
-        <button type="button" class="absolute right-3 top-3 flex items-center gap-1" data-btn-toggle-fullscreen aria-label="Mettre en mode plein écran" title="Mettre en mode plein écran">
-            <span class="text-sm">Plein écran</span>            
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
-            </svg>
-        </button>
-        <aside class="flex-none max-h-[35%] w-full lg:w-3/12 bg-blue-50 py-12 flex flex-col px-10 transition-max-height transition-width lg:max-h-[initial] @container" data-side-menu="">
-            <h1 class="text-3xl mb-4 flex justify-between items-center z-10" data-title><span>Orateurs en lice <span data-nb-participants></span></span> 
-                <button type="button" data-btn-toggle-layout class="hover:text-blue-800 mt-5 @xs:mt-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 rotate-90 lg:rotate-0">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tirage au sort - Concours d'éloquence</title>
+        <link rel="shortcut icon" href="images/logo-talents-iut.png" type="image/x-icon">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    </head>
+    <body class="h-screen">
+        <main class="flex h-[94%] flex-col lg:flex-row">
+            <aside class="flex-none max-h-[35%] w-full lg:w-3/12 bg-blue-50 py-12 flex flex-col px-10 transition-max-height transition-width lg:max-h-[initial] @container" data-side-menu="">
+                <h1 class="text-3xl mb-4 flex justify-between items-center z-10" data-title>
+                    <span>Orateurs en lice <span data-nb-participants></span></span>
+                    <button type="button" data-btn-toggle-layout class="hover:text-blue-800 mt-5 @xs:mt-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 rotate-90 lg:rotate-0">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/>
+                        </svg>
+                    </button>
+                </h1>
+                <ul data-list-participants class="mb-6 overflow-y-auto list-inside list-disc"></ul>
+                <button class="border-2 border-blue-700 border-solid py-5 text-center rounded-lg mt-auto hover:bg-blue-700 hover:text-slate-50 flex items-center justify-center min-w-[65px] -translate-x-2/4 left-1/2 relative" data-reload-link>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 @xs:hidden inline">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/>
+                    </svg>
+                    <span class="@xs:inline hidden">Recommencer</span>
+                </button>
+            </aside>
+            <section class="flex-none w-full lg:w-9/12 py-12 px-10 pl-12 transition-width relative" data-content="">
+                <button type="button" class="absolute right-3 top-3 flex items-center gap-1" data-btn-toggle-fullscreen aria-label="Mettre en mode plein écran" title="Mettre en mode plein écran">
+                    <span class="text-sm">Plein écran</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"/>
                     </svg>
                 </button>
-            </h1>
-            <ul data-list-participants class="mb-6 overflow-y-auto list-inside list-disc">
-            </ul>
-            <button class="border-2 border-blue-700 border-solid py-5 text-center rounded-lg mt-auto hover:bg-blue-700 hover:text-slate-50 flex items-center justify-center min-w-[65px] -translate-x-2/4 left-1/2 relative" data-reload-link>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 @xs:hidden inline">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-                </svg>
-                <span class="@xs:inline hidden">Recommencer</span>
-            </button>
-        </aside>
-        <section class="flex-none w-full lg:w-9/12 py-12 px-10 pl-12 transition-width" data-content="">
-            <header class="flex justify-between flex-col-reverse lg:flex-row">
-                <h1 class="text-3xl lg:text-5xl">Tirage au sort<br>Concours d'éloquence 🎤</h1>
-                <section class="flex gap-x-6 flex-wrap">
-                    <img class="w-10 lg:w-20 object-contain" src="images/logo-cyu.png" alt="Logo CY IUT">
-                    <img class="w-10 lg:w-20 object-contain" src="images/logo-mmi.png" alt="Logo MMI">
-                    <img class="w-10 lg:w-20 object-contain" src="images/logo-talents-iut.png" alt="Logo Les talents de l'IUT">
-                </section>
-            </header>
-            <div>
-                <div class="mt-12 mb-6">
-                    <p class="text-6xl lg:text-8xl fullscreen:text-11xl text-transparent" data-participant-name>Invisible</p>
-                    <!-- <p class="text-xl bg-gray-800 text-white w-fit px-2 py-1" data-participant-theme>La fin est-elle un nouveau départ ?</p> -->
+                <header class="flex justify-between flex-col-reverse lg:flex-row">
+                    <h1 class="text-3xl lg:text-5xl">Tirage au sort<br>Concours d'éloquence 🎤</h1>
+                    <section class="flex gap-x-6 flex-wrap">
+                        <img class="w-10 lg:w-20 object-contain" src="images/logo-cyu.png" alt="Logo CY IUT">
+                        <img class="w-10 lg:w-20 object-contain" src="images/logo-mmi.png" alt="Logo MMI">
+                        <img class="w-10 lg:w-20 object-contain" src="images/logo-talents-iut.png" alt="Logo Les talents de l'IUT">
+                    </section>
+                </header>
+                <div>
+                    <div class="mt-12 mb-6">
+                        <p class="text-6xl lg:text-8xl fullscreen:text-11xl text-transparent font-bold" data-participant-name>Invisible</p>
+                        <!-- <p class="text-xl bg-gray-800 text-white w-fit px-2 py-1" data-participant-theme>La fin est-elle un nouveau départ ?</p> -->
+                    </div>
+                    <button data-btn-random-participant class="bg-blue-700 rounded-lg text-slate-50 py-5 px-11 hover:bg-blue-900 disabled:opacity-75 text-lg">Tirer au sort</button>
                 </div>
-                <button data-btn-random-participant class="bg-blue-700 rounded-lg text-slate-50 py-5 px-11 hover:bg-blue-900 disabled:opacity-75 text-lg">Tirer au sort</button>
-            </div>
-        </section>
-    </main>
-    <footer class="h-[6%] bg-blue-700 text-white text-center flex justify-center flex-col">
-        <p>
+            </section>
+        </main>
+        <footer class="h-[6%] bg-blue-700 text-white text-center flex justify-center flex-col">
+            <p>
             Made with ❤️ by Maxime PETIT (Promotion MMI 2020-2022)
         </p>
-        <p class="text-xs">et amélioré chaque année par le département MMI de l'IUT de Sarcelles</p>
-    </footer>
+            <p class="text-xs">et amélioré chaque année par le département MMI de l'IUT de Sarcelles</p>
+        </footer>
 
-    <dialog data-warning-modal class="rounded-lg overflow-hidden" >
-        <div class="bg-white p-6">
-            <p class="text-xl">Le tirage n'est pas encore fini.</p>
-            <p class="mb-3"> Recommencer vous fera perdre la progression en cours.</p>
-        </div>
-        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-            <button data-btn-force-reload="" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Recommencer quand même</button>
-            <button data-btn-cancel-reload type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Annuler</button>
-        </div>
-    </dialog>
+        <dialog data-warning-modal class="rounded-lg overflow-hidden" >
+            <div class="bg-white p-6">
+                <p class="text-xl">Le tirage n'est pas encore fini.</p>
+                <p class="mb-3"> Recommencer vous fera perdre la progression en cours.</p>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <button data-btn-force-reload="" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Recommencer quand même</button>
+                <button data-btn-cancel-reload type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Annuler</button>
+            </div>
+        </dialog>
 
-    <script type="module" src="src/main.js"></script>
+        <script type="module" src="src/main.js"></script>
 
-    <template data-tpl-id="participant">
-        <li class="pb-1 text-gray-700" data-participant-id></li>
-    </template>
+        <template data-tpl-id="participant">
+            <li class="pb-1 text-gray-700" data-participant-id></li>
+        </template>
 
-    <template data-tpl-id="fullscreen">
-        <span class="text-sm">Plein écran</span>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
-        </svg>
-    </template>
+        <template data-tpl-id="fullscreen">
+            <span class="text-sm">Plein écran</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"/>
+            </svg>
+        </template>
 
-    <template data-tpl-id="reduce-screen">
-        <span class="text-sm">Mode normal</span>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 9V4.5M9 9H4.5M9 9 3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5 5.25 5.25" />
-        </svg>    
-    </template>
-  </body>
+        <template data-tpl-id="reduce-screen">
+            <span class="text-sm">Mode normal</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 9V4.5M9 9H4.5M9 9 3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5 5.25 5.25"/>
+            </svg>
+        </template>
+    </body>
 </html>
