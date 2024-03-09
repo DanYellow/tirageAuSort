@@ -19,7 +19,7 @@ export default {
                 "2xs": "12rem",
             },
             minHeight: {
-                100: "32rem",
+                100: "34rem",
             },
         },
     },

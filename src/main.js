@@ -138,11 +138,11 @@ const reload = () => {
     }
 };
 
-btnFetchParticipant?.addEventListener("click", displayParticipant);
-btnToggleLayout?.addEventListener("click", toggleLayout);
-btnReloadLink?.addEventListener("click", reload);
-btnToggleFullscreen?.addEventListener("click", toggleFullScreen);
-btnForceReload?.addEventListener("click", () => {
+btnFetchParticipant.addEventListener("click", displayParticipant);
+btnToggleLayout.addEventListener("click", toggleLayout);
+btnReloadLink.addEventListener("click", reload);
+btnToggleFullscreen.addEventListener("click", toggleFullScreen);
+btnForceReload.addEventListener("click", () => {
     location.reload();
 });
 btnCancelReload?.addEventListener("click", () => {
@@ -157,5 +157,5 @@ btnCancelReload?.addEventListener("click", () => {
     nbTotalParticipants = listParticipants.length;
     nbParticipants.textContent = `(${listParticipants.length}/${nbTotalParticipants})`;
     generateListParticipants();
-    btnFetchParticipant?.removeAttribute("disabled");
+    btnFetchParticipant.removeAttribute("disabled");
 })();
