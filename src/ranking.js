@@ -35,7 +35,7 @@ const loadFile = async (url) => {
         const res = await fetch(url);
         const resJson = await res.json();
 
-        const resSorted = _.orderBy(resJson, ["rank"], ["desc"]);
+        const resSorted = _.orderBy(resJson, ["rank"], ["asc"]);
 
         return resSorted.map((item, idx) => ({ ...item, id: idx }));
     } catch (error) {
@@ -100,7 +100,6 @@ const enableAllFeatures = async () => {
 
     document.addEventListener("keydown", revealRankedParticipant);
     index = finalRank.length;
-    
 }
 
 const hash = "492268695d3a20fcd3cba9aa1739fbb56715ee995e2ed03c4c790be0d7bc6f41a7ffdbb94aed31692d6bddc5bf5aa616bb2e7d3de909129c0f59caf26d7eaadf"

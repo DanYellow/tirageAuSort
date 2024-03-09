@@ -21,6 +21,8 @@ export default {
             },
             minHeight: {
                 100: "34rem",
+                110: "40rem",
+                120: "54rem",
             },
         },
     },
