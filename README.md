@@ -27,7 +27,7 @@
 - `Accéder à "http://localhost:5173"`
 
 ### Notes
-- Par défaut, le tirage au sort se fait sur une liste avec de fausses données. Pour utiliser les vôtres, il faudra ajouter un fichier "liste.dist.json" dans le dosser "public/data". Chaque objet devra avoir une clé "nom" et "prenom" (sans accents)
+- Par défaut, le tirage au sort se fait sur une liste avec de fausses données. Pour utiliser les vôtres, il faudra ajouter un fichier "liste.dist.json" dans le dossier "public/data". Chaque objet devra avoir une clé "nom" et "prenom" (sans accents)
 
 ## Publier le projet
 - `npm run build` (projet construit dans le dossier "/dist" à la racine)
