@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 import containerQueries from "@tailwindcss/container-queries";
+import forms from "@tailwindcss/forms";
 
 export default {
     content: ["./*.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -23,5 +24,5 @@ export default {
             },
         },
     },
-    plugins: [containerQueries],
+    plugins: [containerQueries, forms],
 };

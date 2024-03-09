@@ -15,6 +15,12 @@ const btnToggleFullscreen = document.querySelector(
 const tplFullscreenBtnRaw = document.querySelector(
     "[data-tpl-id='fullscreen']"
 );
+const tplReduceScreenBtnRaw = document.querySelector(
+    "[data-tpl-id='reduce-screen']"
+);
+const lockIconContainer = document.querySelector("[data-lock]")
+const passwordModal = document.querySelector("[data-password-modal]");
+const passwordModalForm = document.querySelector("[data-password-modal-form]");
 
 const loadFile = async (url) => {
     try {
@@ -43,8 +49,16 @@ const toggleFullScreen = (e) => {
     }
 };
 
+const listAuthorizedKeys = ["enter", "NumpadEnter"].map((item) =>
+    item.toLowerCase()
+);
+
 const revealRankedParticipant = async (e) => {
-    if (e.code.toLowerCase() !== "enter" || index <= 0 || isRevealing) {
+    if (
+        !listAuthorizedKeys.includes(e.code.toLowerCase()) ||
+        index <= 0 ||
+        isRevealing
+    ) {
         return;
     }
     isRevealing = true;
@@ -71,16 +85,25 @@ const revealRankedParticipant = async (e) => {
     isRevealing = false;
 };
 
+const enableAllFeatures = async () => {
+    lockIconContainer.remove()
+    const mainFile = `${dataFileFolder}/ranking.dist.json`;
+    finalRank = await loadFile(mainFile);
+
+    document.addEventListener("keydown", revealRankedParticipant);
+    index = finalRank.length;
+}
+
 (async () => {
+    passwordModal.showModal()
+    passwordModalForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        passwordModal.close();
+        if(formData.get("password") === "src") {
+            enableAllFeatures()
+        }
+    })
+
     btnToggleFullscreen.addEventListener("click", toggleFullScreen);
-
-    let signe = prompt("mdp ?");
-
-    if (signe === "src") {
-        const mainFile = `${dataFileFolder}/ranking.dist.json`;
-        finalRank = await loadFile(mainFile);
-
-        document.addEventListener("keydown", revealRankedParticipant);
-        index = finalRank.length;
-    }
 })();
