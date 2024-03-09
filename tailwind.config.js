@@ -3,7 +3,7 @@
 import containerQueries from "@tailwindcss/container-queries";
 
 export default {
-    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+    content: ["./*.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
         extend: {
             transitionProperty: {
@@ -17,6 +17,9 @@ export default {
             },
             containers: {
                 "2xs": "12rem",
+            },
+            minHeight: {
+                100: "32rem",
             },
         },
     },

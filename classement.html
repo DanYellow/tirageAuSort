@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tirage au sort - Concours d'éloquence %CURRENT_YEAR%</title>
+        <link
+            rel="shortcut icon"
+            href="images/logo-talents-iut.png"
+            type="image/x-icon"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body class="h-screen">
+        <main class="h-[94%] flex flex-col">
+            <section
+                class="flex-none w-full py-12 px-10 pl-12 transition-width relative"
+                data-content=""
+            >
+                <button
+                    type="button"
+                    class="absolute right-3 top-3 flex items-center gap-1"
+                    data-btn-toggle-fullscreen
+                    aria-label="Mettre en mode plein écran"
+                    title="Mettre en mode plein écran"
+                >
+                    <span class="text-sm">Plein écran</span>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-6 h-6"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
+                        />
+                    </svg>
+                </button>
+                <header
+                    class="flex justify-between flex-col-reverse lg:flex-row"
+                >
+                    <h1 class="text-3xl lg:text-5xl">
+                        <span class="text-2xl">Tirage au sort</span
+                        ><br />Concours d'éloquence <br />%CURRENT_YEAR% 🎤
+                    </h1>
+                    <section class="flex gap-x-6 flex-wrap">
+                        <img
+                            class="w-10 lg:w-20 object-contain"
+                            src="images/logo-cyu.png"
+                            alt="Logo CY IUT"
+                        />
+                        <img
+                            class="w-10 lg:w-20 object-contain"
+                            src="images/logo-mmi.png"
+                            alt="Logo MMI"
+                        />
+                        <img
+                            class="w-10 lg:w-20 object-contain"
+                            src="images/logo-talents-iut.png"
+                            alt="Logo Les talents de l'IUT"
+                        />
+                    </section>
+                </header>
+            </section>
+
+            <div
+                class="flex items-end justify-center flex-auto"
+            >
+                <div class="w-80 text-center">
+                    <h1 class="text-3xl p-4">Jean</h1>
+                    <div
+                        class="flex items-center justify-center bg-[#fddb00] min-h-64"
+                    >
+                        <p class="text-3xl text-white">3</p>
+                    </div>
+                </div>
+                <div class="w-80 text-center">
+                    <h1 class="text-3xl p-4">Jean</h1>
+                    <div
+                        class="flex items-center justify-center bg-[#e20e2f] min-h-100"
+                    >
+                        <p class="text-3xl text-white">1</p>
+                    </div>
+                </div>
+                <div class="w-80 text-center">
+                    <h1 class="text-3xl p-4">Jean</h1>
+                    <div
+                        class="flex items-center justify-center bg-[#f126c2] min-h-80"
+                    >
+                        <p class="text-3xl text-white">1</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer
+            class="h-[6%] bg-blue-700 text-white text-center flex justify-center flex-col"
+        >
+            <p>Made with ❤️ by Maxime PETIT (Promotion MMI 2020-2022)</p>
+            <p class="text-xs">
+                et amélioré chaque année par le département MMI de l'IUT de
+                Sarcelles
+            </p>
+        </footer>
+
+        <script type="module" src="src/ranking.js"></script>
+
+        <template data-tpl-id="fullscreen">
+            <span class="text-sm">Plein écran</span>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
+                />
+            </svg>
+        </template>
+
+        <template data-tpl-id="reduce-screen">
+            <span class="text-sm">Mode normal</span>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 9V4.5M9 9H4.5M9 9 3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5 5.25 5.25"
+                />
+            </svg>
+        </template>
+    </body>
+</html>

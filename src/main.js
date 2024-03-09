@@ -100,7 +100,6 @@ const toggleFullScreen = (e) => {
     } else if (document.exitFullscreen) {
         const tplFullscreenBtn = tplFullscreenBtnRaw.content.cloneNode(true);
         e.currentTarget.replaceChildren(tplFullscreenBtn);
-        // e.currentTarget.innerHTML = expandIcon;
         document.exitFullscreen();
     }
 };
@@ -139,24 +138,24 @@ const reload = () => {
     }
 };
 
-btnFetchParticipant.addEventListener("click", displayParticipant);
-btnToggleLayout.addEventListener("click", toggleLayout);
-btnReloadLink.addEventListener("click", reload);
-btnToggleFullscreen.addEventListener("click", toggleFullScreen);
-btnForceReload.addEventListener("click", () => {
+btnFetchParticipant?.addEventListener("click", displayParticipant);
+btnToggleLayout?.addEventListener("click", toggleLayout);
+btnReloadLink?.addEventListener("click", reload);
+btnToggleFullscreen?.addEventListener("click", toggleFullScreen);
+btnForceReload?.addEventListener("click", () => {
     location.reload();
 });
-btnCancelReload.addEventListener("click", () => {
+btnCancelReload?.addEventListener("click", () => {
     warningModal.close();
 });
 
 (async () => {
-    btnFetchParticipant.setAttribute("disabled", "disabled");
+    btnFetchParticipant?.setAttribute("disabled", "disabled");
     const mainFile = `${dataFileFolder}/liste.dist.json`;
     listParticipants = await loadFile(mainFile);
 
     nbTotalParticipants = listParticipants.length;
     nbParticipants.textContent = `(${listParticipants.length}/${nbTotalParticipants})`;
     generateListParticipants();
-    btnFetchParticipant.removeAttribute("disabled");
+    btnFetchParticipant?.removeAttribute("disabled");
 })();
