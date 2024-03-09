@@ -11,7 +11,9 @@ let isRevealing = false;
 const btnToggleFullscreen = document.querySelector(
     "[data-btn-toggle-fullscreen]"
 );
-
+const btnCloseFormModal = document.querySelector(
+    "[data-btn-close-form-modal]"
+);
 const tplFullscreenBtnRaw = document.querySelector(
     "[data-tpl-id='fullscreen']"
 );
@@ -92,6 +94,7 @@ const enableAllFeatures = async () => {
 
     document.addEventListener("keydown", revealRankedParticipant);
     index = finalRank.length;
+    
 }
 
 (async () => {
@@ -106,4 +109,7 @@ const enableAllFeatures = async () => {
     })
 
     btnToggleFullscreen.addEventListener("click", toggleFullScreen);
+    btnCloseFormModal.addEventListener("click", () => {
+        passwordModal.close();
+    });
 })();
