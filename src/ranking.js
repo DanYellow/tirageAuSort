@@ -3,40 +3,25 @@ import _ from "lodash";
 
 import "./index.css";
 
-let listParticipants = [];
-let nbTotalParticipants = 0;
-let isExpanded = true;
+let finalRank = null;
 const dataFileFolder = "./data";
-
-const btnFetchParticipant = document.querySelector(
-    "[data-btn-random-participant]"
-);
-const btnToggleLayout = document.querySelector("[data-btn-toggle-layout]");
-const listParticipantsContainer = document.querySelector(
-    "[data-list-participants]"
-);
-const participantName = document.querySelector("[data-participant-name]");
-const nbParticipants = document.querySelector("[data-nb-participants]");
+let index;
+let isRevealing = false;
 
 const btnToggleFullscreen = document.querySelector(
     "[data-btn-toggle-fullscreen]"
 );
 
-const tplParticipantRaw = document.querySelector("[data-tpl-id='participant']");
 const tplFullscreenBtnRaw = document.querySelector(
     "[data-tpl-id='fullscreen']"
 );
-const tplReduceScreenBtnRaw = document.querySelector(
-    "[data-tpl-id='reduce-screen']"
-);
-const warningModal = document.querySelector("[data-warning-modal]");
 
 const loadFile = async (url) => {
     try {
         const res = await fetch(url);
         const resJson = await res.json();
 
-        const resSorted = _.orderBy(resJson, ["nom"], ["asc"]);
+        const resSorted = _.orderBy(resJson, ["rank"], ["desc"]);
 
         return resSorted.map((item, idx) => ({ ...item, id: idx }));
     } catch (error) {
@@ -45,22 +30,10 @@ const loadFile = async (url) => {
     }
 };
 
-
-
-const generateListParticipants = () => {
-    listParticipants.forEach((element) => {
-        const tplParticipant = tplParticipantRaw.content.cloneNode(true);
-        const liTag = tplParticipant.querySelector("li");
-        liTag.textContent = `${element.prenom} ${element.nom}`;
-        liTag.dataset.participantId = element.id;
-
-        listParticipantsContainer.append(tplParticipant);
-    });
-};
-
 const toggleFullScreen = (e) => {
     if (!document.fullscreenElement) {
-        const tplReduceScreenBtn = tplReduceScreenBtnRaw.content.cloneNode(true);
+        const tplReduceScreenBtn =
+            tplReduceScreenBtnRaw.content.cloneNode(true);
         e.currentTarget.replaceChildren(tplReduceScreenBtn);
         document.documentElement.requestFullscreen();
     } else if (document.exitFullscreen) {
@@ -70,15 +43,44 @@ const toggleFullScreen = (e) => {
     }
 };
 
+const revealRankedParticipant = async (e) => {
+    if (e.code.toLowerCase() !== "enter" || index <= 0 || isRevealing) {
+        return;
+    }
+    isRevealing = true;
+    const participantName = document.querySelector(
+        `[data-ranked-participant="${index}"]`
+    );
+
+    await gsap.fromTo(
+        participantName,
+        { ease: "power2.out", translateY: "0" },
+        { ease: "power2.out", translateY: "100px", duration: 1.5 }
+    );
+
+    participantName.textContent = `${finalRank[index - 1].prenom} ${
+        finalRank[index - 1].nom
+    }`;
+
+    await gsap.fromTo(
+        participantName,
+        { opacity: 0, ease: "power2.out", translateY: "100px" },
+        { opacity: 1, ease: "power2.out", translateY: "0px", duration: 1.5 }
+    );
+    index--;
+    isRevealing = false;
+};
 
 (async () => {
-    btnToggleFullscreen?.addEventListener("click", toggleFullScreen);
-    // btnFetchParticipant?.setAttribute("disabled", "disabled");
-    // const mainFile = `${dataFileFolder}/liste.dist.json`;
-    // listParticipants = await loadFile(mainFile);
+    btnToggleFullscreen.addEventListener("click", toggleFullScreen);
 
-    // nbTotalParticipants = listParticipants.length;
-    // nbParticipants.textContent = `(${listParticipants.length}/${nbTotalParticipants})`;
-    // generateListParticipants();
-    // btnFetchParticipant?.removeAttribute("disabled");
+    let signe = prompt("mdp ?");
+
+    if (signe === "src") {
+        const mainFile = `${dataFileFolder}/ranking.dist.json`;
+        finalRank = await loadFile(mainFile);
+
+        document.addEventListener("keydown", revealRankedParticipant);
+        index = finalRank.length;
+    }
 })();
