@@ -24,6 +24,12 @@ const lockIconContainer = document.querySelector("[data-lock]")
 const passwordModal = document.querySelector("[data-password-modal]");
 const passwordModalForm = document.querySelector("[data-password-modal-form]");
 
+const encrypt = (str) => {
+    return crypto.subtle.digest("SHA-512", new TextEncoder("utf-8").encode(str)).then(buf => {
+      return Array.prototype.map.call(new Uint8Array(buf), x=>(('00'+x.toString(16)).slice(-2))).join('');
+    });
+  }
+
 const loadFile = async (url) => {
     try {
         const res = await fetch(url);
@@ -97,13 +103,15 @@ const enableAllFeatures = async () => {
     
 }
 
-(async () => {
+const hash = "492268695d3a20fcd3cba9aa1739fbb56715ee995e2ed03c4c790be0d7bc6f41a7ffdbb94aed31692d6bddc5bf5aa616bb2e7d3de909129c0f59caf26d7eaadf"
+;(async () => {
     passwordModal.showModal()
-    passwordModalForm.addEventListener("submit", (e) => {
+    passwordModalForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         passwordModal.close();
-        if(formData.get("password") === "src") {
+        const decryptedPassword = await encrypt(formData.get("password"))
+        if(decryptedPassword === hash) {
             enableAllFeatures()
         }
     })
