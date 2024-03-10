@@ -61,8 +61,10 @@ const listAuthorizedKeys = ["enter", "NumpadEnter"].map((item) =>
     item.toLowerCase()
 );
 
+
 const revealRankedParticipant = async (e) => {
     if (
+        !e.ctrlKey ||
         !listAuthorizedKeys.includes(e.code.toLowerCase()) ||
         index <= 0 ||
         isRevealing
@@ -80,9 +82,11 @@ const revealRankedParticipant = async (e) => {
         { ease: "power2.out", translateY: "100px", duration: 1.5 }
     );
 
-    participantName.textContent = `${finalRank[index - 1].prenom} ${
-        finalRank[index - 1].nom
-    }`;
+    const listParticipantsForRank = finalRank[index - 1].list.map((item) => {
+        return `${item.prenom} ${item.nom}`
+    })
+
+    participantName.textContent = listParticipantsForRank.join("\r\n");
 
     await gsap.fromTo(
         participantName,
@@ -110,10 +114,11 @@ const hash = "492268695d3a20fcd3cba9aa1739fbb56715ee995e2ed03c4c790be0d7bc6f41a7
         const formData = new FormData(e.target);
         passwordModal.close();
         const decryptedPassword = await encrypt(formData.get("password"))
-        if(decryptedPassword === hash) {
+        if(decryptedPassword === hash || import.meta.env.DEV === true) {
             enableAllFeatures()
         }
     })
+    
 
     btnToggleFullscreen.addEventListener("click", toggleFullScreen);
     btnCloseFormModal.addEventListener("click", () => {

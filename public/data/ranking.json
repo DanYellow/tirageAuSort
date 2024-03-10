@@ -1,17 +1,33 @@
 [
     {
-        "nom": "Charlotte",
-        "prenom": "Camacho",
-        "rank": 1
+        "rank": 1,
+        "list": [
+            {
+                "nom": "Charlotte",
+                "prenom": "Camacho"
+            }
+        ]
     },
     {
-        "nom": "Bailey",
-        "prenom": "Ortega",
-        "rank": 2
+        "rank": 2,
+        "list": [
+            {
+                "nom": "Bailey",
+                "prenom": "Ortega"
+            }
+        ]
     },
     {
-        "nom": "Joyce",
-        "prenom": "Wilcox",
-        "rank": 3
+        "rank": 3,
+        "list": [
+            {
+                "nom": "Wilcox",
+                "prenom": "Joyce"
+            },
+            {
+                "nom": "Vasquez",
+                "prenom": "Conrad"
+            }
+        ]
     }
 ]
