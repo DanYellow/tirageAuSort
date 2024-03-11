@@ -47,7 +47,7 @@
                 </header>
                 <div>
                     <div class="mt-12 mb-6">
-                        <p class="text-6xl lg:text-8xl fullscreen:text-11xl text-transparent font-bold" data-participant-name>Invisible</p>
+                        <p class="text-6xl lg:text-8xl fullscreen:text-11xl text-transparent" data-participant-name>Invisible</p>
                         <!-- <p class="text-xl bg-gray-800 text-white w-fit px-2 py-1" data-participant-theme>La fin est-elle un nouveau départ ?</p> -->
                     </div>
                     <button data-btn-random-participant class="bg-blue-700 rounded-lg text-slate-50 py-5 px-11 hover:bg-blue-900 disabled:opacity-75 text-lg">Tirer au sort</button>
@@ -74,7 +74,10 @@
         <script type="module" src="src/main.js"></script>
 
         <template data-tpl-id="participant">
-            <li class="pb-1 text-gray-900 fullscreen:text-xl" data-participant-id></li>
+            <li class="pb-1 text-gray-900 fullscreen:text-xl" data-participant-id>
+                <span data-firstname=""></span>
+                <span data-lastname="" class="font-bold"></span>
+            </li>
         </template>
 
         <template data-tpl-id="fullscreen">

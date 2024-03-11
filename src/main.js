@@ -83,11 +83,15 @@ const displayParticipant = () => {
 };
 
 const generateListParticipants = () => {
-    listParticipants.forEach((element) => {
+    listParticipants.forEach((item) => {
         const tplParticipant = tplParticipantRaw.content.cloneNode(true);
         const liTag = tplParticipant.querySelector("li");
-        liTag.textContent = `${element.prenom} ${element.nom}`;
-        liTag.dataset.participantId = element.id;
+        const firstnameTag = tplParticipant.querySelector("[data-firstname]")
+        const lastnameTag = tplParticipant.querySelector("[data-lastname]")
+
+        firstnameTag.textContent = item.prenom;
+        lastnameTag.textContent = item.nom;
+        liTag.dataset.participantId = item.id;
 
         listParticipantsContainer.append(tplParticipant);
     });
@@ -124,7 +128,7 @@ const toggleLayout = () => {
         gridMainLayout.classList.add("lg:grid-cols-[25%_auto]")
         gridMainLayout.classList.remove("lg:grid-cols-[6%_auto]")
         gridMainLayout.classList.remove("grid-rows-[35%_auto_60px]")
-        
+
         listParticipantsContainer.classList.remove("hidden");
         listParticipantsContainer.classList.add("block");
     }
