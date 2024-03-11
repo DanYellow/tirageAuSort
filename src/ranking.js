@@ -83,7 +83,7 @@ const revealRankedParticipant = async (e) => {
     );
 
     const listParticipantsForRank = finalRank[index - 1].list.map((item) => {
-        return `${item.prenom} ${item.nom}`
+        return `${item.prenom} <span class="font-bold">${item.nom}</span>`
     })
 
     participantName.innerHTML = listParticipantsForRank.join(`\n<span class="text-lg">et</span>\n`);
