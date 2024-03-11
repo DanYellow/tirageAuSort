@@ -86,7 +86,7 @@ const revealRankedParticipant = async (e) => {
         return `${item.prenom} ${item.nom}`
     })
 
-    participantName.textContent = listParticipantsForRank.join("\r\n");
+    participantName.innerHTML = listParticipantsForRank.join(`\n<span class="text-lg">et</span>\n`);
 
     await gsap.fromTo(
         participantName,
