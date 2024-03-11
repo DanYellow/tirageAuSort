@@ -57,13 +57,18 @@ const displayParticipant = () => {
 
     participantName.classList.remove("text-transparent");
     participantName.classList.add("text-gray-800");
-    participantName.textContent = `${randomParticipant.prenom} ${randomParticipant.nom}`;
+    //  font-bold
+    const lastnameSpan = document.createElement("span");
+    lastnameSpan.classList.add("font-bold")
+    lastnameSpan.textContent = randomParticipant.nom
+
+    participantName.textContent = `${randomParticipant.prenom} `;
+    participantName.appendChild(lastnameSpan)
 
     const selectedParticipant = document.querySelector(
         `[data-participant-id="${randomParticipant.id}"]`
     );
-    // const order = nbTotalParticipants - listParticipants.length + 1;
-    // selectedParticipant.textContent = `${order}. ${selectedParticipant.textContent}`;
+
     selectedParticipant.classList.add("line-through");
     selectedParticipant.scrollIntoView({
         behavior: "auto",
