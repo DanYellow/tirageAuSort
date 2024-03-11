@@ -23,6 +23,7 @@ const content = document.querySelector("[data-content]");
 const btnReloadLink = document.querySelector("[data-reload-link]");
 const btnForceReload = document.querySelector("[data-btn-force-reload]");
 const btnCancelReload = document.querySelector("[data-btn-cancel-reload]");
+const gridMainLayout = document.querySelector("[data-grid-main-layout]");
 const btnToggleFullscreen = document.querySelector(
     "[data-btn-toggle-fullscreen]"
 );
@@ -105,26 +106,29 @@ const toggleFullScreen = (e) => {
 };
 
 const toggleLayout = () => {
-    isExpanded = !isExpanded;
-
     title.classList.toggle("horizontal-text");
     title.classList.toggle("text-4xl");
     btnToggleLayout.classList.toggle("rotate-180");
     if (isExpanded) {
-        sideMenu.classList.remove("lg:w-[8%]");
-        sideMenu.classList.add("lg:w-3/12", "max-h-[35%]");
-        listParticipantsContainer.classList.remove("hidden");
-        listParticipantsContainer.classList.add("block");
-        content.classList.remove("lg:w-[92%]");
-        content.classList.add("lg:w-9/12");
-    } else {
-        sideMenu.classList.remove("lg:w-3/12");
-        sideMenu.classList.add("lg:w-[8%]");
+        gridMainLayout.classList.add("lg:grid-cols-[6%_auto]")
+        gridMainLayout.classList.remove("grid-rows-[350px_auto_60px]")
+        gridMainLayout.classList.add("grid-rows-[minmax(13%,_220px)_auto_60px]")
+
+        sideMenu.classList.remove("lg:grid-cols-[25%_auto]");
+        
         listParticipantsContainer.classList.remove("block");
         listParticipantsContainer.classList.add("hidden");
-        content.classList.remove("lg:w-9/12");
-        content.classList.add("lg:w-[92%]");
+    } else {
+        gridMainLayout.classList.remove("grid-rows-[minmax(13%,_220px)_auto_60px]")
+        gridMainLayout.classList.add("grid-rows-[350px_auto_60px]")
+        gridMainLayout.classList.add("lg:grid-cols-[25%_auto]")
+        gridMainLayout.classList.remove("lg:grid-cols-[6%_auto]")
+        gridMainLayout.classList.remove("grid-rows-[35%_auto_60px]")
+        
+        listParticipantsContainer.classList.remove("hidden");
+        listParticipantsContainer.classList.add("block");
     }
+    isExpanded = !isExpanded;
 };
 
 const reload = () => {

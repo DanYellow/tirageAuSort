@@ -99,7 +99,7 @@ const revealRankedParticipant = async (e) => {
 
 const enableAllFeatures = async () => {
     lockIconContainer.remove()
-    const mainFile = `${dataFileFolder}/ranking.dist.json`;
+    const mainFile = `${dataFileFolder}/${atob("cmFua2luZy5kaXN0Lmpzb24=")}`;
     finalRank = await loadFile(mainFile);
 
     document.addEventListener("keydown", revealRankedParticipant);

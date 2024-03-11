@@ -9,6 +9,7 @@ export default {
         extend: {
             transitionProperty: {
                 width: "width",
+                "grid-template-columns": "grid-template-columns",
             },
             screens: {
                 fullscreen: { raw: "(display-mode: fullscreen)" },
