@@ -5,6 +5,7 @@ import "/src/index.css";
 import "./fullscreen";
 
 let finalResults = null;
+let configuration;
 const dataFileFolder = "./data";
 let index = 0;
 let isRevealing = false;
@@ -28,6 +29,8 @@ const loadFileForCurrentCategory = async (url) => {
     try {
         const res = await fetch(url);
         const resJson = await res.json();
+
+        configuration = resJson.configuration;
 
         return resJson[currentCategory];
     } catch (error) {
@@ -57,7 +60,11 @@ const revealWinnerForAward = async (e) => {
     const winnerData = finalResults[type];
     winnerForCategory.innerHTML = `${winnerData.prenom} <span class="font-bold">${winnerData.nom}</span>`;
 
-    await gsap.to(winnerForCategory, { filter: "blur(0px)", duration: 3.5, ease: "power2.out" });
+    await gsap.to(winnerForCategory, { 
+            filter: "blur(0px)", 
+            duration: Number(configuration?.["transition-time"] || 3.5), 
+            ease: "power2.out" 
+        });
     index++;
     isRevealing = false;
 };
