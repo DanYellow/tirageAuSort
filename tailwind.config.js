@@ -9,7 +9,6 @@ export default {
         extend: {
             transitionProperty: {
                 width: "width",
-                filter: "filter",
                 "grid-template-columns": "grid-template-columns",
             },
             screens: {

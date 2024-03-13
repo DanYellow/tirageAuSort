@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import _ from "lodash";
 
-import "./index.css";
+import "/src/index.css";
 import "./fullscreen";
 
 let listParticipants = [];

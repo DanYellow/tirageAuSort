@@ -23,11 +23,5 @@ export default defineConfig({
         rollupOptions: {
             input: ["./src/pages/**/*.html", "./src/pages/**/*.njk"],
         },
-        // rollupOptions: {
-        //     input: {
-        //         main: resolve(__dirname, "index.html"),
-        //         ranking: resolve(__dirname, "classement.html"),
-        //     },
-        // },
     },
 });
