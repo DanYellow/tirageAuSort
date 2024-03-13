@@ -1,42 +1,42 @@
 {
     "innovation": {
         "public": {
-            "nom": "Bailey",
-            "prenom": "Ortega"
+            "nom": "Wilcox",
+            "prenom": "Joyce"
         },
         "jury": {
-            "nom": "Bailey",
-            "prenom": "Ortega"
+            "nom": "Camacho",
+            "prenom": "Charlotte"
         }
     },
     "artiste": {
         "public": {
-            "nom": "Bailey",
-            "prenom": "Ortega"
+            "nom": "Marie",
+            "prenom": "Finch"
         },
         "jury": {
-            "nom": "Bailey",
-            "prenom": "Ortega"
+            "nom": "Vasquez",
+            "prenom": "Conrad"
         }
     },
     "creation-numerique": {
         "public": {
-            "nom": "Bailey",
-            "prenom": "Ortega"
+            "nom": "Williams",
+            "prenom": "Vang"
         },
         "jury": {
-            "nom": "Bailey",
-            "prenom": "Ortega"
+            "nom": "Freeman-Watts",
+            "prenom": "Kim"
         }
     },
     "avenir": {
         "public": {
-            "nom": "Bailey",
-            "prenom": "Ortega"
+            "nom": "Lopez",
+            "prenom": "Julia"
         },
         "jury": {
-            "nom": "Bailey",
-            "prenom": "Ortega"
+            "nom": "Sargent",
+            "prenom": "Wise"
         }
     }
 }

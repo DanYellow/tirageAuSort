@@ -8,7 +8,7 @@ let finalResults = null;
 const dataFileFolder = "./data";
 let index = 0;
 let isRevealing = false;
-
+const currentCategory = document.querySelector("[data-category-name]").dataset.categoryName
 const listAwardsType = ["public", "jury"]
 
 const btnCloseFormModal = document.querySelector(
@@ -20,16 +20,16 @@ const passwordModalForm = document.querySelector("[data-password-modal-form]");
 
 const encrypt = (str) => {
     return crypto.subtle.digest("SHA-512", new TextEncoder("utf-8").encode(str)).then(buf => {
-      return Array.prototype.map.call(new Uint8Array(buf), x=>(('00'+x.toString(16)).slice(-2))).join('');
+        return Array.prototype.map.call(new Uint8Array(buf), x=>(('00'+x.toString(16)).slice(-2))).join('');
     });
-  }
+}
 
 const loadFileForCurrentCategory = async (url) => {
     try {
         const res = await fetch(url);
         const resJson = await res.json();
 
-        return resJson["innovation"];
+        return resJson[currentCategory];
     } catch (error) {
         const fallbackFile = `${dataFileFolder}/ranking.json`;
         return await loadFile(fallbackFile);
@@ -54,16 +54,10 @@ const revealWinnerForAward = async (e) => {
     const type = listAwardsType[index];
 
     const winnerForCategory = document.querySelector(`[data-${type}-award]`);
-    const winnerData = finalResults[type]
-
-    await gsap.fromTo(
-        winnerForCategory,
-        { ease: "power2.out", filter: "blur(50px)" },
-        { ease: "power2.out", filter: "blur(0)", duration: 5.5 }
-    );
-    
+    const winnerData = finalResults[type];
     winnerForCategory.innerHTML = `${winnerData.prenom} <span class="font-bold">${winnerData.nom}</span>`;
 
+    await gsap.to(winnerForCategory, { filter: "blur(0px)", duration: 3.5, ease: "power2.out" });
     index++;
     isRevealing = false;
 };
@@ -79,16 +73,17 @@ const enableAllFeatures = async () => {
 const hash = "492268695d3a20fcd3cba9aa1739fbb56715ee995e2ed03c4c790be0d7bc6f41a7ffdbb94aed31692d6bddc5bf5aa616bb2e7d3de909129c0f59caf26d7eaadf"
 
 ;(async () => {
-    // passwordModal.showModal()
-    // passwordModalForm.addEventListener("submit", async (e) => {
-    //     e.preventDefault();
-    //     const formData = new FormData(e.target);
-    //     passwordModal.close();
-    //     const decryptedPassword = await encrypt(formData.get("password"))
-    //     if(decryptedPassword === hash || import.meta.env.DEV === true) {
+    passwordModal.showModal()
+    passwordModalForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        passwordModal.close();
+        const decryptedPassword = await encrypt(formData.get("password"))
+        if(decryptedPassword === hash || import.meta.env.DEV === true) {
             enableAllFeatures()
-    //     }
-    // })
+        }
+    })
     
     btnCloseFormModal.addEventListener("click", () => {
         passwordModal.close();
