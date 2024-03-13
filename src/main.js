@@ -2,6 +2,7 @@ import gsap from "gsap";
 import _ from "lodash";
 
 import "./index.css";
+import "./fullscreen";
 
 let listParticipants = [];
 let nbTotalParticipants = 0;
@@ -19,22 +20,12 @@ const participantName = document.querySelector("[data-participant-name]");
 const nbParticipants = document.querySelector("[data-nb-participants]");
 const sideMenu = document.querySelector("[data-side-menu]");
 const title = document.querySelector("[data-title]");
-const content = document.querySelector("[data-content]");
 const btnReloadLink = document.querySelector("[data-reload-link]");
 const btnForceReload = document.querySelector("[data-btn-force-reload]");
 const btnCancelReload = document.querySelector("[data-btn-cancel-reload]");
 const gridMainLayout = document.querySelector("[data-grid-main-layout]");
-const btnToggleFullscreen = document.querySelector(
-    "[data-btn-toggle-fullscreen]"
-);
-
 const tplParticipantRaw = document.querySelector("[data-tpl-id='participant']");
-const tplFullscreenBtnRaw = document.querySelector(
-    "[data-tpl-id='fullscreen']"
-);
-const tplReduceScreenBtnRaw = document.querySelector(
-    "[data-tpl-id='reduce-screen']"
-);
+
 const warningModal = document.querySelector("[data-warning-modal]");
 
 const loadFile = async (url) => {
@@ -102,18 +93,6 @@ const generateListParticipants = () => {
     });
 };
 
-const toggleFullScreen = (e) => {
-    if (!document.fullscreenElement) {
-        const tplReduceScreenBtn = tplReduceScreenBtnRaw.content.cloneNode(true);
-        e.currentTarget.replaceChildren(tplReduceScreenBtn);
-        document.documentElement.requestFullscreen();
-    } else if (document.exitFullscreen) {
-        const tplFullscreenBtn = tplFullscreenBtnRaw.content.cloneNode(true);
-        e.currentTarget.replaceChildren(tplFullscreenBtn);
-        document.exitFullscreen();
-    }
-};
-
 const toggleLayout = () => {
     title.classList.toggle("horizontal-text");
     title.classList.toggle("text-4xl");
@@ -154,7 +133,6 @@ const reload = () => {
 btnFetchParticipant.addEventListener("click", displayParticipant);
 btnToggleLayout.addEventListener("click", toggleLayout);
 btnReloadLink.addEventListener("click", reload);
-btnToggleFullscreen.addEventListener("click", toggleFullScreen);
 btnForceReload.addEventListener("click", () => {
     location.reload();
 });

@@ -2,6 +2,7 @@ import gsap from "gsap";
 import _ from "lodash";
 
 import "./index.css";
+import "./fullscreen";
 
 let finalRank = null;
 const dataFileFolder = "./data";
@@ -13,12 +14,6 @@ const btnToggleFullscreen = document.querySelector(
 );
 const btnCloseFormModal = document.querySelector(
     "[data-btn-close-form-modal]"
-);
-const tplFullscreenBtnRaw = document.querySelector(
-    "[data-tpl-id='fullscreen']"
-);
-const tplReduceScreenBtnRaw = document.querySelector(
-    "[data-tpl-id='reduce-screen']"
 );
 const lockIconContainer = document.querySelector("[data-lock]")
 const passwordModal = document.querySelector("[data-password-modal]");
@@ -39,28 +34,14 @@ const loadFile = async (url) => {
 
         return resSorted.map((item, idx) => ({ ...item, id: idx }));
     } catch (error) {
-        const fallbackFile = `${dataFileFolder}/liste.json`;
+        const fallbackFile = `${dataFileFolder}/ranking.json`;
         return await loadFile(fallbackFile);
-    }
-};
-
-const toggleFullScreen = (e) => {
-    if (!document.fullscreenElement) {
-        const tplReduceScreenBtn =
-            tplReduceScreenBtnRaw.content.cloneNode(true);
-        e.currentTarget.replaceChildren(tplReduceScreenBtn);
-        document.documentElement.requestFullscreen();
-    } else if (document.exitFullscreen) {
-        const tplFullscreenBtn = tplFullscreenBtnRaw.content.cloneNode(true);
-        e.currentTarget.replaceChildren(tplFullscreenBtn);
-        document.exitFullscreen();
     }
 };
 
 const listAuthorizedKeys = ["enter", "NumpadEnter"].map((item) =>
     item.toLowerCase()
 );
-
 
 const revealRankedParticipant = async (e) => {
     if (
@@ -119,8 +100,6 @@ const hash = "492268695d3a20fcd3cba9aa1739fbb56715ee995e2ed03c4c790be0d7bc6f41a7
         }
     })
     
-
-    btnToggleFullscreen.addEventListener("click", toggleFullScreen);
     btnCloseFormModal.addEventListener("click", () => {
         passwordModal.close();
     });
