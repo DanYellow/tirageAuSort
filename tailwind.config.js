@@ -4,7 +4,7 @@ import containerQueries from "@tailwindcss/container-queries";
 import forms from "@tailwindcss/forms";
 
 export default {
-    content: ["./*.html", "./src/**/*.{js,ts,jsx,tsx,njk}"],
+    content: ["./src/**/*.{js,ts,jsx,tsx,njk,html}"],
     theme: {
         extend: {
             transitionProperty: {

@@ -1,17 +1,17 @@
 import { defineConfig } from "vite";
-import { resolve, dirname } from "path";
-import { fileURLToPath } from "url";
 import vituum from "vituum";
+
 import nunjucks from "@vituum/vite-plugin-nunjucks";
 import tailwindcss from "@vituum/vite-plugin-tailwindcss";
-
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
     base: "./",
     plugins: [
-        vituum(),
+        vituum({
+            pages: {
+                normalizeBasePath: true,
+            },
+        }),
         nunjucks({
             root: "./src",
         }),
@@ -22,9 +22,8 @@ export default defineConfig({
             new Date().getFullYear()
         ),
     },
-    build: {
-        rollupOptions: {
-            input: ["./src/pages/**/*.html", "./src/pages/**/*.njk"],
-        },
+    server: {
+        host: true,
+        open: true,
     },
 });

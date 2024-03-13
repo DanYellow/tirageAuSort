@@ -1,4 +1,7 @@
 {
+    "config": {
+        "transition-time": 5.3
+    },
     "innovation": {
         "public": {
             "nom": "Wilcox",
