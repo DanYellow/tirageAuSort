@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import _ from "lodash";
 
-import "./index.css";
+import "/src/index.css";
 import "./fullscreen";
 
 let finalRank = null;
@@ -9,9 +9,6 @@ const dataFileFolder = "./data";
 let index;
 let isRevealing = false;
 
-const btnToggleFullscreen = document.querySelector(
-    "[data-btn-toggle-fullscreen]"
-);
 const btnCloseFormModal = document.querySelector(
     "[data-btn-close-form-modal]"
 );

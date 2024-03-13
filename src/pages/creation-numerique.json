@@ -1,0 +1,5 @@
+{
+    "category": "Création numérique",
+    "file": "creation-numerique",
+    "template": "layouts/ranking.njk"
+}
