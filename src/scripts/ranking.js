@@ -4,10 +4,12 @@ import _ from "lodash";
 import "/src/index.css";
 import "./fullscreen";
 
-let finalRank = null;
+let finalResults = null;
 const dataFileFolder = "./data";
-let index;
+let index = 0;
 let isRevealing = false;
+
+const listAwardsType = ["public", "jury"]
 
 const btnCloseFormModal = document.querySelector(
     "[data-btn-close-form-modal]"
@@ -22,14 +24,12 @@ const encrypt = (str) => {
     });
   }
 
-const loadFile = async (url) => {
+const loadFileForCurrentCategory = async (url) => {
     try {
         const res = await fetch(url);
         const resJson = await res.json();
 
-        const resSorted = _.orderBy(resJson, ["rank"], ["asc"]);
-
-        return resSorted.map((item, idx) => ({ ...item, id: idx }));
+        return resJson["innovation"];
     } catch (error) {
         const fallbackFile = `${dataFileFolder}/ranking.json`;
         return await loadFile(fallbackFile);
@@ -40,62 +40,55 @@ const listAuthorizedKeys = ["enter", "NumpadEnter"].map((item) =>
     item.toLowerCase()
 );
 
-const revealRankedParticipant = async (e) => {
+const revealWinnerForAward = async (e) => {
     if (
         !e.ctrlKey ||
         !listAuthorizedKeys.includes(e.code.toLowerCase()) ||
-        index <= 0 ||
+        index >= listAwardsType.length ||
         isRevealing
     ) {
         return;
     }
+
     isRevealing = true;
-    const participantName = document.querySelector(
-        `[data-ranked-participant="${index}"]`
-    );
+    const type = listAwardsType[index];
+
+    const winnerForCategory = document.querySelector(`[data-${type}-award]`);
+    const winnerData = finalResults[type]
 
     await gsap.fromTo(
-        participantName,
-        { ease: "power2.out", translateY: "0" },
-        { ease: "power2.out", translateY: "100px", duration: 1.5 }
+        winnerForCategory,
+        { ease: "power2.out", filter: "blur(50px)" },
+        { ease: "power2.out", filter: "blur(0)", duration: 5.5 }
     );
+    
+    winnerForCategory.innerHTML = `${winnerData.prenom} <span class="font-bold">${winnerData.nom}</span>`;
 
-    const listParticipantsForRank = finalRank[index - 1].list.map((item) => {
-        return `${item.prenom} <span class="font-bold">${item.nom}</span>`
-    })
-
-    participantName.innerHTML = listParticipantsForRank.join(`\n<span class="text-lg">et</span>\n`);
-
-    await gsap.fromTo(
-        participantName,
-        { opacity: 0, ease: "power2.out", translateY: "100px" },
-        { opacity: 1, ease: "power2.out", translateY: "0px", duration: 1.5 }
-    );
-    index--;
+    index++;
     isRevealing = false;
 };
 
 const enableAllFeatures = async () => {
     lockIconContainer.remove()
     const mainFile = `${dataFileFolder}/${atob("cmFua2luZy5kaXN0Lmpzb24=")}`;
-    finalRank = await loadFile(mainFile);
+    finalResults = await loadFileForCurrentCategory(mainFile);
 
-    document.addEventListener("keydown", revealRankedParticipant);
-    index = finalRank.length;
+    document.addEventListener("keydown", revealWinnerForAward);
 }
 
 const hash = "492268695d3a20fcd3cba9aa1739fbb56715ee995e2ed03c4c790be0d7bc6f41a7ffdbb94aed31692d6bddc5bf5aa616bb2e7d3de909129c0f59caf26d7eaadf"
+
 ;(async () => {
-    passwordModal.showModal()
-    passwordModalForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        passwordModal.close();
-        const decryptedPassword = await encrypt(formData.get("password"))
-        if(decryptedPassword === hash || import.meta.env.DEV === true) {
+    // passwordModal.showModal()
+    // passwordModalForm.addEventListener("submit", async (e) => {
+    //     e.preventDefault();
+    //     const formData = new FormData(e.target);
+    //     passwordModal.close();
+    //     const decryptedPassword = await encrypt(formData.get("password"))
+    //     if(decryptedPassword === hash || import.meta.env.DEV === true) {
             enableAllFeatures()
-        }
-    })
+    //     }
+    // })
     
     btnCloseFormModal.addEventListener("click", () => {
         passwordModal.close();
