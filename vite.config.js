@@ -14,6 +14,9 @@ export default defineConfig({
         }),
         nunjucks({
             root: "./src",
+            globals: {
+                "foo": "hello"
+            }
         }),
         tailwindcss(),
     ],

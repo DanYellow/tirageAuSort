@@ -6,9 +6,9 @@ import "./fullscreen";
 
 let finalResults = null;
 let configuration;
-const dataFileFolder = "./data";
 let index = 0;
 let isRevealing = false;
+const dataFileFolder = "./data";
 const currentCategory = document.querySelector("[data-category-name]").dataset.categoryName
 const listAwardsType = ["public", "jury"]
 

@@ -1,5 +1,6 @@
+{{ foo }}
 <ul id="navigation" class="flex absolute gap-x-3 left-1/2 -translate-x-1/2 z-10 top-3">
-    {% for item in ['avenir', 'artiste', 'creation-numerique', "innovation"] %}
+    {% for item in ['avenir', 'artiste', 'creation-numerique', "innovation", "eloquence"] %}
         <li>
             <a href="./{{ item }}.html" class="{{ 'text-blue-700' if file == item else null }}">{{ item }}</a>
         </li>
