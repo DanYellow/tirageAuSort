@@ -41,5 +41,15 @@
             "nom": "Sargent",
             "prenom": "Wise"
         }
+    },
+    "eloquence": {
+        "public": {
+            "nom": "Lopez",
+            "prenom": "Pauline"
+        },
+        "jury": {
+            "nom": "Sargent",
+            "prenom": "Jérôme"
+        }
     }
 }
