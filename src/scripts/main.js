@@ -16,7 +16,10 @@ const btnToggleLayout = document.querySelector("[data-btn-toggle-layout]");
 const listParticipantsContainer = document.querySelector(
     "[data-list-participants]"
 );
+const participantContainer = document.querySelector("[data-participant]");
 const participantName = document.querySelector("[data-participant-name]");
+const participantFormation = document.querySelector("[data-participant-formation]");
+
 const nbParticipants = document.querySelector("[data-nb-participants]");
 const sideMenu = document.querySelector("[data-side-menu]");
 const title = document.querySelector("[data-title]");
@@ -46,15 +49,17 @@ const displayParticipant = () => {
     const randomIndex = Math.floor(Math.random() * listParticipants.length);
     const randomParticipant = listParticipants[randomIndex];
 
-    participantName.classList.remove("text-transparent");
-    participantName.classList.add("text-gray-800");
-    //  font-bold
+    participantContainer.classList.remove("text-transparent");
+    participantContainer.classList.add("text-gray-800");
+
     const lastnameSpan = document.createElement("span");
     lastnameSpan.classList.add("font-bold")
     lastnameSpan.textContent = randomParticipant.nom
 
     participantName.textContent = `${randomParticipant.prenom} `;
     participantName.appendChild(lastnameSpan)
+
+    participantFormation.textContent = randomParticipant.formation
 
     const selectedParticipant = document.querySelector(
         `[data-participant-id="${randomParticipant.id}"]`
@@ -66,7 +71,7 @@ const displayParticipant = () => {
     });
 
     gsap.fromTo(
-        participantName,
+        participantContainer,
         { opacity: 0, ease: "power2.out", translateY: "20px" },
         { opacity: 1, ease: "power2.out", translateY: "0px", duration: 0.5 }
     );
