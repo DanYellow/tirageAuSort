@@ -1,66 +1,82 @@
 [
   {
     "nom": "Charlotte",
-    "prenom": "Camacho"
+    "prenom": "Camacho",
+    "formation":"B.U.T. Données de test"
   },
   {
     "nom": "Bailey",
-    "prenom": "Ortega"
+    "prenom": "Ortega",
+    "formation":"B.U.T. Données de test"
   },
   {
     "nom": "Joyce",
-    "prenom": "Wilcox"
+    "prenom": "Wilcox",
+    "formation":"B.U.T. Données de test"
   },
   {
     "nom": "Mari",
-    "prenom": "Finch"
+    "prenom": "Finch",
+    "formation":"B.U.T. Données de test"
   },
   {
     "nom": "Vasquez",
-    "prenom": "Conrad"
+    "prenom": "Conrad",
+    "formation":"B.U.T. Données de test"
   },
   {
     "nom": "Wilma",
-    "prenom": "Valentine"
+    "prenom": "Valentine",
+    "formation":"B.U.T. Données de test"
   },
   {
     "nom": "Liliana",
-    "prenom": "Sargent"
+    "prenom": "Sargent",
+    "formation":"B.U.T. Données de test"
   },
   {
     "nom": "Mccormick",
-    "prenom": "Lawson"
+    "prenom": "Lawson",
+    "formation":"B.U.T. Données de test"
   },
   {
     "nom": "Vang",
-    "prenom": "Williams"
+    "prenom": "Williams",
+    "formation":"B.U.T. Données de test"
   },
   {
     "nom": "Hayes",
-    "prenom": "Baker"
+    "prenom": "Baker",
+    "formation":"B.U.T. Données de test"
   },
   {
     "nom": "Jewel",
-    "prenom": "Mcpherson"
+    "prenom": "Mcpherson",
+    "formation":"B.U.T. Données de test"
   },
   {
     "nom": "Kim",
-    "prenom": "Freeman"
+    "prenom": "Freeman",
+    "formation":"B.U.T. Données de test"
   },
   {
     "nom": "Duran",
-    "prenom": "Hester"
+    "prenom": "Hester",
+    "formation":"B.U.T. Données de test"
   },
   {
     "nom": "Karin",
-    "prenom": "England"
+    "prenom": "England",
+    "formation":"B.U.T. Données de test"
   },
   {
     "nom": "Julia",
-    "prenom": "Lopez"
+    "prenom": "Lopez",
+    "formation":"B.U.T. Données de test"
   },
   {
     "nom": "Sargent",
-    "prenom": "Wise"
+    "prenom": "Wise",
+    "formation":"B.U.T. Données de test"
   }
 ]
