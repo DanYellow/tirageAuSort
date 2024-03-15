@@ -13,6 +13,7 @@ class DrawingEloquenceController extends AbstractController
     {
         return $this->render('drawing_eloquence/index.html.twig', [
             'controller_name' => 'DrawingEloquenceController',
+            'current_year' => date("Y"),
         ]);
     }
 }
