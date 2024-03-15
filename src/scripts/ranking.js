@@ -77,7 +77,7 @@ const enableAllFeatures = async () => {
     document.addEventListener("keydown", revealWinnerForAward);
 }
 
-const hash = "492268695d3a20fcd3cba9aa1739fbb56715ee995e2ed03c4c790be0d7bc6f41a7ffdbb94aed31692d6bddc5bf5aa616bb2e7d3de909129c0f59caf26d7eaadf"
+const hash = "64510d7fd46ced29e92b91b20c3c935913182d79c995301bcf468a3a44514d3d815555404d061fc9f38f99c962b2f2907869a32370d338812c3956a4dca0c724"
 
 ;(async () => {
     passwordModal.showModal()
@@ -87,7 +87,7 @@ const hash = "492268695d3a20fcd3cba9aa1739fbb56715ee995e2ed03c4c790be0d7bc6f41a7
         const formData = new FormData(e.target);
         passwordModal.close();
         const decryptedPassword = await encrypt(formData.get("password"))
-        if(decryptedPassword === hash || import.meta.env.DEV === true) {
+        if(decryptedPassword === hash) {
             enableAllFeatures()
         }
     })
