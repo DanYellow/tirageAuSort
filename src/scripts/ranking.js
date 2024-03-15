@@ -87,7 +87,7 @@ const hash = "64510d7fd46ced29e92b91b20c3c935913182d79c995301bcf468a3a44514d3d81
         const formData = new FormData(e.target);
         passwordModal.close();
         const decryptedPassword = await encrypt(formData.get("password"))
-        if(decryptedPassword === hash) {
+        if(decryptedPassword === hash || import.meta.env.DEV === true) {
             enableAllFeatures()
         }
     })
