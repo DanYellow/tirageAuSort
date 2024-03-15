@@ -1,2 +1,2 @@
-- symfony server:start & npm run watch
+- npm run watch & symfony server:start
 - 

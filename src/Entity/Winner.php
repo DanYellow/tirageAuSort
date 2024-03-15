@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\WinnerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WinnerRepository::class)]
@@ -19,9 +21,13 @@ class Winner
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
 
-    #[ORM\OneToOne(inversedBy: 'winner', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Award $award = null;
+    #[ORM\ManyToMany(targetEntity: Award::class, mappedBy: 'list_winners')]
+    private Collection $list_awards;
+
+    public function __construct()
+    {
+        $this->list_awards = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,14 +58,29 @@ class Winner
         return $this;
     }
 
-    public function getAward(): ?Award
+    /**
+     * @return Collection<int, Award>
+     */
+    public function getListAwards(): Collection
     {
-        return $this->award;
+        return $this->list_awards;
     }
 
-    public function setAward(Award $award): static
+    public function addListAward(Award $listAward): static
     {
-        $this->award = $award;
+        if (!$this->list_awards->contains($listAward)) {
+            $this->list_awards->add($listAward);
+            $listAward->addListWinner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListAward(Award $listAward): static
+    {
+        if ($this->list_awards->removeElement($listAward)) {
+            $listAward->removeListWinner($this);
+        }
 
         return $this;
     }

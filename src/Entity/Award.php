@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AwardRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -26,8 +28,13 @@ class Award
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $year = null;
 
-    #[ORM\OneToOne(mappedBy: 'award', cascade: ['persist', 'remove'])]
-    private ?Winner $winner = null;
+    #[ORM\ManyToMany(targetEntity: Winner::class, inversedBy: 'list_awards')]
+    private Collection $list_winners;
+
+    public function __construct()
+    {
+        $this->list_winners = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -82,19 +89,26 @@ class Award
         return $this;
     }
 
-    public function getWinner(): ?Winner
+    /**
+     * @return Collection<int, Winner>
+     */
+    public function getListWinners(): Collection
     {
-        return $this->winner;
+        return $this->list_winners;
     }
 
-    public function setWinner(Winner $winner): static
+    public function addListWinner(Winner $listWinner): static
     {
-        // set the owning side of the relation if necessary
-        if ($winner->getAward() !== $this) {
-            $winner->setAward($this);
+        if (!$this->list_winners->contains($listWinner)) {
+            $this->list_winners->add($listWinner);
         }
 
-        $this->winner = $winner;
+        return $this;
+    }
+
+    public function removeListWinner(Winner $listWinner): static
+    {
+        $this->list_winners->removeElement($listWinner);
 
         return $this;
     }

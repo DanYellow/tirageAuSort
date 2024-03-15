@@ -32,6 +32,9 @@ class EloquenceContestParticipant
     #[ORM\ManyToOne(inversedBy: 'participants')]
     private ?Formation $formation = null;
 
+    #[ORM\Column]
+    private ?bool $is_active = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class EloquenceContestParticipant
     public function setFormation(?Formation $formation): static
     {
         $this->formation = $formation;
+
+        return $this;
+    }
+
+    public function isIsActive(): ?bool
+    {
+        return $this->is_active;
+    }
+
+    public function setIsActive(bool $is_active): static
+    {
+        $this->is_active = $is_active;
 
         return $this;
     }
