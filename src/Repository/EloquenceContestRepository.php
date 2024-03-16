@@ -21,6 +21,26 @@ class EloquenceContestRepository extends ServiceEntityRepository
         parent::__construct($registry, EloquenceContest::class);
     }
 
+    public function getParticipantsForYear($date = null)
+    {
+        if ($date == null) {
+            $date = date("Y");
+        }
+
+        $query = $this->createQueryBuilder('p')
+            // ->where('p.is_active = 1')
+            ->where('p.year = :year')
+            ->setParameter('year', $date);
+            // ->orderBy('p.lastname');
+
+        $result = $query->getQuery()->getOneOrNullResult();
+        if($result == null) {
+            return array("participants" => [], "year" => $result->getYear());
+        }
+
+        return array("participants" => $result->getParticipants(), "year" => $result->getYear());
+    }
+
     //    /**
     //     * @return EloquenceContest[] Returns an array of EloquenceContest objects
     //     */

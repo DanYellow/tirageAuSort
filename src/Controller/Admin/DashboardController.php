@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use App\Entity\EloquenceContestParticipant;
 use App\Entity\Award;
 use App\Entity\EloquenceSubject;
+use App\Entity\EloquenceContest;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -54,6 +55,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Concours d\'éloquence', 'fas fa-map-marker-alt', EloquenceContestParticipant::class);
++       yield MenuItem::linkToCrud('Co', 'fas fa-comments', EloquenceContest::class);
 +       yield MenuItem::linkToCrud('Prix', 'fas fa-comments', Award::class);
 +       yield MenuItem::linkToCrud('Liste formations', 'fas fa-comments', Award::class);
 +       yield MenuItem::linkToCrud('Sujets concours d\'éloquence', 'fas fa-comments', Award::class);

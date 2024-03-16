@@ -125,6 +125,10 @@ class EloquenceContestParticipant
         return "{$this->getFirstname()} {$this->getLastname()}";
     }
 
+    public function __toString(): string {
+        return "{$this->getFirstname()} {$this->getLastname()}";
+    }
+
     /**
      * @return Collection<int, EloquenceContest>
      */

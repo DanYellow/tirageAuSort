@@ -8,8 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class EloquenceContestParticipantCrudController extends AbstractCrudController
@@ -19,28 +18,18 @@ class EloquenceContestParticipantCrudController extends AbstractCrudController
         return EloquenceContestParticipant::class;
     }
 
-    private function generateYears(): array
-    {
-        $result = [];
-
-        foreach (range(2023, 2035) as $value) {
-            $result[$value] = $value;
-        }
-
-        return $result;
-    }
-
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
+            IdField::new('id')->hideOnForm()->hideOnIndex(),
             TextField::new('firstName', 'Prénom'),
             TextField::new('lastName', 'Nom'),
-            BooleanField::new('is_active', "Participe au concours")
-                ->renderAsSwitch(false)
-                ->onlyOnForms(),
-            BooleanField::new('is_active', "Participe au concours")->renderAsSwitch(false)->hideOnForm(),
-            ChoiceField::new('year', 'Année de participation')->setChoices($this->generateYears()),
+            AssociationField::new('eloquenceContests', "Nombre de participation aux concours"),
+
+            // BooleanField::new('is_active', "Participe au concours")
+            //     ->renderAsSwitch(false)
+            //     ->onlyOnForms(),
+            // BooleanField::new('is_active', "Participe au concours")->renderAsSwitch(false)->hideOnForm(),
         ];
     }
 

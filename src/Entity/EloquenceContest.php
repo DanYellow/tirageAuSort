@@ -24,6 +24,7 @@ class EloquenceContest
     private ?int $year = null;
 
     #[ORM\ManyToMany(targetEntity: EloquenceContestParticipant::class, inversedBy: 'eloquenceContests')]
+    #[ORM\OrderBy(['lastname' => 'ASC'])]
     private Collection $participants;
 
     public function __construct()

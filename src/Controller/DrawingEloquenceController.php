@@ -6,20 +6,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-use App\Repository\EloquenceContestParticipantRepository;
+use App\Repository\EloquenceContestRepository;
 
 class DrawingEloquenceController extends AbstractController
 {
     #[Route('/', name: 'app_drawing_eloquence')]
-    public function index(EloquenceContestParticipantRepository $eloquenceContestParticipantRepository): Response
+    public function index(EloquenceContestRepository $eloquenceContestRepository): Response
     {
-        $listProjects = $eloquenceContestParticipantRepository
-            ->getParticipantsForYear();
-        dump($listProjects);
-        return $this->render('drawing_eloquence/index.html.twig', [
+        $listProjects = $eloquenceContestRepository->getParticipantsForYear();
+
+            return $this->render('drawing_eloquence/index.html.twig', [
             'controller_name' => 'DrawingEloquenceController',
-            'current_year' => date("Y"),
-            'list_participants' => $listProjects
+            'current_year' => $listProjects["year"],
+            'list_participants' => $listProjects["participants"]
         ]);
     }
 }
