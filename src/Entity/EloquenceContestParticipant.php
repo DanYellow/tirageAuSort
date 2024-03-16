@@ -35,6 +35,13 @@ class EloquenceContestParticipant
     #[ORM\Column]
     private ?bool $is_active = null;
 
+    public function __construct()
+    {
+        $this->is_active = false;
+        $this->year = date("Y");
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,5 +129,9 @@ class EloquenceContestParticipant
         $this->is_active = $is_active;
 
         return $this;
+    }
+
+    public function getFullname(): string {
+        return "{$this->getFirstname()} {$this->getLastname()}";
     }
 }

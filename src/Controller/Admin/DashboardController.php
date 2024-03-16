@@ -45,7 +45,9 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Tirage Au Sort');
+            ->setTitle('Tirage Au Sort')
+            ->disableDarkMode()
+            ;
     }
 
     public function configureMenuItems(): iterable
@@ -53,6 +55,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Concours d\'éloquence', 'fas fa-map-marker-alt', EloquenceContestParticipant::class);
 +       yield MenuItem::linkToCrud('Prix', 'fas fa-comments', Award::class);
++       yield MenuItem::linkToCrud('Liste formations', 'fas fa-comments', Award::class);
++       yield MenuItem::linkToCrud('Sujets concours d\'éloquence', 'fas fa-comments', Award::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
