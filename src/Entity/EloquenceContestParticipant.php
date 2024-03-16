@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EloquenceContestParticipantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -26,19 +28,19 @@ class EloquenceContestParticipant
     #[ORM\ManyToOne(inversedBy: 'participants')]
     private ?EloquenceSubject $subject = null;
 
-    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
-    private ?int $year = null;
-
     #[ORM\ManyToOne(inversedBy: 'participants')]
     private ?Formation $formation = null;
 
     #[ORM\Column]
     private ?bool $is_active = null;
 
+    #[ORM\ManyToMany(targetEntity: EloquenceContest::class, mappedBy: 'participants')]
+    private Collection $eloquenceContests;
+
     public function __construct()
     {
         $this->is_active = false;
-        $this->year = date("Y");
+        $this->eloquenceContests = new ArrayCollection();
     }
 
 
@@ -95,18 +97,6 @@ class EloquenceContestParticipant
         return $this;
     }
 
-    public function getYear(): ?int
-    {
-        return $this->year;
-    }
-
-    public function setYear(?int $year): static
-    {
-        $this->year = $year;
-
-        return $this;
-    }
-
     public function getFormation(): ?Formation
     {
         return $this->formation;
@@ -133,5 +123,32 @@ class EloquenceContestParticipant
 
     public function getFullname(): string {
         return "{$this->getFirstname()} {$this->getLastname()}";
+    }
+
+    /**
+     * @return Collection<int, EloquenceContest>
+     */
+    public function getEloquenceContests(): Collection
+    {
+        return $this->eloquenceContests;
+    }
+
+    public function addEloquenceContest(EloquenceContest $eloquenceContest): static
+    {
+        if (!$this->eloquenceContests->contains($eloquenceContest)) {
+            $this->eloquenceContests->add($eloquenceContest);
+            $eloquenceContest->addParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEloquenceContest(EloquenceContest $eloquenceContest): static
+    {
+        if ($this->eloquenceContests->removeElement($eloquenceContest)) {
+            $eloquenceContest->removeParticipant($this);
+        }
+
+        return $this;
     }
 }
