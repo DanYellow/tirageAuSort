@@ -1,4 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+
+import containerQueries from "@tailwindcss/container-queries";
+import forms from "@tailwindcss/forms";
+
 module.exports = {
     content: ["./assets/**/*.js", "./templates/**/*.html.twig"],
     theme: {
@@ -23,5 +27,5 @@ module.exports = {
             },
         },
     },
-    plugins: [],
+    plugins: [containerQueries, forms],
 };

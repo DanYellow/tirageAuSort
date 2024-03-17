@@ -14,8 +14,8 @@
 	<main class="grid min-h-full grid-cols-1 lg:grid-cols-[25%_auto] lg:grid-rows-[auto_70px] grid-rows-[350px_auto_60px] transition-grid-template-columns" data-grid-main-layout>
 		<aside class="bg-blue-50 pb-12 pt-8 flex flex-col px-10 @container" data-side-menu="">
 			<h1 class="text-3xl mb-4 flex justify-between items-center z-10" data-title>
-				<span>Orateurs en lice
-					<span data-nb-participants></span>
+				<span>Orateurs en lice (<span data-remaining-participants>{{ list_participants|length }}</span>/{{ list_participants|length }})
+					
 				</span>
 				<button type="button" data-btn-toggle-layout class="hover:text-blue-800">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 rotate-90 lg:rotate-0">
@@ -24,8 +24,9 @@
 				</button>
 			</h1>
 
-			<ul data-list-participants class="mb-6 overflow-y-auto list-inside list-disc">
+			<ul data-list-participants="{{ list_participants|json_encode() }}" class="mb-6 overflow-y-auto list-inside list-disc">
 				{% for participant in list_participants %}
+
 					<li class="pb-1 text-gray-900 fullscreen:text-xl" data-participant-id>
 						<span>{{participant.firstname}}</span>
 						<span class="font-bold">{{participant.lastname}}</span>

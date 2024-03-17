@@ -43,7 +43,6 @@ class EloquenceContestParticipant
         $this->eloquenceContests = new ArrayCollection();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
