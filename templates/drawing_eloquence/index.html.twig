@@ -27,7 +27,7 @@
 			<ul data-list-participants="{{ list_participants_json }}" class="mb-6 overflow-y-auto list-inside list-disc">
 				{% for participant in list_participants %}
 
-					<li class="pb-1 text-gray-900 fullscreen:text-xl" data-participant-id>
+					<li class="pb-1 text-gray-900 fullscreen:text-xl" data-participant-id={{ participant.id }}>
 						<span>{{participant.firstname}}</span>
 						<span class="font-bold">{{participant.lastname}}</span>
 					</li>

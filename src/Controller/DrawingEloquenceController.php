@@ -17,6 +17,7 @@ class DrawingEloquenceController extends AbstractController
 
         $list_participants_json = array_map(function ($item) {
             return array(
+                "id" => $item->getId(), 
                 "firstname" => $item->getFirstname(), 
                 "lastname" => $item->getLastname(),
                 "photo" => $item->getPhoto(),
