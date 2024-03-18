@@ -9,7 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity(repositoryClass: EloquenceContestRepository::class)]
 #[UniqueEntity('year')]
@@ -25,6 +25,7 @@ class EloquenceContest
 
     #[ORM\ManyToMany(targetEntity: EloquenceContestParticipant::class, inversedBy: 'eloquenceContests')]
     #[ORM\OrderBy(['lastname' => 'ASC'])]
+    #[MaxDepth(1)]
     private Collection $participants;
 
     public function __construct()

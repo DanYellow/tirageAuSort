@@ -24,7 +24,7 @@
 				</button>
 			</h1>
 
-			<ul data-list-participants="{{ list_participants|json_encode() }}" class="mb-6 overflow-y-auto list-inside list-disc">
+			<ul data-list-participants="{{ list_participants_json }}" class="mb-6 overflow-y-auto list-inside list-disc">
 				{% for participant in list_participants %}
 
 					<li class="pb-1 text-gray-900 fullscreen:text-xl" data-participant-id>
