@@ -5,15 +5,21 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 use App\Repository\EloquenceContestRepository;
 
 class DrawingEloquenceController extends AbstractController
 {
-    #[Route('/', name: 'app_drawing_eloquence')]
-    public function index(EloquenceContestRepository $eloquenceContestRepository): Response
+    #[Route(['/{year}', '/'], name: 'index')]
+    public function index(EloquenceContestRepository $eloquenceContestRepository, Request $request, ): Response
     {
-        $contest = $eloquenceContestRepository->getParticipantsForYear();
+        $year = $request->get('year');
+        // if( is_null($year)) {
+        //     $year = date("Y");
+        // }
+
+        $contest = $eloquenceContestRepository->getParticipantsForYear($year);
 
         $list_participants_json = array_map(function ($item) {
             return array(

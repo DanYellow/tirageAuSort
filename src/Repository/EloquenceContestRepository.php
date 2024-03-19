@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\EloquenceContest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * @extends ServiceEntityRepository<EloquenceContest>
@@ -35,7 +37,7 @@ class EloquenceContestRepository extends ServiceEntityRepository
 
         $result = $query->getQuery()->getOneOrNullResult();
         if($result == null) {
-            return array("participants" => [], "year" => $result->getYear());
+            return array("participants" => new ArrayCollection([]), "year" => $date);
         }
 
         return array("participants" => $result->getParticipants(), "year" => $result->getYear());

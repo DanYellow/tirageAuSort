@@ -14,14 +14,11 @@ const participantFormation = document.querySelector("[data-participant-formation
 const nbRemainingParticipants = document.querySelector("[data-remaining-participants]");
 
 let listParticipants = JSON.parse(listParticipantsContainer.dataset?.listParticipants) || [];
-let nbTotalParticipants = 0;
-
-console.log(listParticipants);
 
 const displayParticipant = () => {
     const randomIndex = Math.floor(Math.random() * listParticipants.length);
     const randomParticipant = listParticipants[randomIndex];
-    console.log(randomParticipant);
+
     participantContainer.classList.remove("text-transparent");
     participantContainer.classList.add("text-gray-800");
 
