@@ -24,7 +24,15 @@ class EloquenceContestParticipantCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('firstName', 'Prénom'),
             TextField::new('lastName', 'Nom'),
-            AssociationField::new('eloquenceContests', "Participe aux concours"),
+            AssociationField::new('eloquenceContests', "Participe aux concours")->hideOnIndex(),
+            AssociationField::new('eloquenceContests', "Participe aux concours")->hideOnForm()
+                ->formatValue(function ($value, $entity) {
+                    $str = $entity->getEloquenceContests()[0];
+                    for ($i = 1; $i < $entity->getEloquenceContests()->count(); $i++) {
+                        $str = $str . ", " . $entity->getEloquenceContests()[$i];
+                    }
+                    return $str;
+                }),
 
             // BooleanField::new('is_active', "Participe au concours")
             //     ->renderAsSwitch(false)
@@ -36,7 +44,7 @@ class EloquenceContestParticipantCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setPageTitle('index', 'Liste participants concours éloquence')
+            ->setPageTitle('index', 'Liste participants - Concours éloquence')
             ->setEntityLabelInSingular('participant concours éloquence')
             ->setPageTitle('edit', fn (EloquenceContestParticipant $participant) => sprintf('Modifier <b>%s</b>', $participant->getFullname()))
             ->setPageTitle('new', "Créer participant au concours d'éloquence")

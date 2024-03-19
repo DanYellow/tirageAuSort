@@ -23,7 +23,7 @@ class DashboardController extends AbstractDashboardController
         // return parent::index();
 
         $routeBuilder = $this->container->get(AdminUrlGenerator::class);
-        $url = $routeBuilder->setController(EloquenceContestParticipantCrudController::class)->generateUrl();
+        $url = $routeBuilder->setController(EloquenceContestCrudController::class)->generateUrl();
 
         return $this->redirect($url);
 
@@ -59,13 +59,13 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu('Concours d\'éloquence', '')->setSubItems([
             MenuItem::linkToCrud('Gestion des concours', '', EloquenceContest::class),
             MenuItem::linkToCrud('Participants', '', EloquenceContestParticipant::class),
+            MenuItem::linkToCrud('Sujets', '', Award::class),
         ]);
         // yield MenuItem::linkToCrud('Participants aux concours d\'éloquence', '', EloquenceContestParticipant::class);
         // yield MenuItem::linkToCrud('Concours d\'éloquence', '', EloquenceContest::class);
-        yield MenuItem::linkToCrud('Sujets concours d\'éloquence', '', Award::class);
-        yield MenuItem::section();
         yield MenuItem::linkToCrud('Prix', '', Award::class);
         yield MenuItem::linkToCrud('Liste formations', '', Formation::class);
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::section();
+        // yield MenuItem::linkToLogout('Déconnexion', 'fa fa-running');
     }
 }
