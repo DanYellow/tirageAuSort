@@ -8,6 +8,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+enum AwardCategory: string {
+    case Jury = 'jury';
+    case Public = 'public';
+}
+
 #[ORM\Entity(repositoryClass: AwardRepository::class)]
 class Award
 {
@@ -16,8 +21,8 @@ class Award
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $category = null;
+    #[ORM\Column(length: 255, type: 'string', enumType: AwardCategory::class)]
+    private ?AwardCategory $category = null;
 
     #[ORM\Column(length: 255)]
     private ?string $title = null;
@@ -41,12 +46,12 @@ class Award
         return $this->id;
     }
 
-    public function getCategory(): ?string
+    public function getCategory(): ?AwardCategory
     {
         return $this->category;
     }
 
-    public function setCategory(string $category): static
+    public function setCategory(AwardCategory $category): static
     {
         $this->category = $category;
 
