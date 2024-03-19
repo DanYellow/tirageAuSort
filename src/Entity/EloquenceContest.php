@@ -49,6 +49,10 @@ class EloquenceContest
         return $this;
     }
 
+    public function __toString(): string {
+        return "Concours d'éloquence {$this->getYear()}";
+    }
+
     /**
      * @return Collection<int, EloquenceContestParticipant>
      */

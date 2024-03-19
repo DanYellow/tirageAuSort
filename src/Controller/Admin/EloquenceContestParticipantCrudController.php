@@ -21,10 +21,10 @@ class EloquenceContestParticipantCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm()->hideOnIndex(),
+            IdField::new('id')->hideOnForm(),
             TextField::new('firstName', 'Prénom'),
             TextField::new('lastName', 'Nom'),
-            AssociationField::new('eloquenceContests', "Nombre de participation aux concours"),
+            AssociationField::new('eloquenceContests', "Participe aux concours"),
 
             // BooleanField::new('is_active', "Participe au concours")
             //     ->renderAsSwitch(false)

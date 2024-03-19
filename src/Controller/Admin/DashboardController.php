@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use App\Entity\EloquenceContestParticipant;
 use App\Entity\Award;
 use App\Entity\EloquenceSubject;
+use App\Entity\Formation;
 use App\Entity\EloquenceContest;
 
 class DashboardController extends AbstractDashboardController
@@ -46,19 +47,25 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Tirage Au Sort')
-            ->disableDarkMode()
-            ;
+        ->setTranslationDomain('admin')
+            ->setTitle('Festival Les Talents de l\'IUT - Administration')
+            ->disableDarkMode();
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Concours d\'éloquence', 'fas fa-map-marker-alt', EloquenceContestParticipant::class);
-+       yield MenuItem::linkToCrud('Co', 'fas fa-comments', EloquenceContest::class);
-+       yield MenuItem::linkToCrud('Prix', 'fas fa-comments', Award::class);
-+       yield MenuItem::linkToCrud('Liste formations', 'fas fa-comments', Award::class);
-+       yield MenuItem::linkToCrud('Sujets concours d\'éloquence', 'fas fa-comments', Award::class);
+        // yield MenuItem::linkToDashboard('Dashboard');
+        // yield MenuItem::section();
+        yield MenuItem::subMenu('Concours d\'éloquence', '')->setSubItems([
+            MenuItem::linkToCrud('Gestion des concours', '', EloquenceContest::class),
+            MenuItem::linkToCrud('Participants', '', EloquenceContestParticipant::class),
+        ]);
+        // yield MenuItem::linkToCrud('Participants aux concours d\'éloquence', '', EloquenceContestParticipant::class);
+        // yield MenuItem::linkToCrud('Concours d\'éloquence', '', EloquenceContest::class);
+        yield MenuItem::linkToCrud('Sujets concours d\'éloquence', '', Award::class);
+        yield MenuItem::section();
+        yield MenuItem::linkToCrud('Prix', '', Award::class);
+        yield MenuItem::linkToCrud('Liste formations', '', Formation::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }

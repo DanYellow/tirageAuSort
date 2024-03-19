@@ -35,6 +35,7 @@ class EloquenceContestCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             ChoiceField::new('year', 'Année du concours')->setChoices($this->generateYears()),
             AssociationField::new('participants')->autocomplete(),
+            AssociationField::new('participants', "Participants")->hideOnIndex(),
         ];
     }
 
