@@ -11,10 +11,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Doctrine\ORM\EntityManagerInterface;
 
-use App\EnumTypes\AwardCategory;
-use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 
 class AwardCrudController extends AbstractCrudController
 {
@@ -34,7 +33,7 @@ class AwardCrudController extends AbstractCrudController
             ->setPageTitle('new', "Créer prix")
             ->showEntityActionsInlined()
             ->setSearchFields(null)
-            // ->setEntityPermission('ROLE_EDITOR')
+            // ->setEntityPermission('ROLE_EDITOR') , cascade={"persist"}
         ;
     }
 
@@ -44,12 +43,24 @@ class AwardCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('title'),
             ChoiceField::new('year', 'Année du concours')->setChoices($this->generateYears()),
-            ChoiceField::new("category", "Type de prix")
-                ->setFormType(EnumType::class)
-                ->setFormTypeOption("class", AwardCategory::class)
-                ->setChoices(AwardCategory::cases()),
+            ChoiceField::new("category", "Type de prix"),
             CollectionField::new('list_winners', "Vainqueurs")
                 ->useEntryCrudForm(WinnerCrudController::class),
         ];
+    }
+
+    public function updateEntity(EntityManagerInterface $em, $entityInstance): void
+    {
+        if (!$entityInstance instanceof Award) return;
+
+        // $list_winners = $entityInstance->getListWinners()->toArray();
+
+        foreach ($entityInstance->getListWinners() as $winner) {
+            if ($winner->getId() === null) {
+                $em->persist($winner);
+            }
+        }
+
+        parent::persistEntity($em, $entityInstance);
     }
 }

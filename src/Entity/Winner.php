@@ -21,13 +21,9 @@ class Winner
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
 
-    #[ORM\ManyToMany(targetEntity: Award::class, mappedBy: 'list_winners')]
-    private Collection $list_awards;
-
-    public function __construct()
-    {
-        $this->list_awards = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'list_winners', cascade: ["persist"])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Award $award = null;
 
     public function getId(): ?int
     {
@@ -58,30 +54,20 @@ class Winner
         return $this;
     }
 
-    /**
-     * @return Collection<int, Award>
-     */
-    public function getListAwards(): Collection
+    public function getAward(): ?Award
     {
-        return $this->list_awards;
+        return $this->award;
     }
 
-    public function addListAward(Award $listAward): static
+    public function setAward(?Award $award): static
     {
-        if (!$this->list_awards->contains($listAward)) {
-            $this->list_awards->add($listAward);
-            $listAward->addListWinner($this);
-        }
+        $this->award = $award;
 
         return $this;
     }
 
-    public function removeListAward(Award $listAward): static
+    public function __toString()
     {
-        if ($this->list_awards->removeElement($listAward)) {
-            $listAward->removeListWinner($this);
-        }
-
-        return $this;
+        return "{$this->getFirstname()} {$this->getLastname()}";
     }
 }

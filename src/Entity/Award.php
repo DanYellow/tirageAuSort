@@ -30,14 +30,15 @@ class Award
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $year = null;
 
-    #[ORM\ManyToMany(targetEntity: Winner::class, inversedBy: 'list_awards')]
+    #[ORM\OneToMany(targetEntity: Winner::class, mappedBy: 'award')]
+    #[ORM\OrderBy(['lastname' => 'ASC'])]
     private Collection $list_winners;
 
     public function __construct()
     {
-        $this->list_winners = new ArrayCollection();
         $this->category = AwardCategory::Jury;
         $this->year = date("Y");
+        $this->list_winners = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,6 +95,7 @@ class Award
     {
         if (!$this->list_winners->contains($listWinner)) {
             $this->list_winners->add($listWinner);
+            $listWinner->setAward($this);
         }
 
         return $this;
@@ -101,7 +103,12 @@ class Award
 
     public function removeListWinner(Winner $listWinner): static
     {
-        $this->list_winners->removeElement($listWinner);
+        if ($this->list_winners->removeElement($listWinner)) {
+            // set the owning side to null (unless already changed)
+            if ($listWinner->getAward() === $this) {
+                $listWinner->setAward(null);
+            }
+        }
 
         return $this;
     }
