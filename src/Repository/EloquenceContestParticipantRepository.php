@@ -27,7 +27,10 @@ class EloquenceContestParticipantRepository extends ServiceEntityRepository
             $date = date("Y");
         }
 
+        $fields = array('p.id', 'p.title', 'p.year', "p.category");
+
         $query = $this->createQueryBuilder('p')
+            ->select($fields)
             ->where('p.is_active = 1')
             ->andWhere('p.year = :year')
             ->setParameter('year', $date)

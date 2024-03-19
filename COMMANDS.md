@@ -4,3 +4,6 @@
 - update db : `php bin/console doctrine:schema:update --force`
 - php bin/console make:entity
 - php bin/console make:admin:crud
+
+
+https://symfony.com/bundles/EasyAdminBundle/current/fields.html

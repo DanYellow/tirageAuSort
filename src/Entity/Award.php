@@ -53,7 +53,7 @@ class Award
 
     public function setCategory(AwardCategory $category): static
     {
-        $this->category = $category->value;
+        $this->category = $category;
 
         return $this;
     }
