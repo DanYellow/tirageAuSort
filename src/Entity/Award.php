@@ -27,9 +27,6 @@ class Award
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $prize = null;
-
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $year = null;
 
@@ -39,6 +36,8 @@ class Award
     public function __construct()
     {
         $this->list_winners = new ArrayCollection();
+        $this->category = AwardCategory::Jury;
+        $this->year = date("Y");
     }
 
     public function getId(): ?int
@@ -53,7 +52,7 @@ class Award
 
     public function setCategory(AwardCategory $category): static
     {
-        $this->category = $category;
+        $this->category = $category->value;
 
         return $this;
     }
@@ -70,17 +69,6 @@ class Award
         return $this;
     }
 
-    public function getPrize(): ?string
-    {
-        return $this->prize;
-    }
-
-    public function setPrize(string $prize): static
-    {
-        $this->prize = $prize;
-
-        return $this;
-    }
 
     public function getYear(): ?int
     {
