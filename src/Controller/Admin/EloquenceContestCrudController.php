@@ -41,7 +41,8 @@ class EloquenceContestCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             ChoiceField::new('year', 'Année du concours')->setChoices($this->generateYears()),
             CollectionField::new('participants', "Participants")
-                ->useEntryCrudForm(EloquenceContestParticipantCrudController::class),
+                ->useEntryCrudForm(EloquenceContestParticipantCrudController::class)
+                ->showEntryLabel(true),
             // AssociationField::new('participants')->autocomplete()->hideOnIndex(),
             // AssociationField::new('participants', "Participants")
             //     ->hideOnForm()

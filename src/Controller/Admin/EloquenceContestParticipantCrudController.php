@@ -5,6 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\EloquenceContestParticipant;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -21,6 +23,14 @@ class EloquenceContestParticipantCrudController extends AbstractCrudController
     {
         return EloquenceContestParticipant::class;
     }
+
+    public function configureActions(Actions $actions): Actions
+{
+    return $actions
+        ->disable(Action::NEW, Action::EDIT, Action::DELETE)
+        ->add(Crud::PAGE_INDEX, Action::DETAIL)
+    ;
+}
 
     protected EntityManagerInterface $entityManager;
     public function __construct(EntityManagerInterface $entityManager)
@@ -42,6 +52,9 @@ class EloquenceContestParticipantCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('firstName', 'Prénom')->setColumns(10),
             TextField::new('lastName', 'Nom')->setColumns(10),
+            TextField::new('eloquenceContest', 'Concours')->setColumns(10)->formatValue(function ($value, $entity) {
+                return "<a href='rrr'>fffe</a>";
+            }),
             AssociationField::new('formation')->autocomplete()->hideOnIndex()->setColumns(10),
             BooleanField::new("is_active", "Participe au concours ?"),
             // ChoiceField::new('formation', 'Formation'),

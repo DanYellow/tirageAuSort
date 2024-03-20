@@ -29,13 +29,27 @@ class EloquenceContestRepository extends ServiceEntityRepository
             $date = date("Y");
         }
 
-        $query = $this->createQueryBuilder('p')
-            // ->where('p.is_active = 1')
-            ->where('p.year = :year')
-            ->setParameter('year', $date);
-            // ->orderBy('p.lastname');
+        $entityManager = $this->getEntityManager();
 
-        $result = $query->getQuery()->getOneOrNullResult();
+        $query = $entityManager->createQuery(
+            'SELECT ec, p
+            FROM App\Entity\EloquenceContest ec
+            INNER JOIN ec.participants p
+            WHERE ec.year = :year
+            AND p.is_active = 1 
+            ORDER BY p.lastname ASC
+        ')->setParameter('year', $date);
+
+
+        // $query = $this->createQueryBuilder('p')
+        //     ->leftJoin('p.participants', 's')
+        //     ->where('s.is_active = 1')
+        //     ->andWhere('p.year = :year')
+        //     ->setParameter('year', $date)
+        //     ;
+        //     $query->addOrderBy('s.lastname', "ASC");
+
+        $result = $query->getOneOrNullResult();
         if($result == null) {
             return array("participants" => new ArrayCollection([]), "year" => $date);
         }
