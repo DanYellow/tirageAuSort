@@ -45,7 +45,7 @@ class DashboardController extends AbstractDashboardController
         // yield MenuItem::linkToDashboard('Dashboard');
         // yield MenuItem::linkToCrud('Gestion des concours', 'fas fa-book', EloquenceContest::class);
         yield MenuItem::subMenu('Concours d\'éloquence', null)->setSubItems([
-            MenuItem::linkToCrud('Gestion des concours', null, EloquenceContest::class)->setController(EloquenceContestParticipantCrudController::class),
+            MenuItem::linkToCrud('Gestion des concours', null, EloquenceContest::class),
             MenuItem::linkToCrud('Participants', null, EloquenceContestParticipant::class),
             // MenuItem::linkToCrud('Sujets', null, EloquenceSubject::class),
         ]);

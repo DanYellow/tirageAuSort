@@ -13,8 +13,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
-
 class AwardCrudController extends AbstractCrudController
 {
     use Traits\ListYearsTrait;
@@ -49,6 +47,21 @@ class AwardCrudController extends AbstractCrudController
         ];
     }
 
+    public function persistEntity(EntityManagerInterface $em, $entityInstance): void
+    {
+        if (!$entityInstance instanceof Award) return;
+
+        foreach ($entityInstance->getListWinners() as $winner) {
+            if ($winner->getId() === null) {
+                $em->persist($winner);
+            }
+        }
+
+        $this->addFlash("success", "<b>{$entityInstance->getTitle()}</b> a été crée");
+
+        parent::persistEntity($em, $entityInstance);
+    }
+
     public function updateEntity(EntityManagerInterface $em, $entityInstance): void
     {
         if (!$entityInstance instanceof Award) return;
@@ -60,6 +73,8 @@ class AwardCrudController extends AbstractCrudController
                 $em->persist($winner);
             }
         }
+
+        $this->addFlash("success", "<b>{$entityInstance->getTitle()}</b> a été mis à jour");
 
         parent::persistEntity($em, $entityInstance);
     }
