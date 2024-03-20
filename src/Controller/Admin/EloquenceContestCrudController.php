@@ -4,11 +4,16 @@ namespace App\Controller\Admin;
 
 use App\Entity\EloquenceContest;
 
+use App\Entity\EloquenceContestParticipant;
+
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+
+use Doctrine\ORM\EntityManagerInterface;
 
 class EloquenceContestCrudController extends AbstractCrudController
 {
@@ -19,22 +24,34 @@ class EloquenceContestCrudController extends AbstractCrudController
         return EloquenceContest::class;
     }
 
+    // public function createEntity(string $entityFqcn):EloquenceContest {
+    //     $participant = new EloquenceContestParticipant();
+    //     $participant->setLastname("true");
+
+    //     $address = new EloquenceContest();
+    //     $address->addParticipant($participant);
+
+    //     return $address;
+    // }
+
     // // https://stackoverflow.com/questions/63728259/easyadmin-3-x-how-to-see-related-entities-tostring-instead-of-the-number-of
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id')->hideOnForm(),
             ChoiceField::new('year', 'Année du concours')->setChoices($this->generateYears()),
-            AssociationField::new('participants')->autocomplete()->hideOnIndex(),
-            AssociationField::new('participants', "Participants")
-                ->hideOnForm()
-                ->formatValue(function ($value, $entity) {
-                    $str = $entity->getParticipants()[0];
-                    for ($i = 1; $i < $entity->getParticipants()->count(); $i++) {
-                        $str = $str . ", " . $entity->getParticipants()[$i];
-                    }
-                    return $str;
-                }),
+            CollectionField::new('participants', "Participants")
+                ->useEntryCrudForm(EloquenceContestParticipantCrudController::class),
+            // AssociationField::new('participants')->autocomplete()->hideOnIndex(),
+            // AssociationField::new('participants', "Participants")
+            //     ->hideOnForm()
+            //     ->formatValue(function ($value, $entity) {
+            //         $str = $entity->getParticipants()[0];
+            //         for ($i = 1; $i < $entity->getParticipants()->count(); $i++) {
+            //             $str = $str . ", " . $entity->getParticipants()[$i];
+            //         }
+            //         return $str;
+            //     }),
         ];
     }
 
@@ -49,5 +66,35 @@ class EloquenceContestCrudController extends AbstractCrudController
             ->setSearchFields(null)
             // ->setEntityPermission('ROLE_EDITOR')
         ;
+    }
+
+    public function persistEntity(EntityManagerInterface $em, $entityInstance): void
+    {
+        if (!$entityInstance instanceof EloquenceContest) return;
+
+        foreach ($entityInstance->getParticipants() as $participant) {
+            if ($participant->getId() === null) {
+                $em->persist($participant);
+            }
+        }
+
+        $this->addFlash("success", "<b>Concours d'éloquence {$entityInstance->getYear()}</b> a été crée");
+
+        parent::persistEntity($em, $entityInstance);
+    }
+
+    public function updateEntity(EntityManagerInterface $em, $entityInstance): void
+    {
+        if (!$entityInstance instanceof EloquenceContest) return;
+
+        foreach ($entityInstance->getParticipants() as $participant) {
+            if ($participant->getId() === null) {
+                $em->persist($participant);
+            }
+        }
+
+        $this->addFlash("success", "<b>Concours d'éloquence {$entityInstance->getYear()}</b> a été mis à jour");
+
+        parent::persistEntity($em, $entityInstance);
     }
 }

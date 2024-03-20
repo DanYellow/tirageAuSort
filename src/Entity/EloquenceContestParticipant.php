@@ -35,14 +35,14 @@ class EloquenceContestParticipant
     #[ORM\Column]
     private ?bool $is_active = null;
 
-    #[ORM\ManyToMany(targetEntity: EloquenceContest::class, mappedBy: 'participants')]
-    #[MaxDepth(0)]
-    private Collection $eloquenceContests;
+    #[ORM\ManyToOne(inversedBy: 'participants')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?EloquenceContest $eloquenceContest = null;
 
     public function __construct()
     {
-        $this->is_active = false;
-        $this->eloquenceContests = new ArrayCollection();
+        $this->is_active = true;
+        $this->firstname = "true";
     }
 
     public function getId(): ?int
@@ -130,30 +130,16 @@ class EloquenceContestParticipant
         return "{$this->getFirstname()} {$this->getLastname()}";
     }
 
-    /**
-     * @return Collection<int, EloquenceContest>
-     */
-    public function getEloquenceContests(): Collection
+    public function getEloquenceContest(): ?EloquenceContest
     {
-        return $this->eloquenceContests;
+        return $this->eloquenceContest;
     }
 
-    public function addEloquenceContest(EloquenceContest $eloquenceContest): static
+    public function setEloquenceContest(?EloquenceContest $eloquenceContest): static
     {
-        if (!$this->eloquenceContests->contains($eloquenceContest)) {
-            $this->eloquenceContests->add($eloquenceContest);
-            $eloquenceContest->addParticipant($this);
-        }
+        $this->eloquenceContest = $eloquenceContest;
 
         return $this;
     }
 
-    public function removeEloquenceContest(EloquenceContest $eloquenceContest): static
-    {
-        if ($this->eloquenceContests->removeElement($eloquenceContest)) {
-            $eloquenceContest->removeParticipant($this);
-        }
-
-        return $this;
-    }
 }

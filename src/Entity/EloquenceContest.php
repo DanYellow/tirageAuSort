@@ -22,14 +22,14 @@ class EloquenceContest
     #[ORM\Column(type: Types::SMALLINT, unique: true)]
     private ?int $year = null;
 
-    #[ORM\ManyToMany(targetEntity: EloquenceContestParticipant::class, inversedBy: 'eloquenceContests')]
-    #[ORM\OrderBy(['lastname' => 'ASC'])]
+    #[ORM\OneToMany(targetEntity: EloquenceContestParticipant::class, mappedBy: 'eloquenceContest', orphanRemoval: true)]
     private Collection $participants;
+
 
     public function __construct()
     {
-        $this->participants = new ArrayCollection();
         $this->year = date("Y");
+        $this->participants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -65,6 +65,7 @@ class EloquenceContest
     {
         if (!$this->participants->contains($participant)) {
             $this->participants->add($participant);
+            $participant->setEloquenceContest($this);
         }
 
         return $this;
@@ -72,7 +73,12 @@ class EloquenceContest
 
     public function removeParticipant(EloquenceContestParticipant $participant): static
     {
-        $this->participants->removeElement($participant);
+        if ($this->participants->removeElement($participant)) {
+            // set the owning side to null (unless already changed)
+            if ($participant->getEloquenceContest() === $this) {
+                $participant->setEloquenceContest(null);
+            }
+        }
 
         return $this;
     }
