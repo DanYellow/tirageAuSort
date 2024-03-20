@@ -57,8 +57,11 @@ class EloquenceContestParticipantCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('firstName', 'Prénom')->setColumns(10),
             TextField::new('lastName', 'Nom')->setColumns(10),
-            TextField::new('eloquenceContest', 'Concours')->setColumns(10)
+            TextField::new('eloquenceContest', 'Concours')->setColumns(10)->hideOnForm()
             ->formatValue(function ($value, $entity) {
+                if(is_null($entity)) {
+                    return $value;
+                }
                 $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
                 $url = $adminUrlGenerator->setController(EloquenceContestCrudController::class)->setAction("edit")->setEntityId($entity->getEloquenceContest()->getId());
                 
@@ -67,21 +70,6 @@ class EloquenceContestParticipantCrudController extends AbstractCrudController
             ,
             AssociationField::new('formation')->autocomplete()->hideOnIndex()->setColumns(10),
             BooleanField::new("is_active", "Participe au concours ?"),
-            // ChoiceField::new('formation', 'Formation'),
-            // AssociationField::new('eloquenceContests', "Participe aux concours")->hideOnIndex(),
-            // AssociationField::new('eloquenceContests', "Participe aux concours")->hideOnForm()
-            //     ->formatValue(function ($value, $entity) {
-            //         $str = $entity->getEloquenceContests()[0];
-            //         for ($i = 1; $i < $entity->getEloquenceContests()->count(); $i++) {
-            //             $str = $str . ", " . $entity->getEloquenceContests()[$i];
-            //         }
-            //         return $str;
-            //     }),
-
-            // BooleanField::new('is_active', "Participe au concours")
-            //     ->renderAsSwitch(false)
-            //     ->onlyOnForms(),
-            // BooleanField::new('is_active', "Participe au concours")->renderAsSwitch(false)->hideOnForm(),
         ];
     }
 

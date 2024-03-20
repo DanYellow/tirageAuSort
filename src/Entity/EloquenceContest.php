@@ -23,6 +23,7 @@ class EloquenceContest
     private ?int $year = null;
 
     #[ORM\OneToMany(targetEntity: EloquenceContestParticipant::class, mappedBy: 'eloquenceContest', orphanRemoval: true)]
+    #[ORM\OrderBy(["lastname" => "ASC"])]
     private Collection $participants;
 
 
