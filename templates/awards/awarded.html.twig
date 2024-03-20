@@ -17,6 +17,9 @@
                 <span>Liste des prix </span>
             </h1>
 
+            {% set current_path = path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) %}
+
             <ul class="mb-6 overflow-y-auto list-inside list-disc">
                 {% for key, list_awards in categories %}
                     <li class="pb-1 text-xl text-gray-900 ">
@@ -24,10 +27,13 @@
                         <ul class="text-base ml-6 mb-4 overflow-y-auto list-inside list-disc">
                             {% for award in list_awards %}
                                 <li>
-                                    <a href="{{path(
+                                    {% set award_path = path(
                                         'awarded',
                                         {slug: award.slug, year: 2024, category: key}
-                                    )}}">
+                                    ) %}
+                                    <a 
+                                        href="{{ award_path }}" 
+                                        class="hover:text-blue-900 hover:underline hover:underline-offset-1 {% if current_path == award_path %} text-blue-700 font-bold {% endif %}">
                                         {{award.title}}
                                     </a>
                                 </li> 
@@ -48,9 +54,15 @@
             </button>
 
             <header class="flex justify-between flex-col-reverse lg:flex-row">
-                <h1>
-                    <span class="text-2xl">Prix du {{ award.category.value }} {{ award.year }}</span><br>
-                    <span class="text-3xl lg:text-5xl">{{ award.title }}</span>
+                <h1 class="">
+                    <span class="text-2xl">
+                        Festival Les Talents de l'IUT {{ award.year }}
+                    </span><br>
+                    <span class="text-3xl relative z-10">Prix du {{ award.category.value }}</span><br>
+                    <span class="bg-blue-700 text-white font-bold px-2 py-0.5 text-3xl lg:text-5xl">{{ award.title }}
+                    </span>
+                    {# <span class="text-2xl">Prix du {{ award.category.value }} {{ award.year }}</span><br>
+                    <span class="text-3xl lg:text-5xl bg-blue-700 text-white font-bold px-2 py-0.5">{{ award.title }}</span> #}
                 </h1>
                 <section class="flex gap-x-6 flex-wrap">
                     <img class="w-10 lg:w-20 object-contain" src="{{ asset('images/logo-cyu.png') }}" alt="Logo CY IUT">
@@ -58,10 +70,10 @@
                     <img class="w-10 lg:w-20 object-contain" src="{{ asset('images/logo-talents-iut.png') }}" alt="Logo Les talents de l'IUT">
                 </section>
             </header>
-            
-            {% for awarded in award.listWinners %}
+
+            {# {% for awarded in award.listWinners %}
                 {{awarded.firstname}} {{awarded.lastname}} 
-            {% endfor %}
+            {% endfor %} #}
 
         </section>
         <footer class="lg:col-span-2 lg:col-start-1 lg:row-start-2 bg-blue-700 text-white text-center flex justify-center flex-col">

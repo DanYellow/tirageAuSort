@@ -24,10 +24,11 @@
                         <ul class="text-base ml-6 mb-4 overflow-y-auto list-inside list-disc">
                             {% for award in list_awards %}
                                 <li>
-                                    <a href="{{path(
+                                    {% set award_path = path(
                                         'awarded',
                                         {slug: award.slug, year: 2024, category: key}
-                                    )}}">
+                                    ) %}
+                                    <a href="{{ award_path }}">
                                         {{award.title}}
                                     </a>
                                 </li> 
