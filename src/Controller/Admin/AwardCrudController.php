@@ -11,6 +11,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
+use Symfony\Component\String\Slugger\AsciiSlugger;
+
 use Doctrine\ORM\EntityManagerInterface;
 
 class AwardCrudController extends AbstractCrudController
@@ -56,6 +58,9 @@ class AwardCrudController extends AbstractCrudController
                 $em->persist($winner);
             }
         }
+
+        $slugger = new AsciiSlugger();
+        $entityInstance->setSlug($slugger->slug($entityInstance->getTitle()));
 
         $this->addFlash("success", "<b>{$entityInstance->getTitle()}</b> a été crée");
 

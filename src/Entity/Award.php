@@ -3,17 +3,25 @@
 namespace App\Entity;
 
 use App\Repository\AwardRepository;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 enum AwardCategory: string {
     case Jury = 'jury';
     case Public = 'public';
 }
 
+// #[UniqueEntity('slug')]
 #[ORM\Entity(repositoryClass: AwardRepository::class)]
+#[ORM\UniqueConstraint(
+    name: 'award_unique',
+    columns: ['year', 'slug']
+  )]
 class Award
 {
     #[ORM\Id]
@@ -33,6 +41,9 @@ class Award
     #[ORM\OneToMany(targetEntity: Winner::class, mappedBy: 'award')]
     #[ORM\OrderBy(['lastname' => 'ASC'])]
     private Collection $list_winners;
+
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -109,6 +120,18 @@ class Award
                 $listWinner->setAward(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = strtolower($slug);
 
         return $this;
     }
