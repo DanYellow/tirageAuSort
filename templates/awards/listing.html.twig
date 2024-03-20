@@ -16,16 +16,20 @@
             <h1 class="fullscreen:text-4xl text-3xl mb-4 flex justify-between items-center z-10" data-title>
                 <span>Liste des prix </span>
             </h1>
-    {{dump(list_awards)}}
+
             <ul class="mb-6 overflow-y-auto list-inside list-disc">
-                {# {% for award in list_awards %}
-                    <li class="pb-1 text-gray-900 fullscreen:text-xl">
-                        <span>{{award.title}}</span>
-                        <span>{{award.category.value}}</span>
+                {% for key, list_awards in categories %}
+                    <li class="pb-1 text-xl text-gray-900 ">
+                        {{ key|capitalize }}
+                        <ul class="text-base ml-6 mb-4 overflow-y-auto list-inside list-disc">
+                            {% for award in list_awards %}
+                                <li>{{award.title}}</li> 
+                            {% endfor %}
+                        </ul>
                     </li>
                 {% else %}
-                    <li>Pas de participants pour cette année</li>
-                {% endfor %} #}
+                    <li>Pas de prix pour cette année</li>
+                {% endfor %}
             </ul>
         </aside>
         <section class="lg:col-start-2 lg:row-start-1 pb-12 pt-8 px-10 pl-12 transition-width relative" data-content="">

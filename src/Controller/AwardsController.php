@@ -35,13 +35,8 @@ class AwardsController extends AbstractController
             $final_list_awards[$element->getCategory()->value][] = $element;
         }
 
-        // var_dump($final_list_awards);
-
-        // exit;
-
-
         return $this->render('awards/listing.html.twig', [
-            "list_awards" => $final_list_awards,
+            "categories" => $final_list_awards,
         ]);
     }
 }
