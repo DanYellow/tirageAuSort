@@ -17,7 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class AwardCrudController extends AbstractCrudController
 {
-    use Traits\ListYearsTrait;
+    use Trait\ListYearsTrait;
 
     public static function getEntityFqcn(): string
     {

@@ -15,6 +15,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
+use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
+
+
 use Doctrine\ORM\EntityManagerInterface;
 
 class EloquenceContestParticipantCrudController extends AbstractCrudController
@@ -52,9 +57,14 @@ class EloquenceContestParticipantCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('firstName', 'Prénom')->setColumns(10),
             TextField::new('lastName', 'Nom')->setColumns(10),
-            TextField::new('eloquenceContest', 'Concours')->setColumns(10)->formatValue(function ($value, $entity) {
-                return "<a href='rrr'>fffe</a>";
-            }),
+            TextField::new('eloquenceContest', 'Concours')->setColumns(10)
+            ->formatValue(function ($value, $entity) {
+                $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+                $url = $adminUrlGenerator->setController(EloquenceContestCrudController::class)->setAction("edit")->setEntityId($entity->getEloquenceContest()->getId());
+                
+                return "<a href='{$url}'>{$value}</a>";
+            }) 
+            ,
             AssociationField::new('formation')->autocomplete()->hideOnIndex()->setColumns(10),
             BooleanField::new("is_active", "Participe au concours ?"),
             // ChoiceField::new('formation', 'Formation'),

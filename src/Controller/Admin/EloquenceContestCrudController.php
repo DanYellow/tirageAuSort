@@ -17,7 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class EloquenceContestCrudController extends AbstractCrudController
 {
-    use Traits\ListYearsTrait;
+    use Trait\ListYearsTrait;
 
     public static function getEntityFqcn(): string
     {
@@ -41,8 +41,7 @@ class EloquenceContestCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             ChoiceField::new('year', 'Année du concours')->setChoices($this->generateYears()),
             CollectionField::new('participants', "Participants")
-                ->useEntryCrudForm(EloquenceContestParticipantCrudController::class)
-                ->showEntryLabel(true),
+                ->useEntryCrudForm(EloquenceContestParticipantCrudController::class),
             // AssociationField::new('participants')->autocomplete()->hideOnIndex(),
             // AssociationField::new('participants', "Participants")
             //     ->hideOnForm()
@@ -88,11 +87,11 @@ class EloquenceContestCrudController extends AbstractCrudController
     {
         if (!$entityInstance instanceof EloquenceContest) return;
 
-        foreach ($entityInstance->getParticipants() as $participant) {
-            if ($participant->getId() === null) {
-                $em->persist($participant);
-            }
-        }
+        // foreach ($entityInstance->getParticipants() as $participant) {
+        //     if ($participant->getId() === null) {
+        //         $em->persist($participant);
+        //     }
+        // }
 
         $this->addFlash("success", "<b>Concours d'éloquence {$entityInstance->getYear()}</b> a été mis à jour");
 

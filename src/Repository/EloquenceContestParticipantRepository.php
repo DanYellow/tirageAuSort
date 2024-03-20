@@ -28,6 +28,7 @@ class EloquenceContestParticipantRepository extends ServiceEntityRepository
         }
 
         $fields = array('p.id', 'p.title', 'p.year', "p.category");
+        // $queryBuilder = $this->createQueryBuilder();
 
         $query = $this->createQueryBuilder('p')
             ->select($fields)
