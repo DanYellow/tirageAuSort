@@ -41,17 +41,22 @@ class EloquenceContestCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             ChoiceField::new('year', 'Année du concours')->setChoices($this->generateYears()),
             CollectionField::new('participants', "Participants")
-                ->useEntryCrudForm(EloquenceContestParticipantCrudController::class),
-            // AssociationField::new('participants')->autocomplete()->hideOnIndex(),
-            // AssociationField::new('participants', "Participants")
-            //     ->hideOnForm()
-            //     ->formatValue(function ($value, $entity) {
-            //         $str = $entity->getParticipants()[0];
-            //         for ($i = 1; $i < $entity->getParticipants()->count(); $i++) {
-            //             $str = $str . ", " . $entity->getParticipants()[$i];
-            //         }
-            //         return $str;
-            //     }),
+                ->useEntryCrudForm(EloquenceContestParticipantCrudController::class)->hideOnIndex(),
+            CollectionField::new('participants', "Participants")->hideOnForm()
+                ->formatValue(function ($value, $entity) {
+                    // $str = $entity->getParticipants()[0];
+                    // for ($i = 1; $i < $entity->getParticipants()->count(); $i++) {
+                    //     $str = $str . ", " . $entity->getParticipants()[$i];
+                    // }
+                    // return $str;
+                    $activeParticipants = array_filter($entity->getParticipants()->toArray(), function($item) {
+                        return $item->isIsActive();
+                    });
+                    $nb = count($activeParticipants);
+                    $nbTotal = count($entity->getParticipants()->toArray());
+                    
+                    return "Participants total : {$nbTotal} <br> Participants actifs : {$nb}";
+                }),
         ];
     }
 
@@ -60,7 +65,7 @@ class EloquenceContestCrudController extends AbstractCrudController
         return $crud
             ->setPageTitle('index', 'Liste des concours éloquence')
             ->setEntityLabelInSingular('concours éloquence')
-            // ->setPageTitle('edit', fn (EloquenceContestParticipant $participant) => sprintf('Modifier <b>%s</b>', $participant->getFullname()))
+            ->setPageTitle('edit', fn (EloquenceContest $contest) => sprintf('Modifier <b>concours %s</b>', $contest->getYear()))
             ->setPageTitle('new', "Créer concours d'éloquence")
             ->showEntityActionsInlined()
             ->setSearchFields(null)
