@@ -62,7 +62,7 @@ class AwardCrudController extends AbstractCrudController
         $slugger = new AsciiSlugger();
         $entityInstance->setSlug($slugger->slug($entityInstance->getTitle()));
 
-        $this->addFlash("success", "<b>{$entityInstance->getTitle()}</b> a été crée");
+        $this->addFlash("success", "<b>Prix {$entityInstance->getTitle()} ({$entityInstance->getYear()})</b> a été crée");
 
         parent::persistEntity($em, $entityInstance);
     }
@@ -71,15 +71,13 @@ class AwardCrudController extends AbstractCrudController
     {
         if (!$entityInstance instanceof Award) return;
 
-        // $list_winners = $entityInstance->getListWinners()->toArray();
-
         foreach ($entityInstance->getListWinners() as $winner) {
             if ($winner->getId() === null) {
                 $em->persist($winner);
             }
         }
 
-        $this->addFlash("success", "<b>{$entityInstance->getTitle()}</b> a été mis à jour");
+        $this->addFlash("success", "<b>Prix {$entityInstance->getTitle()} ({$entityInstance->getYear()})</b> a été mis à jour");
 
         parent::persistEntity($em, $entityInstance);
     }

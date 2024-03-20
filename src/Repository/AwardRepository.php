@@ -34,4 +34,21 @@ class AwardRepository extends ServiceEntityRepository
 
         return $query->getQuery()->getResult();
     }
+
+    public function getAward($date = null, $category = "", $award = "")
+    {
+        if ($date == null) {
+            $date = date("Y");
+        }
+
+        $query = $this->createQueryBuilder('p')
+            ->where('p.year = :year')
+            ->andWhere('p.slug = :slug')
+            ->andWhere('p.category = :category')
+            ->setParameter('year', $date)
+            ->setParameter('slug', $award)
+            ->setParameter('category', $category);
+
+        return $query->getQuery()->getResult();
+    }
 }
