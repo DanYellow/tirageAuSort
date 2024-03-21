@@ -29,13 +29,12 @@ class EloquenceContestParticipantCrudController extends AbstractCrudController
         return EloquenceContestParticipant::class;
     }
 
-    public function configureActions(Actions $actions): Actions
-{
-    return $actions
-        ->disable(Action::NEW, Action::EDIT, Action::DELETE)
-        ->add(Crud::PAGE_INDEX, Action::DETAIL)
-    ;
-}
+    // public function configureActions(Actions $actions): Actions
+    // {
+    //     return $actions
+    //         ->disable(Action::NEW, Action::EDIT, Action::DELETE)
+    //         ->add(Crud::PAGE_INDEX, Action::DETAIL);
+    // }
 
     protected EntityManagerInterface $entityManager;
     public function __construct(EntityManagerInterface $entityManager)
@@ -46,7 +45,7 @@ class EloquenceContestParticipantCrudController extends AbstractCrudController
     public function createEntity(string $entityFqcn): EloquenceContestParticipant
     {
         $entity = parent::createEntity($entityFqcn);
-        $entity->setLastname("true");
+        $entity->setIsActive(true);
 
         return $entity;
     }
@@ -58,18 +57,18 @@ class EloquenceContestParticipantCrudController extends AbstractCrudController
             TextField::new('firstName', 'Prénom')->setColumns(10),
             TextField::new('lastName', 'Nom')->setColumns(10),
             TextField::new('eloquenceContest', 'Concours')->setColumns(10)->hideOnForm()
-            ->formatValue(function ($value, $entity) {
-                if(is_null($entity)) {
-                    return $value;
-                }
-                $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-                $url = $adminUrlGenerator->setController(EloquenceContestCrudController::class)->setAction("edit")->setEntityId($entity->getEloquenceContest()->getId());
-                
-                return "<a href='{$url}'>{$value}</a>";
-            }) 
-            ,
+                ->formatValue(function ($value, $entity) {
+                    if (is_null($entity)) {
+                        return $value;
+                    }
+                    $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+                    $url = $adminUrlGenerator->setController(EloquenceContestCrudController::class)->setAction("edit")->setEntityId($entity->getEloquenceContest()->getId());
+
+                    return "<a href='{$url}'>{$value}</a>";
+                }),
             AssociationField::new('formation')->autocomplete()->hideOnIndex()->setColumns(10),
-            BooleanField::new("is_active", "Participe au concours ?"),
+            BooleanField::new("is_active", "Participe au concours ?")->onlyOnForms(),
+            BooleanField::new("is_active", "Participe au concours ?")->renderAsSwitch(false)->onlyOnIndex(),
         ];
     }
 

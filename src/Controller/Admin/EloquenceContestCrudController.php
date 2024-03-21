@@ -15,6 +15,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 
 use Doctrine\ORM\EntityManagerInterface;
 
+use App\Form\Type\EloquenceContestParticipantType;
+
 class EloquenceContestCrudController extends AbstractCrudController
 {
     use Trait\ListYearsTrait;
@@ -26,7 +28,7 @@ class EloquenceContestCrudController extends AbstractCrudController
 
     // public function createEntity(string $entityFqcn):EloquenceContest {
     //     $participant = new EloquenceContestParticipant();
-    //     $participant->setLastname("true");
+    //     // $participant->setLastname("true ffe");
 
     //     $address = new EloquenceContest();
     //     $address->addParticipant($participant);
@@ -38,17 +40,17 @@ class EloquenceContestCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
+            IdField::new('id')->hideOnForm()->setSortable(false),
             ChoiceField::new('year', 'Année du concours')->setChoices($this->generateYears()),
             CollectionField::new('participants', "Participants")
-                ->useEntryCrudForm(EloquenceContestParticipantCrudController::class)->hideOnIndex(),
+            ->hideOnIndex()
+            ->allowAdd(true)
+            ->allowDelete(true)
+            ->setEntryType(EloquenceContestParticipantType::class)
+            ,
+                // ->useEntryCrudForm(EloquenceContestParticipantCrudController::class)->hideOnIndex(),
             CollectionField::new('participants', "Participants")->hideOnForm()
                 ->formatValue(function ($value, $entity) {
-                    // $str = $entity->getParticipants()[0];
-                    // for ($i = 1; $i < $entity->getParticipants()->count(); $i++) {
-                    //     $str = $str . ", " . $entity->getParticipants()[$i];
-                    // }
-                    // return $str;
                     $activeParticipants = array_filter($entity->getParticipants()->toArray(), function($item) {
                         return $item->isIsActive();
                     });

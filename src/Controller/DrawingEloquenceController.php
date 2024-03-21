@@ -15,9 +15,6 @@ class DrawingEloquenceController extends AbstractController
     public function index(EloquenceContestRepository $eloquenceContestRepository, Request $request, ): Response
     {
         $year = $request->get('year');
-        // if( is_null($year)) {
-        //     $year = date("Y");
-        // }
 
         $contest = $eloquenceContestRepository->getParticipantsForYear($year);
 
@@ -31,9 +28,7 @@ class DrawingEloquenceController extends AbstractController
             );
         }, $contest["participants"]->toArray());
 
-
         return $this->render('drawing_eloquence/index.html.twig', [
-            'controller_name' => 'DrawingEloquenceController',
             'current_year' => $contest["year"],
             'list_participants' => $contest["participants"],
             'list_participants_json' => json_encode($list_participants_json),

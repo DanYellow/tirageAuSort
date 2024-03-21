@@ -42,7 +42,6 @@ class EloquenceContestParticipant
     public function __construct()
     {
         $this->is_active = true;
-        $this->firstname = "true";
     }
 
     public function getId(): ?int
