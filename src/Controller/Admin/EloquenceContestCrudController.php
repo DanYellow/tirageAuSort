@@ -91,9 +91,13 @@ class EloquenceContestCrudController extends AbstractCrudController
         if (!$entityInstance instanceof EloquenceContest) return;
 
         foreach ($entityInstance->getParticipants() as $participant) {
-            if ($participant->getId() === null) {
-                $em->persist($participant);
-            }
+            // if($participant->isIsActive() == false) {
+            //     $participant->setIsActive(false);
+            // } else {
+            //     $participant->setIsActive(true);
+
+            // }
+            $em->persist($participant);
         }
 
         $this->addFlash("success", "<b>Concours d'éloquence {$entityInstance->getYear()}</b> a été mis à jour");
