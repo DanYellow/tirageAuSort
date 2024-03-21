@@ -23,14 +23,17 @@ class EloquenceContestParticipantType extends AbstractType
         // $builder->add('id', HiddenType::class);
 
         $builder->add('lastname', TextType::class, [
-            'label' => 'Nom de famille',
+            'label' => '<span class="text-blue-900">Nom de famille *</span>',
+            "label_html" => true,
             'mapped' => true,
             'required' => true,
+            'help' => 'Champ requis',
         ]);
         $builder->add('firstname', TextType::class, [
             'label' => 'Prénom',
             'mapped' => true,
             'required' => true,
+            'help' => 'Champ requis',
         ]);
         $builder->add('formation', EntityType::class, [
             'class' => Formation::class,
