@@ -20,7 +20,7 @@ class EloquenceContestParticipantType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('id', HiddenType::class);
+        // $builder->add('id', HiddenType::class);
 
         $builder->add('lastname', TextType::class, [
             'label' => 'Nom de famille',
@@ -39,7 +39,7 @@ class EloquenceContestParticipantType extends AbstractType
         ]);
         $builder->add('is_active', CheckboxType::class, [
             'label' => 'Participe au concours ?',
-            'data' => true,
+            'empty_data' => true,
         ]);
 
     }
@@ -48,7 +48,7 @@ class EloquenceContestParticipantType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => EloquenceContestParticipant::class,
-            "allow_extra_fields" => false,
+            "allow_extra_fields" => true,
         ]);
     }
 }
