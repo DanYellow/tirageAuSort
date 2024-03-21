@@ -43,12 +43,8 @@ class EloquenceContestCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm()->setSortable(false),
             ChoiceField::new('year', 'Année du concours')->setChoices($this->generateYears()),
             CollectionField::new('participants', "Participants")
-            ->hideOnIndex()
-            ->allowAdd(true)
-            ->allowDelete(true)
-            ->setEntryType(EloquenceContestParticipantType::class)
-            ,
-                // ->useEntryCrudForm(EloquenceContestParticipantCrudController::class)->hideOnIndex(),
+                ->hideOnIndex()
+                ->setEntryType(EloquenceContestParticipantType::class),
             CollectionField::new('participants', "Participants")->hideOnForm()
                 ->formatValue(function ($value, $entity) {
                     $activeParticipants = array_filter($entity->getParticipants()->toArray(), function($item) {
