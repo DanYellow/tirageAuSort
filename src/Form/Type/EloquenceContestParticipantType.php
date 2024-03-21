@@ -38,13 +38,16 @@ class EloquenceContestParticipantType extends AbstractType
         $builder->add('formation', EntityType::class, [
             'class' => Formation::class,
             'autocomplete' => true,
+            'mapped' => true,
             'placeholder' => 'Choisissez un nom dans la liste',
         ]);
         $builder->add('is_active', CheckboxType::class, [
             'label' => 'Participe au concours ?',
+            // 'mapped' => true,
             'empty_data' => true,
+            'required' => false,
+            // 'attr' => array('checked' => 'checked', 'value' => '1')
         ]);
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void
