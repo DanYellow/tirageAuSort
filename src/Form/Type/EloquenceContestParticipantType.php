@@ -95,7 +95,7 @@ class EloquenceContestParticipantType extends AbstractType
             'class' => Formation::class,
             'autocomplete' => true,
             'mapped' => true,
-            'placeholder' => 'Choisissez un nom dans la liste',
+            'placeholder' => 'Ne pas préciser',
         ]);
         $builder->add('is_active', ChoiceType::class, [
                 'label' => 'Participe au concours ?',

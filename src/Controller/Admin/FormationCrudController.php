@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Formation;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -14,6 +15,17 @@ class FormationCrudController extends AbstractCrudController
     {
         return Formation::class;
     }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setPageTitle('index', 'Liste des formations')
+            ->setEntityLabelInSingular('prix')
+            ->showEntityActionsInlined()
+            ->setSearchFields(null)
+        ;
+    }
+
 
     /*
     public function configureFields(string $pageName): iterable
