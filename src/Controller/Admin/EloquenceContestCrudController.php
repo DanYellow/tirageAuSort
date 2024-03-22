@@ -16,7 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use Doctrine\ORM\EntityManagerInterface;
 
 use App\Form\Type\EloquenceContestParticipantType;
-use App\Form\Type\FileUploadType as CustomFileUploadType;
+use App\Form\Field\FileUploadField;
 
 
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -61,39 +61,40 @@ class EloquenceContestCrudController extends AbstractCrudController
 
                     return "Participants total : {$nbTotal} <br> Participants actifs : {$nb}";
                 }),
-                CustomFileUploadType::new("file", "gello")
-            // ImageField::new('file', "Fichier des participants")
-            //     ->setUploadDir('public/uploads/data')
-            //     // ->setFormType(CustomFileUploadType::class)
-            //     ->hideOnIndex()
-            //     ->setFormTypeOption(
-            //         'constraints',
-            //         [
-            //             new File([
-            //                 'mimeTypes' => [ // We want to let upload only jpeg or png
-            //                     'application/vnd.ms-excel',
-            //                     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            //                 ],
-            //             ])
-            //         ]
-            //     )
-            //     // ->setFormType(EloquenceContestParticipantType::class)
-            //     // ->setFormTypeOptions([
-            //     //     'required' => false,
-            //     //     "constraints" => new \Symfony\Component\Validator\Constraints\File([
-            //     //         "extensions" => ['xlsx'],
-            //     //         "extensionsMessage" => 'Please upload a valid PDF',
-            //     //             // 'mimeTypes' => [
-            //     //             //     'text/csv',
-            //     //             //     // 'application/vnd.ms-excel',
-            //     //             //     // 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            //     //             // ],
-            //     //             // 'mimeTypesMessage' => 'Veuillez téléverser un fichier .xls,.xlsx ou .csv'
-            //     //         ])
-        
-            //     // ])
-            //     // ->setRequired(false)
-            //     ->setHtmlAttributes(['accept' => '.xls,.xlsx,.csv']),
+            // FileUploadField::new("file", "Fichier des participants")
+            //     ->setHelp("fefefe")
+            ImageField::new('file', "Fichier des participants")
+                ->setUploadDir('public/uploads/data')
+                // ->setFormType(FileUploadField::class)
+                ->hideOnIndex()
+                ->setFormTypeOption(
+                    'constraints',
+                    [
+                        new File([
+                            'mimeTypes' => [ // We want to let upload only jpeg or png
+                                'application/vnd.ms-excel',
+                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                            ],
+                        ])
+                    ]
+                )
+                // ->setFormType(EloquenceContestParticipantType::class)
+                // ->setFormTypeOptions([
+                //     'required' => false,
+                //     "constraints" => new \Symfony\Component\Validator\Constraints\File([
+                //         "extensions" => ['xlsx'],
+                //         "extensionsMessage" => 'Please upload a valid PDF',
+                //             // 'mimeTypes' => [
+                //             //     'text/csv',
+                //             //     // 'application/vnd.ms-excel',
+                //             //     // 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                //             // ],
+                //             // 'mimeTypesMessage' => 'Veuillez téléverser un fichier .xls,.xlsx ou .csv'
+                //         ])
+
+                // ])
+                // ->setRequired(false)
+                ->setHtmlAttributes(['accept' => '.xls,.xlsx,.csv']),
         ];
     }
 
@@ -130,12 +131,12 @@ class EloquenceContestCrudController extends AbstractCrudController
         if (!$entityInstance instanceof EloquenceContest) return;
 
         $files = parent::getContext()->getRequest()->files;
-        
+
         // $list_images_uploaded = array_values($files->get('EloquenceContest')['file']);
         // print_r($list_images_uploaded[0]);
         if (!is_null($files)) {
             var_dump($files);
-        exit;
+            exit;
         }
         // exit;
 
