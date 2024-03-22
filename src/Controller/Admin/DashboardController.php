@@ -51,7 +51,7 @@ class DashboardController extends AbstractDashboardController
         ]);
         yield MenuItem::section();
         yield MenuItem::linkToCrud('Formations', null, Formation::class);
-        yield MenuItem::linkToCrud('Prix', null, Award::class);
+        // yield MenuItem::linkToCrud('Prix', null, Award::class);
         // yield MenuItem::section("Concours d\'éloquence");
         // yield MenuItem::linkToCrud('Participants aux concours d\'éloquence', null, EloquenceContestParticipant::class);
         // yield MenuItem::linkToCrud('Concours d\'éloquence', null, EloquenceContest::class);

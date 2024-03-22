@@ -19,12 +19,17 @@ class DrawingEloquenceController extends AbstractController
         $contest = $eloquenceContestRepository->getParticipantsForYear($year);
 
         $list_participants_json = array_map(function ($item) {
+            $formation = $item->getFormation();
+            if(!is_null($formation)) {
+                $formation = $formation->__toString();
+            }
+
             return array(
                 "id" => $item->getId(), 
                 "firstname" => $item->getFirstname(), 
                 "lastname" => $item->getLastname(),
                 "photo" => $item->getPhoto(),
-                "formation" => $item->getFormation(),
+                "formation" => $formation,
             );
         }, $contest["participants"]->toArray());
 

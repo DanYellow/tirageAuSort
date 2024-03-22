@@ -16,6 +16,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use Doctrine\ORM\EntityManagerInterface;
 
 use App\Form\Type\EloquenceContestParticipantType;
+use App\Form\Type\FileUploadType as CustomFileUploadType;
+
+
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType;
+use Symfony\Component\Validator\Constraints\File;
 
 class EloquenceContestCrudController extends AbstractCrudController
 {
@@ -47,14 +53,47 @@ class EloquenceContestCrudController extends AbstractCrudController
                 ->setEntryType(EloquenceContestParticipantType::class),
             CollectionField::new('participants', "Participants")->hideOnForm()
                 ->formatValue(function ($value, $entity) {
-                    $activeParticipants = array_filter($entity->getParticipants()->toArray(), function($item) {
+                    $activeParticipants = array_filter($entity->getParticipants()->toArray(), function ($item) {
                         return $item->isIsActive();
                     });
                     $nb = count($activeParticipants);
                     $nbTotal = count($entity->getParticipants()->toArray());
-                    
+
                     return "Participants total : {$nbTotal} <br> Participants actifs : {$nb}";
                 }),
+                CustomFileUploadType::new("file", "gello")
+            // ImageField::new('file', "Fichier des participants")
+            //     ->setUploadDir('public/uploads/data')
+            //     // ->setFormType(CustomFileUploadType::class)
+            //     ->hideOnIndex()
+            //     ->setFormTypeOption(
+            //         'constraints',
+            //         [
+            //             new File([
+            //                 'mimeTypes' => [ // We want to let upload only jpeg or png
+            //                     'application/vnd.ms-excel',
+            //                     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            //                 ],
+            //             ])
+            //         ]
+            //     )
+            //     // ->setFormType(EloquenceContestParticipantType::class)
+            //     // ->setFormTypeOptions([
+            //     //     'required' => false,
+            //     //     "constraints" => new \Symfony\Component\Validator\Constraints\File([
+            //     //         "extensions" => ['xlsx'],
+            //     //         "extensionsMessage" => 'Please upload a valid PDF',
+            //     //             // 'mimeTypes' => [
+            //     //             //     'text/csv',
+            //     //             //     // 'application/vnd.ms-excel',
+            //     //             //     // 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            //     //             // ],
+            //     //             // 'mimeTypesMessage' => 'Veuillez téléverser un fichier .xls,.xlsx ou .csv'
+            //     //         ])
+        
+            //     // ])
+            //     // ->setRequired(false)
+            //     ->setHtmlAttributes(['accept' => '.xls,.xlsx,.csv']),
         ];
     }
 
@@ -90,13 +129,17 @@ class EloquenceContestCrudController extends AbstractCrudController
     {
         if (!$entityInstance instanceof EloquenceContest) return;
 
-        foreach ($entityInstance->getParticipants() as $participant) {
-            // if($participant->isIsActive() == false) {
-            //     $participant->setIsActive(false);
-            // } else {
-            //     $participant->setIsActive(true);
+        $files = parent::getContext()->getRequest()->files;
+        
+        // $list_images_uploaded = array_values($files->get('EloquenceContest')['file']);
+        // print_r($list_images_uploaded[0]);
+        if (!is_null($files)) {
+            var_dump($files);
+        exit;
+        }
+        // exit;
 
-            // }
+        foreach ($entityInstance->getParticipants() as $participant) {
             $em->persist($participant);
         }
 

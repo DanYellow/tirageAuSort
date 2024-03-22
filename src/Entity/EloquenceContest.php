@@ -26,6 +26,7 @@ class EloquenceContest
     #[ORM\OrderBy(["lastname" => "ASC"])]
     private Collection $participants;
 
+    public ?string $file = null;
 
     public function __construct()
     {
@@ -53,6 +54,11 @@ class EloquenceContest
     public function __toString(): string {
         return "Concours d'éloquence {$this->getYear()}";
     }
+
+    public function getFile() {
+        return "";
+    }
+    
 
     /**
      * @return Collection<int, EloquenceContestParticipant>
