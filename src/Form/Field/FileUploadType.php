@@ -28,14 +28,12 @@ class FileUploadField implements FieldInterface
                 [
                     new File([
                         'mimeTypes' => [ // We want to let upload only jpeg or png
-                            'application/vnd.ms-excel',
                             'text/csv',
-                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                         ],
                     ])
                 ]
             )
-            ->setHtmlAttributes(['accept' => '.xls,.xlsx,.csv'])
+            ->setHtmlAttributes(['accept' => '.csv'])
             ;
     }
 }

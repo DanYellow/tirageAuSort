@@ -63,38 +63,6 @@ class EloquenceContestCrudController extends AbstractCrudController
                 }),
             FileUploadField::new("file", "Fichier des participants")
                 ->setHelp("fefefe")->onlyOnForms()
-            // ImageField::new('file', "Fichier des participants")
-            //     ->setUploadDir('public/uploads/data')
-            //     // ->setFormType(FileUploadField::class)
-            //     ->hideOnIndex()
-            //     ->setFormTypeOption(
-            //         'constraints',
-            //         [
-            //             new File([
-            //                 'mimeTypes' => [ // We want to let upload only jpeg or png
-            //                     'application/vnd.ms-excel',
-            //                     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            //                 ],
-            //             ])
-            //         ]
-            //     )
-            //     // ->setFormType(EloquenceContestParticipantType::class)
-            //     // ->setFormTypeOptions([
-            //     //     'required' => false,
-            //     //     "constraints" => new \Symfony\Component\Validator\Constraints\File([
-            //     //         "extensions" => ['xlsx'],
-            //     //         "extensionsMessage" => 'Please upload a valid PDF',
-            //     //             // 'mimeTypes' => [
-            //     //             //     'text/csv',
-            //     //             //     // 'application/vnd.ms-excel',
-            //     //             //     // 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            //     //             // ],
-            //     //             // 'mimeTypesMessage' => 'Veuillez téléverser un fichier .xls,.xlsx ou .csv'
-            //     //         ])
-
-            //     // ])
-            //     // ->setRequired(false)
-            //     ->setHtmlAttributes(['accept' => '.xls,.xlsx,.csv']),
         ];
     }
 
@@ -132,13 +100,21 @@ class EloquenceContestCrudController extends AbstractCrudController
 
         $files = parent::getContext()->getRequest()->files;
 
-        // $list_images_uploaded = array_values($files->get('EloquenceContest')['file']);
-        // print_r($list_images_uploaded[0]);
-        if (!is_null($files)) {
-            var_dump($files);
-            exit;
+        if (!is_null($files->get('EloquenceContest')['file'])) {
+            $data_file = $files->get('EloquenceContest')['file'];
+
+            $handle = fopen($data_file->getPathname(), "r");
+
+            while (($data = fgetcsv($handle)) !== false) {
+                $entity = new EloquenceContestParticipant();
+                $entity->setLastname($data[0]);
+                $entity->setFirstname($data[1]);
+                $entity->setEloquenceContest($entityInstance);
+
+                $em->persist($entity);
+            }
+            fclose($handle);
         }
-        // exit;
 
         foreach ($entityInstance->getParticipants() as $participant) {
             $em->persist($participant);
