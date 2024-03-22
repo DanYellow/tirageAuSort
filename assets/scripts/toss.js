@@ -23,7 +23,7 @@ const displayParticipant = () => {
     participantContainer.classList.add("text-gray-800");
 
     const lastnameSpan = document.createElement("span");
-    lastnameSpan.classList.add("font-bold")
+    lastnameSpan.classList.add("font-bold", "bg-blue-700", "text-white", "px-2", "py-0.5")
     lastnameSpan.textContent = randomParticipant.lastname
 
     participantName.textContent = `${randomParticipant.firstname} `;
