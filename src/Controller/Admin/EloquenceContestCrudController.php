@@ -10,7 +10,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,10 +17,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Form\Type\EloquenceContestParticipantType;
 use App\Form\Field\FileUploadField;
 
-
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType;
-use Symfony\Component\Validator\Constraints\File;
 
 class EloquenceContestCrudController extends AbstractCrudController
 {
@@ -32,22 +27,16 @@ class EloquenceContestCrudController extends AbstractCrudController
         return EloquenceContest::class;
     }
 
-    // public function createEntity(string $entityFqcn):EloquenceContest {
-    //     $participant = new EloquenceContestParticipant();
-    //     // $participant->setLastname("true ffe");
-
-    //     $address = new EloquenceContest();
-    //     $address->addParticipant($participant);
-
-    //     return $address;
-    // }
-
     // // https://stackoverflow.com/questions/63728259/easyadmin-3-x-how-to-see-related-entities-tostring-instead-of-the-number-of
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm()->setSortable(false),
-            ChoiceField::new('year', 'Année du concours')->setChoices($this->generateYears()),
+            IdField::new('id')
+                ->hideOnForm()
+                ->setSortable(false),
+            ChoiceField::new('year', 'Année du concours')
+                ->setChoices($this->generateYears())
+                ->setColumns(7),
             CollectionField::new('participants', "Participants")
                 ->hideOnIndex()
                 ->setEntryType(EloquenceContestParticipantType::class),
@@ -62,7 +51,8 @@ class EloquenceContestCrudController extends AbstractCrudController
                     return "Participants total : {$nbTotal} <br> Participants actifs : {$nb}";
                 }),
             FileUploadField::new("file", "Fichier des participants")
-                ->setHelp("fefefe")->onlyOnForms()
+                ->setColumns(7)
+                ->setHelp("Fichier CSV seulement. Première colonne nom, deuxième colonne prénom")->onlyOnForms()
         ];
     }
 
@@ -71,7 +61,7 @@ class EloquenceContestCrudController extends AbstractCrudController
         return $crud
             ->setPageTitle('index', 'Liste des concours éloquence')
             ->setEntityLabelInSingular('concours éloquence')
-            ->setPageTitle('edit', fn (EloquenceContest $contest) => sprintf('Modifier <b>concours %s</b>', $contest->getYear()))
+            ->setPageTitle('edit', fn (EloquenceContest $contest) => sprintf('Modifier <b>concours d\'éloquence %s</b>', $contest->getYear()))
             ->setPageTitle('new', "Créer concours d'éloquence")
             ->showEntityActionsInlined()
             ->setSearchFields(null)
@@ -82,6 +72,9 @@ class EloquenceContestCrudController extends AbstractCrudController
     public function persistEntity(EntityManagerInterface $em, $entityInstance): void
     {
         if (!$entityInstance instanceof EloquenceContest) return;
+
+        $files = parent::getContext()->getRequest()->files;
+        $this->processCSVFile($em, $entityInstance, $files);
 
         foreach ($entityInstance->getParticipants() as $participant) {
             if ($participant->getId() === null) {
@@ -99,22 +92,7 @@ class EloquenceContestCrudController extends AbstractCrudController
         if (!$entityInstance instanceof EloquenceContest) return;
 
         $files = parent::getContext()->getRequest()->files;
-
-        if (!is_null($files->get('EloquenceContest')['file'])) {
-            $data_file = $files->get('EloquenceContest')['file'];
-
-            $handle = fopen($data_file->getPathname(), "r");
-
-            while (($data = fgetcsv($handle)) !== false) {
-                $entity = new EloquenceContestParticipant();
-                $entity->setLastname($data[0]);
-                $entity->setFirstname($data[1]);
-                $entity->setEloquenceContest($entityInstance);
-
-                $em->persist($entity);
-            }
-            fclose($handle);
-        }
+        $this->processCSVFile($em, $entityInstance, $files);
 
         foreach ($entityInstance->getParticipants() as $participant) {
             $em->persist($participant);
@@ -123,5 +101,24 @@ class EloquenceContestCrudController extends AbstractCrudController
         $this->addFlash("success", "<b>Concours d'éloquence {$entityInstance->getYear()}</b> a été mis à jour");
 
         parent::persistEntity($em, $entityInstance);
+    }
+
+    private function processCSVFile(EntityManagerInterface $em, $entity, $file): void
+    {
+        if (!is_null($file->get('EloquenceContest')['file'])) {
+            $data_file = $file->get('EloquenceContest')['file'];
+
+            $handle = fopen($data_file->getPathname(), "r");
+
+            while (($data = fgetcsv($handle)) !== false) {
+                $participant = new EloquenceContestParticipant();
+                $participant->setLastname($data[0]);
+                $participant->setFirstname($data[1]);
+                $participant->setEloquenceContest($entity);
+
+                $em->persist($participant);
+            }
+            fclose($handle);
+        }
     }
 }
