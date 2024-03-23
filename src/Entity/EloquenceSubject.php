@@ -28,6 +28,7 @@ class EloquenceSubject
     public function __construct()
     {
         $this->participants = new ArrayCollection();
+        $this->year = null;
     }
 
     public function getId(): ?int
