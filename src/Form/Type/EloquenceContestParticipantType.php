@@ -3,7 +3,9 @@
 namespace App\Form\Type;
 
 use App\Entity\EloquenceContestParticipant;
+use App\Entity\EloquenceSubject;
 use App\Entity\Formation;
+use App\Repository\EloquenceSubjectRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -48,18 +50,32 @@ class EloquenceContestParticipantType extends AbstractType
             'mapped' => true,
             'placeholder' => 'Ne pas préciser',
         ]);
+        $builder->add('subject', EntityType::class, [
+            'label' => 'Sujet',
+            'class' => EloquenceSubject::class,
+            'autocomplete' => true,
+            'mapped' => true,
+            'placeholder' => 'Ne pas préciser',
+            'query_builder' => function (EloquenceSubjectRepository $er) {
+                return $er->createQueryBuilder('u')
+                    ->orderBy('u.title', 'ASC');
+            },
+            'group_by' => function ($choice, $key, $value): string {
+                return is_null($choice->getYear()) ? "Autre" : $choice->getYear();
+            },
+        ]);
         $builder->add('is_active', ChoiceType::class, [
-                'label' => 'Participe au concours ?',
-                'required' => false,
-                'expanded' => true,
-                'mapped' => true,
-                'choices' => [
-                    'Oui' => true,
-                    'Non' => false,
-                ],
-                'placeholder' => false,
-                'empty_data' => "1",
-            ]);
+            'label' => 'Participe au concours ?',
+            'required' => false,
+            'expanded' => true,
+            'mapped' => true,
+            'choices' => [
+                'Oui' => true,
+                'Non' => false,
+            ],
+            'placeholder' => false,
+            'empty_data' => "1",
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

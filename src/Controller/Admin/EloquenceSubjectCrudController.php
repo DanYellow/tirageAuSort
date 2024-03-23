@@ -8,7 +8,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class EloquenceSubjectCrudController extends AbstractCrudController
@@ -46,7 +45,9 @@ class EloquenceSubjectCrudController extends AbstractCrudController
                 ->setColumns(7),
             ChoiceField::new('year', 'Année')
                 ->setChoices($list_years)
-                ->setColumns(7),
+                ->setColumns(7)
+                ->hideOnIndex()
+                ,
         ];
     }
 }
