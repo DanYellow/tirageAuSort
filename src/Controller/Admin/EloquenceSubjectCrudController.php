@@ -28,6 +28,7 @@ class EloquenceSubjectCrudController extends AbstractCrudController
             ->setPageTitle('new', "Créer sujet pour concours d'éloquence")
             ->showEntityActionsInlined()
             ->setSearchFields(null)
+            ->setDefaultSort(['title' => 'ASC', 'year' => 'ASC'])
         ;
     }
 
@@ -40,14 +41,20 @@ class EloquenceSubjectCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm()
+                ->hideOnIndex()
                 ->setSortable(false),
             TextField::new('title')
                 ->setColumns(7),
             ChoiceField::new('year', 'Année')
                 ->setChoices($list_years)
                 ->setColumns(7)
-                ->hideOnIndex()
-                ,
+                ->onlyOnForms()
+            ,
+            ChoiceField::new('year', 'Année')
+                ->setChoices($this->generateYears())
+                ->setColumns(7)
+                ->onlyOnIndex()
+            ,
         ];
     }
 }
