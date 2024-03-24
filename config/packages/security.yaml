@@ -10,6 +10,7 @@ security:
         backend_users:
           memory:
             users:
+              # mmi_admin: { password: '$2y$13$Hyr984gwaZKoTKPNuBpfAujl5xfYiEVp5NLZfUhQ4G2QB2lVmiNce', roles: ['ROLE_ADMIN'] }
               mmi_admin: { password: '$2y$13$lb3mC8YHdw.aS5.0kDs.uuRINyaHZJalTRODDRRSe677XY3WlpIsm', roles: ['ROLE_ADMIN'] }
     firewalls:
         dev:
