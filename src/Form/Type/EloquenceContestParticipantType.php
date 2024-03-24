@@ -54,7 +54,8 @@ class EloquenceContestParticipantType extends AbstractType
             'placeholder' => 'Ne pas préciser',
             'query_builder' => function (EloquenceSubjectRepository $er) {
                 return $er->createQueryBuilder('u')
-                    ->orderBy('u.title', 'ASC');
+                    ->orderBy('u.title', 'ASC')
+                    ->addOrderBy('u.title', "ASC");
             },
             'group_by' => function ($choice, $key, $value): string {
                 return is_null($choice->getYear()) ? "Autre" : $choice->getYear();
