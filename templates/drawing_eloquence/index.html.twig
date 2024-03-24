@@ -17,7 +17,7 @@
                 <span>Orateurs en lice (<span data-remaining-participants>{{ list_participants|length }}</span>/{{ list_participants|length }})</span>
             </h1>
 
-            <ul data-list-participants="{{ list_participants_json }}" class="mb-6 overflow-y-auto list-inside list-disc">
+            <ul data-list-participants="{{ list_participants_json }}" class="mb-6 overflow-y-auto list-inside list-disc max-h-[50%]">
                 {% for participant in list_participants %}
                     <li class="pb-1 text-gray-900 fullscreen:text-xl" data-participant-id={{ participant.id }}>
                         <span>{{participant.firstname}}</span>

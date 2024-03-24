@@ -36,9 +36,12 @@ const displayParticipant = () => {
     );
 
     selectedParticipant.classList.add("line-through");
-    selectedParticipant.scrollIntoView({
-        behavior: "auto",
-    });
+
+    listParticipantsContainer.scroll({
+        top: selectedParticipant.getBoundingClientRect().top,
+        left: 0,
+        behavior: "smooth",
+      });
 
     gsap.fromTo(
         participantContainer,

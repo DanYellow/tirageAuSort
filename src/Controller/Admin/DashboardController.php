@@ -51,7 +51,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section();
         yield MenuItem::linkToRoute('Accéder au site', null, "index");
         yield MenuItem::section();
-        yield MenuItem::linkToLogout('Déconnexion', 'fa fa-running');
+        yield MenuItem::linkToLogout('Déconnexion', 'fa fa-sign-out');
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu
