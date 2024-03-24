@@ -13,7 +13,7 @@ use App\Repository\EloquenceContestRepository;
 
 class DrawingEloquenceController extends AbstractController
 {
-    #[Route(['/{year}', '/'], name: 'index', requirements: ['year' => '\d{4}'])]
+    #[Route(['/', '/{year}'], name: 'index', requirements: ['year' => '\d{4}'])]
     public function index(EloquenceContestRepository $eloquenceContestRepository, Request $request, ): Response
     {
         $year = $request->get('year');

@@ -40,15 +40,6 @@ class EloquenceContestRepository extends ServiceEntityRepository
             ORDER BY p.lastname ASC
         ')->setParameter('year', $date);
 
-
-        // $query = $this->createQueryBuilder('p')
-        //     ->leftJoin('p.participants', 's')
-        //     ->where('s.is_active = 1')
-        //     ->andWhere('p.year = :year')
-        //     ->setParameter('year', $date)
-        //     ;
-        //     $query->addOrderBy('s.lastname', "ASC");
-
         $result = $query->getOneOrNullResult();
         if($result == null) {
             return array("participants" => new ArrayCollection([]), "year" => $date);

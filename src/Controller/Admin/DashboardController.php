@@ -41,8 +41,6 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        // yield MenuItem::linkToDashboard('Dashboard');
-        // yield MenuItem::linkToCrud('Gestion des concours', 'fas fa-book', EloquenceContest::class);
         yield MenuItem::subMenu('Concours d\'éloquence', null)->setSubItems([
             MenuItem::linkToCrud('Gestion des concours', null, EloquenceContest::class),
             MenuItem::linkToCrud('Participants', null, EloquenceContestParticipant::class),
@@ -50,13 +48,10 @@ class DashboardController extends AbstractDashboardController
         ]);
         yield MenuItem::section();
         yield MenuItem::linkToCrud('Formations', null, Formation::class);
-        // yield MenuItem::linkToCrud('Prix', null, Award::class);
-        // yield MenuItem::section("Concours d\'éloquence");
-        // yield MenuItem::linkToCrud('Participants aux concours d\'éloquence', null, EloquenceContestParticipant::class);
-        // yield MenuItem::linkToCrud('Concours d\'éloquence', null, EloquenceContest::class);
-        // yield MenuItem::linkToCrud('Prix', null, Award::class);
-        // yield MenuItem::linkToCrud('Liste formations', null, Formation::class);
-        // yield MenuItem::linkToLogout('Déconnexion', 'fa fa-running');
+        yield MenuItem::section();
+        yield MenuItem::linkToRoute('Accéder au site', null, "index");
+        yield MenuItem::section();
+        yield MenuItem::linkToLogout('Déconnexion', 'fa fa-running');
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu

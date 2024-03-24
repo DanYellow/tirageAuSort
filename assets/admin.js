@@ -20,8 +20,6 @@ document
                 )
                 .forEach((item) => {
                     if (!item.classList.contains("tomselected")) {
-                        console.log("fefe");
-
                         new TomSelect(item, {});
                     }
                 });
