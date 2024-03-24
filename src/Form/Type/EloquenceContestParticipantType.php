@@ -2,24 +2,20 @@
 
 namespace App\Form\Type;
 
+use App\Form\Field\FoodAutocompleteField as TestField;
 use App\Entity\EloquenceContestParticipant;
 use App\Entity\EloquenceSubject;
 use App\Entity\Formation;
 use App\Repository\EloquenceSubjectRepository;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use Symfony\Component\Validator\Constraints\NotBlank;
-
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\Test\FormInterface;
+
 
 class EloquenceContestParticipantType extends AbstractType
 {
@@ -75,6 +71,17 @@ class EloquenceContestParticipantType extends AbstractType
             ],
             'placeholder' => false,
             'empty_data' => "1",
+        ]);
+        $builder->add('firstname', ChoiceType::class, [
+            'choices' => [
+                'Choose a portion size' => '',
+                'small' => 's',
+                'medium' => 'm',
+                'large' => 'l',
+                'extra large' => 'xl',
+                'all you can eat' => '∞',
+            ],
+                'autocomplete' => true,
         ]);
     }
 

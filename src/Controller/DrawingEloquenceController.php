@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\EloquenceContestParticipant;
+use App\Form\Type\EloquenceContestParticipantType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -20,9 +22,9 @@ class DrawingEloquenceController extends AbstractController
 
         $list_participants_json = array_map(function ($item) {
             $formation = $item->getFormation();
-            if(!is_null($formation)) {
-                $formation = $formation->__toString();
-            }
+            // if(!is_null($formation)) {
+            //     $formation = $formation->__toString();
+            // }
 
             return array(
                 "id" => $item->getId(), 
@@ -39,4 +41,17 @@ class DrawingEloquenceController extends AbstractController
             'list_participants_json' => json_encode($list_participants_json),
         ]);
     }
+
+    #[Route(['/test'], name: 'hello')]
+    public function test(EloquenceContestRepository $eloquenceContestRepository, Request $request): Response
+    {
+        $task = new EloquenceContestParticipant();
+        $form = $this->createForm(EloquenceContestParticipantType::class, $task);
+
+        return $this->render('new.html.twig', [
+            'form' => $form,
+        ]);
+    }
+    
+
 }
