@@ -1,5 +1,4 @@
-
-import gsap from 'gsap';
+import gsap from "gsap";
 
 const btnFetchParticipant = document.querySelector(
     "[data-btn-random-participant]"
@@ -9,11 +8,16 @@ const listParticipantsContainer = document.querySelector(
 );
 const participantContainer = document.querySelector("[data-participant]");
 const participantName = document.querySelector("[data-participant-name]");
-const participantFormation = document.querySelector("[data-participant-formation]");
+const participantFormation = document.querySelector(
+    "[data-participant-formation]"
+);
 
-const nbRemainingParticipants = document.querySelector("[data-remaining-participants]");
+const nbRemainingParticipants = document.querySelector(
+    "[data-remaining-participants]"
+);
 
-let listParticipants = JSON.parse(listParticipantsContainer.dataset?.listParticipants) || [];
+let listParticipants =
+    JSON.parse(listParticipantsContainer.dataset?.listParticipants) || [];
 
 const displayParticipant = () => {
     const randomIndex = Math.floor(Math.random() * listParticipants.length);
@@ -23,13 +27,13 @@ const displayParticipant = () => {
     participantContainer.classList.add("text-gray-800");
 
     const lastnameSpan = document.createElement("span");
-    lastnameSpan.classList.add("font-bold")
-    lastnameSpan.textContent = randomParticipant.lastname
+    lastnameSpan.classList.add("font-bold");
+    lastnameSpan.textContent = randomParticipant.lastname;
 
     participantName.textContent = `${randomParticipant.firstname} `;
-    participantName.appendChild(lastnameSpan)
+    participantName.appendChild(lastnameSpan);
 
-    participantFormation.textContent = randomParticipant.formation
+    participantFormation.textContent = randomParticipant.formation;
 
     const selectedParticipant = document.querySelector(
         `[data-participant-id="${randomParticipant.id}"]`
@@ -41,7 +45,7 @@ const displayParticipant = () => {
         top: selectedParticipant.getBoundingClientRect().top,
         left: 0,
         behavior: "smooth",
-      });
+    });
 
     gsap.fromTo(
         participantContainer,
