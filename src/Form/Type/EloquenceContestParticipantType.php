@@ -72,17 +72,6 @@ class EloquenceContestParticipantType extends AbstractType
             'placeholder' => false,
             'empty_data' => "1",
         ]);
-        $builder->add('firstname', ChoiceType::class, [
-            'choices' => [
-                'Choose a portion size' => '',
-                'small' => 's',
-                'medium' => 'm',
-                'large' => 'l',
-                'extra large' => 'xl',
-                'all you can eat' => '∞',
-            ],
-                'autocomplete' => true,
-        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

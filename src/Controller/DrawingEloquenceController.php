@@ -41,17 +41,4 @@ class DrawingEloquenceController extends AbstractController
             'list_participants_json' => json_encode($list_participants_json),
         ]);
     }
-
-    #[Route(['/test'], name: 'hello')]
-    public function test(EloquenceContestRepository $eloquenceContestRepository, Request $request): Response
-    {
-        $task = new EloquenceContestParticipant();
-        $form = $this->createForm(EloquenceContestParticipantType::class, $task);
-
-        return $this->render('new.html.twig', [
-            'form' => $form,
-        ]);
-    }
-    
-
 }
