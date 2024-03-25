@@ -36,10 +36,10 @@ class EloquenceContestCrudController extends AbstractCrudController
                 ->setSortable(false),
             ChoiceField::new('year', 'Année du concours')
                 ->setChoices($this->generateYears())
-                ->setColumns(7),
+                ->setColumns(8),
             CollectionField::new('participants', "Participants")
                 ->hideOnIndex()
-                ->setEntryType(EloquenceContestParticipantType::class),
+                ->setEntryType(EloquenceContestParticipantType::class)->setColumns(8),
             CollectionField::new('participants', "Participants")->hideOnForm()
                 ->formatValue(function ($value, $entity) {
                     $activeParticipants = array_filter($entity->getParticipants()->toArray(), function ($item) {
@@ -51,7 +51,7 @@ class EloquenceContestCrudController extends AbstractCrudController
                     return "Participants total : {$nbTotal} <br> Participants actifs : {$nb}";
                 }),
             FileUploadField::new("file", "Fichier des participants")
-                ->setColumns(7)
+                ->setColumns(8)
                 ->setHelp("Fichier CSV seulement. Première colonne nom, deuxième colonne prénom")->onlyOnForms()
         ];
     }
