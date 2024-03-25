@@ -8,6 +8,7 @@
 - symfony console doctrine:migrations:migrate
 - php bin/console make:migration
 - symfony console make:auth
-- php bin/console importmap:require 
+- php bin/console importmap:require
+- php bin/console importmap:install
 
 https://symfony.com/bundles/EasyAdminBundle/current/fields.html

@@ -32,7 +32,6 @@
         <script src="{{ asset('app.js', ea.assets.defaultAssetPackageName) }}"></script>
         {{ encore_entry_script_tags('admin') }}
         {% block importmap %}
-            {{ importmap('admin') }}
             {{ include('@EasyAdmin/includes/_importmap.html.twig', { assets: ea.assets.assetMapperAssets ?? [] }, with_context = false) }}
         {% endblock %}
     {% endblock head_javascript %}

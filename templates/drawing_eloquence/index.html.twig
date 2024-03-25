@@ -27,6 +27,9 @@
 				{% else %}
 					<li>Pas de participants pour cette année</li>
 				{% endfor %}
+                    {% if app.environment == 'dev' %}
+					<li class="mt-5 font-bold text-red-800"><a href="{{ path('admin')}}">Accéder à l'admin</a></li>
+                    {% endif %}
 			</ul>
 			{% if list_participants|length > 0 %}
 				<button data-btn-random-participant class="bg-blue-700 rounded-lg text-slate-50 py-5 px-11 hover:bg-blue-900 disabled:opacity-75 text-lg">Tirer au sort</button>

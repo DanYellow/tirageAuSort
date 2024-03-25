@@ -20,9 +20,11 @@ class FormationCrudController extends AbstractCrudController
     {
         return $crud
             ->setPageTitle('index', 'Liste des formations')
-            ->setEntityLabelInSingular('prix')
+            ->setEntityLabelInSingular('formation')
             ->showEntityActionsInlined()
             ->setSearchFields(null)
+            ->setPageTitle('edit', fn (Formation $formation) => sprintf('Modifier "<b>%s</b>"', $formation->getName()))
+
         ;
     }
 
