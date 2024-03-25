@@ -7,6 +7,7 @@
 - symfony console doctrine:database:drop --force
 - symfony console doctrine:migrations:migrate
 - php bin/console make:migration
-- symfony console make:auth 
+- symfony console make:auth
+- php bin/console importmap:require 
 
 https://symfony.com/bundles/EasyAdminBundle/current/fields.html

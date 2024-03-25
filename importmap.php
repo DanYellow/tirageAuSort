@@ -36,4 +36,7 @@ return [
         'version' => '2.3.1',
         'type' => 'css',
     ],
+    'gsap' => [
+        'version' => '3.12.5',
+    ],
 ];
