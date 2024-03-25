@@ -39,7 +39,7 @@ const displayParticipant = () => {
         `[data-participant-id="${randomParticipant.id}"]`
     );
 
-    selectedParticipant.classList.add("line-through");
+    selectedParticipant.classList.add("opacity-45");
 
     listParticipantsContainer.scroll({
         top: selectedParticipant.getBoundingClientRect().top,
