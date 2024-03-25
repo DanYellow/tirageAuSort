@@ -28,7 +28,7 @@ class SecurityController extends AbstractController
             'sign_in_label' => 'Se connecter',
             "username_parameter" => "username",
             "password_parameter" => "password",
-            'page_title' => 'Connexion - Festival des Talents de l\'IUT',
+            'page_title' => 'Connexion administration - Festival des Talents de l\'IUT',
             'favicon_path' => 'images/logo-talents-iut.png',
         ]);
     }
