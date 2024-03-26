@@ -20,8 +20,13 @@ class DrawingEloquenceController extends AbstractController
 
         $list_participants_json = array_map(function ($item) {
             $formation = $item->getFormation();
+            $subject = $item->getSubject();
             if(!is_null($formation)) {
                 $formation = $formation->__toString();
+            }
+
+            if(!is_null($subject)) {
+                $subject = $subject->__toString();
             }
 
             return array(
@@ -29,6 +34,7 @@ class DrawingEloquenceController extends AbstractController
                 "firstname" => $item->getFirstname(), 
                 "lastname" => $item->getLastname(),
                 "photo" => $item->getPhoto(),
+                "subject" => $subject,
                 "formation" => $formation,
             );
         }, $contest["participants"]->toArray());

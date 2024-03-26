@@ -8,6 +8,7 @@ const listParticipantsContainer = document.querySelector(
 );
 const participantContainer = document.querySelector("[data-participant]");
 const participantName = document.querySelector("[data-participant-name]");
+const participantSubject = document.querySelector("[data-participant-subject]");
 const participantFormation = document.querySelector(
     "[data-participant-formation]"
 );
@@ -32,6 +33,15 @@ const displayParticipant = () => {
 
     participantName.textContent = `${randomParticipant.firstname} `;
     participantName.appendChild(lastnameSpan);
+
+    if(randomParticipant.subject !== null) {
+        participantSubject.textContent = `${randomParticipant.subject}`
+        participantSubject.classList.remove("hidden");
+        participantSubject.classList.add("block");
+    } else {
+        participantSubject.classList.remove("block");
+        participantSubject.classList.add("hidden");
+    }
 
     participantFormation.textContent = randomParticipant.formation;
 
