@@ -2,7 +2,7 @@ import TomSelect from "tom-select";
 
 import "./bootstrap.js";
 
-import "./styles/app.css";
+import "./styles/admin.css";
 
 document
     .querySelectorAll("select[id^='EloquenceContest_participants_']")

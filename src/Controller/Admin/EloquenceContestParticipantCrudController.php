@@ -61,7 +61,7 @@ class EloquenceContestParticipantCrudController extends AbstractCrudController
                     $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
                     $url = $adminUrlGenerator->setController(EloquenceContestCrudController::class)->setAction("edit")->setEntityId($entity->getEloquenceContest()->getId());
 
-                    return "<a href='{$url}#EloquenceContest_participants_{$entity->getId()}-contents'>{$value}</a>";
+                    return "<a href='{$url}#participant-{$entity->getId()}'>{$value}</a>";
                 }),
             AssociationField::new('formation')->autocomplete()->hideOnIndex()->setColumns(10),
             BooleanField::new("is_active", "Participe au concours ?")->onlyOnForms(),

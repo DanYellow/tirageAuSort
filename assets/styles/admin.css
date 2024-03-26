@@ -1,0 +1,3 @@
+.accordion-header:target {
+    background-color: #f4f0ffb8;
+}
