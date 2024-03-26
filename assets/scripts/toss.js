@@ -44,7 +44,7 @@ const displayParticipant = () => {
     listParticipantsContainer.scroll({
         top: selectedParticipant.getBoundingClientRect().top,
         left: 0,
-        behavior: "smooth",
+        behavior: "auto",
     });
 
     gsap.fromTo(

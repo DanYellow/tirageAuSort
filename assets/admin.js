@@ -25,3 +25,15 @@ document
                 });
         }, 50);
     });
+
+if (window.location.hash) {
+    const anchorTarget = document.querySelector(window.location.hash);
+    if(anchorTarget) {
+        // anchorTarget.scrollIntoView();
+        window.scroll({
+            top: anchorTarget.getBoundingClientRect().top - 85,
+            left: 0,
+            behavior: "auto",
+        });
+    }
+}

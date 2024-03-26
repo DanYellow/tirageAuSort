@@ -24,7 +24,6 @@ class FormationCrudController extends AbstractCrudController
             ->showEntityActionsInlined()
             ->setSearchFields(null)
             ->setPageTitle('edit', fn (Formation $formation) => sprintf('Modifier "<b>%s</b>"', $formation->getName()))
-
         ;
     }
 

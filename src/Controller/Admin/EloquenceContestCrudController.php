@@ -65,6 +65,7 @@ class EloquenceContestCrudController extends AbstractCrudController
             ->setPageTitle('new', "Créer concours d'éloquence")
             ->showEntityActionsInlined()
             ->setSearchFields(null)
+            ->addFormTheme('back/form-winner.html.twig')
             // ->setEntityPermission('ROLE_EDITOR')
         ;
     }
