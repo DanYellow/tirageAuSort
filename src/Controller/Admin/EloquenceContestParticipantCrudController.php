@@ -75,7 +75,7 @@ class EloquenceContestParticipantCrudController extends AbstractCrudController
         return $crud
             ->setPageTitle('index', 'Liste participants - Concours éloquence')
             ->setEntityLabelInSingular('participant concours éloquence')
-            ->setPageTitle('edit', fn (EloquenceContestParticipant $participant) => sprintf('Modifier <b>%s</b>', $participant->getFullname()))
+            ->setPageTitle('edit', fn (EloquenceContestParticipant $participant) => sprintf('Modifier <b>%s</b>', $participant->__toString()))
             ->setPageTitle('new', "Créer participant au concours d'éloquence")
             ->showEntityActionsInlined()
             ->setSearchFields(null)

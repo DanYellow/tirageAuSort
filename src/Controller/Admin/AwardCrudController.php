@@ -29,7 +29,7 @@ class AwardCrudController extends AbstractCrudController
         return $crud
             ->setPageTitle('index', 'Liste des prix')
             ->setEntityLabelInSingular('prix')
-            // ->setPageTitle('edit', fn (EloquenceContestParticipant $participant) => sprintf('Modifier <b>%s</b>', $participant->getFullname()))
+            // ->setPageTitle('edit', fn (EloquenceContestParticipant $participant) => sprintf('Modifier <b>%s</b>', $participant->__toString()))
             ->setPageTitle('new', "Créer prix")
             ->showEntityActionsInlined()
             ->setSearchFields(null)

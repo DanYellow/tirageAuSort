@@ -27,9 +27,11 @@ class EloquenceContestParticipant
     private ?string $photo = null;
 
     #[ORM\ManyToOne(inversedBy: 'participants')]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?EloquenceSubject $subject = null;
 
     #[ORM\ManyToOne(inversedBy: 'participants')]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?Formation $formation = null;
 
     #[ORM\Column]
@@ -119,10 +121,6 @@ class EloquenceContestParticipant
         $this->is_active = $is_active;
 
         return $this;
-    }
-
-    public function getFullname(): string {
-        return "{$this->getFirstname()} {$this->getLastname()}";
     }
 
     public function __toString(): string {
