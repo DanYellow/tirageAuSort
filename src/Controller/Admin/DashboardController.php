@@ -43,6 +43,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToCrud('Gestion des concours', null, EloquenceContest::class);
         yield MenuItem::subMenu('Concours d\'éloquence', null)->setSubItems([
+            MenuItem::linkToCrud('Gestion des concours', null, EloquenceContest::class),
             MenuItem::linkToCrud('Participants', null, EloquenceContestParticipant::class),
             MenuItem::linkToCrud('Sujets', null, EloquenceSubject::class),
         ]);

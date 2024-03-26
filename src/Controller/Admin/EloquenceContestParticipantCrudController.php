@@ -16,8 +16,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 
-
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 
 class EloquenceContestParticipantCrudController extends AbstractCrudController
 {
@@ -78,7 +79,13 @@ class EloquenceContestParticipantCrudController extends AbstractCrudController
             ->setPageTitle('new', "Créer participant au concours d'éloquence")
             ->showEntityActionsInlined()
             ->setSearchFields(null)
-            // ->setEntityPermission('ROLE_EDITOR')
+        ;
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return parent::configureFilters($filters)
+        ->add(EntityFilter::new('eloquenceContest', "Concours"))
         ;
     }
 }
