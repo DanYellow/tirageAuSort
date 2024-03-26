@@ -29,11 +29,11 @@ document
 if (window.location.hash) {
     const anchorTarget = document.querySelector(window.location.hash);
     if(anchorTarget) {
-        // anchorTarget.scrollIntoView();
         window.scroll({
             top: anchorTarget.getBoundingClientRect().top - 85,
             left: 0,
             behavior: "auto",
         });
+        anchorTarget.parentNode.querySelector(".accordion-collapse").classList.add("show")
     }
 }
