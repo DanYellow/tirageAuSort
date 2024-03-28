@@ -12,7 +12,7 @@ use App\Repository\AwardRepository;
 
 class AwardsController extends AbstractController
 {
-    #[Route(['awards/{year}', '/awards'], name: 'awards', requirements: ['year' => '\d{4}'])]
+    #[Route(['awards', 'awards/{year}'], name: 'awards', requirements: ['year' => '\d{4}'])]
     public function index(AwardRepository $awardRepository, Request $request): Response
     {
         $year = $request->get('year');

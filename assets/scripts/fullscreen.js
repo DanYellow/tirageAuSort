@@ -1,6 +1,7 @@
 const btnToggleFullscreen = document.querySelector(
     "[data-btn-toggle-fullscreen]"
 );
+
 const tplFullscreenBtnRaw = document.querySelector(
     "[data-tpl-id='fullscreen']"
 );

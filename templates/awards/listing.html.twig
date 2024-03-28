@@ -26,7 +26,7 @@
                                 <li>
                                     {% set award_path = path(
                                         'awarded',
-                                        {slug: award.slug, year: 2024, category: key}
+                                        {year: 2024, category: key, slug: award.slug}
                                     ) %}
                                     <a href="{{ award_path }}">
                                         {{award.title}}
@@ -53,4 +53,5 @@
             {% include 'front/components/footer-content.html.twig' %}
         </footer>
     </main>
+    {% include 'drawing_eloquence/templates.html.twig' %}
 {% endblock %}
