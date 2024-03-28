@@ -20,7 +20,7 @@ enum AwardCategory: string {
 #[ORM\Entity(repositoryClass: AwardRepository::class)]
 #[ORM\UniqueConstraint(
     name: 'award_unique',
-    columns: ['year', 'slug']
+    columns: ['year', 'slug', 'category']
   )]
 class Award
 {
