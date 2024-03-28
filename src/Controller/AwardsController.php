@@ -12,7 +12,7 @@ use App\Repository\AwardRepository;
 
 class AwardsController extends AbstractController
 {
-    #[Route(['awards', 'awards/{year}'], name: 'awards', requirements: ['year' => '\d{4}'])]
+    #[Route(['prix', 'prix/{year}'], name: 'awards', requirements: ['year' => '\d{4}'])]
     public function index(AwardRepository $awardRepository, Request $request): Response
     {
         $year = $request->get('year');
@@ -40,7 +40,7 @@ class AwardsController extends AbstractController
         ]);
     }
 
-    #[Route(['awards/{year}/{category}/{slug}'], name: 'awarded', requirements: ['year' => '\d{4}'])]
+    #[Route(['prix/{year}/{category}/{slug}'], name: 'awarded', requirements: ['year' => '\d{4}'])]
     public function awarded(AwardRepository $awardRepository, Request $request): Response
     {
         $year = $request->get('year');

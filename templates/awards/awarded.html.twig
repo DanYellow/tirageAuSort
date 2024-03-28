@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Prix
+{% block title %}Prix du {{ award.category.value }} {{ award.title }} {{ award.year }} 
 {% endblock %}
 {% block head %}
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -58,23 +58,24 @@
                     <span class="text-2xl">
                         Festival Les Talents de l'IUT {{ award.year }}
                     </span><br>
-                    <span class="text-3xl relative z-10">Prix du {{ award.category.value }}</span><br>
-                    <span class="bg-blue-700 text-white font-bold px-2 py-0.5 text-3xl lg:text-5xl">{{ award.title }}
-                    </span>
+                    {# <span class="text-8xl relative z-10">Prix du {{ award.category.value }}</span><br>
+                    <span class="bg-blue-700 text-white font-bold px-2 py-0.5 text-3xl lg:text-9xl">{{ award.title }}</span> #}
                     {# <span class="text-2xl">Prix du {{ award.category.value }} {{ award.year }}</span><br>
                     <span class="text-3xl lg:text-5xl bg-blue-700 text-white font-bold px-2 py-0.5">{{ award.title }}</span> #}
                 </h1>
-                <section class="flex gap-x-6 flex-wrap">
-                    <img class="w-10 lg:w-20 object-contain" src="{{ asset('images/logo-cyu.png') }}" alt="Logo CY IUT">
-                    <img class="w-10 lg:w-20 object-contain" src="{{ asset('images/logo-mmi.png') }}" alt="Logo MMI">
-                    <img class="w-10 lg:w-20 object-contain" src="{{ asset('images/logo-talents-iut.png') }}" alt="Logo Les talents de l'IUT">
-                </section>
+                {% include 'front/components/logos.html.twig' %}
             </header>
 
             {# {% for awarded in award.listWinners %}
                 {{awarded.firstname}} {{awarded.lastname}} 
             {% endfor %} #}
-
+            <div class="mt-6">
+                {% include 'front/components/laurel-icon.html.twig' %}
+                <h1 class="text-center">
+                    <span class="text-8xl relative z-10">Prix du {{ award.category.value }}</span><br>
+                    <span class="bg-blue-700 text-white font-bold px-2 py-0.5 text-3xl lg:text-9xl">{{ award.title }}</span>
+                </h1>
+            </div>
         </section>
         <footer class="lg:col-span-2 lg:col-start-1 lg:row-start-2 bg-blue-700 text-white text-center flex justify-center flex-col">
             {% include 'front/components/footer-content.html.twig' %}
