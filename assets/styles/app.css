@@ -68,3 +68,16 @@ html {
     background-color: theme("colors.blue.700");
     transform: translateX(-50%);
 }
+
+/* position: fixed;
+  right: -50%;
+  bottom: -11%;
+  z-index: -1;
+  width: 65%;
+  aspect-ratio: 121/100;
+  background-image: url(/build/images/image-article.tmp.14b38a01.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  mask: url(/build/images/bulle.2de84ca7.svg) no-repeat center / contain;
+  -webkit-mask: url(/build/images/bulle.2de84ca7.svg) no-repeat center / contain;
+  transform: scaleX(-1) translateX(22%); */

@@ -1,13 +1,21 @@
 import TomSelect from "tom-select";
+import TomSelect_remove_button from 'tom-select/dist/js/plugins/remove_button.js';
+TomSelect.define('remove_button', TomSelect_remove_button);
+
 
 import "./bootstrap.js";
 
 import "./styles/admin.css";
 
+const tomSelectOptions = {
+    allowEmptyOption: true,
+    plugins: ['clear_button'],
+}
+
 document
     .querySelectorAll("select[id^='EloquenceContest_participants_']")
     .forEach((item) => {
-        new TomSelect(item, {});
+        new TomSelect(item, tomSelectOptions);
     });
 
 document
@@ -20,7 +28,7 @@ document
                 )
                 .forEach((item) => {
                     if (!item.classList.contains("tomselected")) {
-                        new TomSelect(item, {});
+                        new TomSelect(item, tomSelectOptions);
                     }
                 });
         }, 50);
