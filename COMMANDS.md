@@ -12,3 +12,4 @@
 - php bin/console importmap:install
 
 https://symfony.com/bundles/EasyAdminBundle/current/fields.html
+https://github.com/EasyCorp/EasyAdminBundle/issues/4494

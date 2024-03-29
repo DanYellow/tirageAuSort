@@ -3,7 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Award;
-
+use App\Form\Field\AwardTitleField;
+use App\Form\Type\AwardTitleType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -33,6 +34,7 @@ class AwardCrudController extends AbstractCrudController
             ->setPageTitle('new', "Créer prix")
             ->showEntityActionsInlined()
             ->setSearchFields(null)
+            ->addFormTheme('back/award-title-input.html.twig')
             // ->setEntityPermission('ROLE_EDITOR') , cascade={"persist"}
         ;
     }
@@ -40,8 +42,12 @@ class AwardCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
-            TextField::new('title'),
+            IdField::new('id')->onlyOnIndex(),
+            TextField::new('title', "Titre")
+                ->setFormType(AwardTitleType::class)
+                ->onlyOnForms(),
+            // AwardTitleField::new('title', "Titre"),
+            TextField::new('title', "Titre")->onlyOnIndex(),
             ChoiceField::new('year', 'Année du concours')->setChoices($this->generateYears()),
             ChoiceField::new("category", "Type de prix"),
             CollectionField::new('list_winners', "Vainqueurs")
