@@ -47,11 +47,7 @@
 					<span class="text-2xl lg:text-3xl">Festival Les Talents de l'IUT</span><br>
 					<span class="text-3xl lg:text-5xl">Concours d'éloquence {{ current_year }}🎤</span>
 				</h1>
-				<section class="flex gap-x-6 flex-wrap">
-					<img class="w-10 lg:w-20 object-contain" src="{{ asset('images/logo-cyu.png') }}" alt="Logo CY IUT">
-					<img class="w-10 lg:w-20 object-contain" src="{{ asset('images/logo-mmi.png') }}" alt="Logo MMI">
-					<img class="w-10 lg:w-20 object-contain" src="{{ asset('images/logo-talents-iut.png') }}" alt="Logo Les talents de l'IUT">
-				</section>
+				{% include 'front/components/logos.html.twig' %}
 			</header>
 			<div>
 				<div class="mt-12 mb-6 text-transparent" data-participant>
@@ -60,7 +56,9 @@
 					<p class="text-2xl fullscreen:text-3xl bg-blue-700 text-white w-fit px-2 py-1 mt-3 hidden" data-participant-subject>La fin est-elle un nouveau départ ?</p>
 				</div>
 
-			</div>
+                {# <article data-participant-photo class="bulle-icone"></article>
+                <article class="bulle-icone-bordure"></article> #}
+            </div>
 		</section>
 		<footer class="lg:col-span-2 lg:col-start-1 lg:row-start-2 bg-blue-700 text-white text-center flex justify-center flex-col">
 			{% include 'front/components/footer-content.html.twig' %}

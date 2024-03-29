@@ -37,3 +37,34 @@ html {
         }
     }
 }
+
+.bulle-icone {
+    position: absolute;
+    left: 50%;
+    top: 200px;
+    z-index: -1;
+    width: 65%;
+    aspect-ratio: 121/100;
+    background-image: url("../../public/images/image-article.tmp.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    mask: url("../../public/images/bulle.svg") no-repeat center / contain;
+    -webkit-mask: url("../../public/images/bulle.svg") no-repeat center /
+        contain;
+    transform: translateX(-50%);
+}
+
+.bulle-icone-bordure {
+    position: absolute;
+    left: 48.5%;
+    top: 185px;
+    z-index: -1;
+    width: 65%;
+    aspect-ratio: 121/100;
+    mask: url("../../public/images/bulle-bordure.svg") no-repeat center / contain;
+    -webkit-mask: url("../../public/images/bulle-bordure.svg") no-repeat center /
+        contain;
+    mix-blend-mode: normal;
+    background-color: theme("colors.blue.700");
+    transform: translateX(-50%);
+}

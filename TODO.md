@@ -1,0 +1,2 @@
+- Display in realtime result of award on page
+- 

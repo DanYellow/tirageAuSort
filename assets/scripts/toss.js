@@ -8,6 +8,7 @@ const listParticipantsContainer = document.querySelector(
 );
 const participantContainer = document.querySelector("[data-participant]");
 const participantName = document.querySelector("[data-participant-name]");
+const participantPhoto = document.querySelector("[data-participant-photo]");
 const participantSubject = document.querySelector("[data-participant-subject]");
 const participantFormation = document.querySelector(
     "[data-participant-formation]"
@@ -62,6 +63,13 @@ const displayParticipant = () => {
         { opacity: 0, ease: "power2.out", translateY: "20px" },
         { opacity: 1, ease: "power2.out", translateY: "0px", duration: 0.5 }
     );
+
+    // gsap.fromTo(
+    //     participantPhoto,
+    //     { opacity: 0, ease: "power2.out", translateY: "-20px" },
+    //     { opacity: 1, ease: "power2.out", translateY: "0px", duration: 0.5 }
+    // );
+
     listParticipants.splice(randomIndex, 1);
     nbRemainingParticipants.textContent = listParticipants.length;
 
