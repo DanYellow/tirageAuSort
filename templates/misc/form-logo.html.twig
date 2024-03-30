@@ -27,10 +27,12 @@
 		<tbody>
 			<tr>
 				<td>
-					<img src="" alt="" width="200">
+                    <div class="flex justify-center items-center h-full">
+					    <img src="" alt="" width="200" data-logo-img>
+                    </div>
 				</td>
 				<td>
-					<div class="flex justify-center">
+					<div class="flex justify-center items-center h-full">
                         <img width="200" src="{{ asset("images/logo-talents-iut.png")}}" alt="">
                     </div>
 				</td>
@@ -55,16 +57,5 @@
 			</tr>
 		</tbody>
 	</table>
-	{# <div class="field-text form-group">
-		{{ form_label(form.logo) }}
-		<div class="form-widget">
-			{{ form_widget(form.logo) }}
-			<small class="form-text form-help">{{ form_help(form.logo) }}</small>
-		</div>
-		<div class="form-error">
-			{{ form_errors(form.logo) }}
-		</div>
-	</div> #}
 	{{ form_end(form) }}
-	{# {{ form(form, {'attr': {'id': 'form_edit_logo'}}) }} #}
 {% endblock %}

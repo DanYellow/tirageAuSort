@@ -23,9 +23,7 @@ class MiscController extends DashboardController
     #[Route('/festi-admin/misc/', name: 'admin_misc')]
     public function index(): Response
     {
-        return $this->render('misc/index.html.twig', [
-            'controller_name' => 'MiscController',
-        ]);
+        return $this->render('misc/index.html.twig');
     }
 
     #[Route('/festi-admin/misc/logo', name: 'admin_misc_update_logo')]
@@ -38,6 +36,7 @@ class MiscController extends DashboardController
                 "attr" => [
                     "class" => "form-control",
                     "data-logo-input" => null,
+                    'accept' => '.png, .jpg, .jpeg',
                 ],
                 "label_attr" => ["class" => "form-control-label required"],
                 "label" => "Logo",
