@@ -58,7 +58,7 @@ class MiscController extends DashboardController
 
             try {
                 $logoFile->move(
-                    "images",
+                    $this->getParameter('images_directory'),
                     "logo-talents-iut.png"
                 );
             } catch (FileException $e) {
