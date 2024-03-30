@@ -45,11 +45,9 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Participants', null, EloquenceContestParticipant::class),
             MenuItem::linkToCrud('Sujets', null, EloquenceSubject::class),
         ]);
-        yield MenuItem::section();
         yield MenuItem::linkToCrud('Prix', null, Award::class);
-        yield MenuItem::section();
         yield MenuItem::linkToCrud('Formations', null, Formation::class);
-        yield MenuItem::section();
+        yield MenuItem::linkToRoute('Divers', null, "admin_misc");
         yield MenuItem::linkToRoute('Accéder au site', null, "index")
             ->setLinkTarget('_blank');
         yield MenuItem::section();
