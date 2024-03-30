@@ -1,31 +1,9 @@
-{% block award_title_row %}
-	{{ dump(form)}}
-	{{ dump(form.vars.attr.type)}}
-    <div class="">
-        <div class="form-group">
-            <label class="form-control-label" for="{{ form.vars.id }}">{{ form.vars.label }}</label>
-            <div class="form-widget">
-                <input 
-                    class="form-control"
-                    type="{{ form.vars.attr.type }}"
-                    id="{{ form.vars.id }}"
-                    name="{{ form.vars.full_name }}"
-                    {{ block('widget_attributes') }} 
-                    {% if form.vars.value is not empty %} 
-                        value="{{ form.vars.value }}" 
-                    {% endif %}
-                />
-            </div>
-        </div>
-    </div>
-    {# {{ form_row(form.title) }} #}
-    {{ form_errors(form) }}
-{% endblock %}
-{% block award_title_label %}ggegeez
-{% endblock %}
-{% block award_title_widget %}
-	{# {{ dump(form)}}
-	{{ form_widget(form.title) }} #}
-
-	{# <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %} value="{{ value }}" {% endif %}/> #}
+{% block _Award_custom_title_widget %}
+	{{ form_widget(form) }}
+	<div>
+		<p>Affichage sur le site :
+			<b>Prix<span data-computed-award-display>
+				{{ form.vars.value }}</span></b>
+		</p>
+	</div>
 {% endblock %}

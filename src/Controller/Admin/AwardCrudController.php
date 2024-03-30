@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Award;
-use App\Form\Field\AwardTitleField;
 use App\Form\Type\AwardTitleType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -30,12 +29,11 @@ class AwardCrudController extends AbstractCrudController
         return $crud
             ->setPageTitle('index', 'Liste des prix')
             ->setEntityLabelInSingular('prix')
-            // ->setPageTitle('edit', fn (EloquenceContestParticipant $participant) => sprintf('Modifier <b>%s</b>', $participant->__toString()))
+            ->setPageTitle('edit', fn (Award $participant) => sprintf('Modifier prix <b>%s</b>', $participant->__toString()))
             ->setPageTitle('new', "Créer prix")
             ->showEntityActionsInlined()
             ->setSearchFields(null)
-            ->addFormTheme('back/award-title-input.html.twig')
-            // ->setEntityPermission('ROLE_EDITOR') , cascade={"persist"}
+            ->setFormThemes(['back/award-title-input.html.twig', '@EasyAdmin/crud/form_theme.html.twig'])
         ;
     }
 
@@ -43,15 +41,14 @@ class AwardCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->onlyOnIndex(),
-            TextField::new('title', "Titre")
-                ->setFormType(AwardTitleType::class)
-                ->onlyOnForms(),
-            // AwardTitleField::new('title', "Titre"),
-            TextField::new('title', "Titre")->onlyOnIndex(),
+            TextField::new('title', "Titre")->setFormTypeOptions([
+                'block_name' => 'custom_title',
+                'attr' => ['data-award-title' => null],
+            ]),
             ChoiceField::new('year', 'Année du concours')->setChoices($this->generateYears()),
             ChoiceField::new("category", "Type de prix"),
-            CollectionField::new('list_winners', "Vainqueurs")
-                ->useEntryCrudForm(WinnerCrudController::class),
+            // CollectionField::new('list_winners', "Vainqueurs")
+            //     ->useEntryCrudForm(WinnerCrudController::class),
         ];
     }
 
