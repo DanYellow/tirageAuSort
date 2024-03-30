@@ -10,9 +10,16 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\Image;
 
 class MiscController extends DashboardController
 {
+    private const MIME_TYPES = [
+        'image/png',
+        'image/jpg',
+        'image/jpeg',
+    ];
+
     #[Route('/festi-admin/misc/', name: 'admin_misc')]
     public function index(): Response
     {
@@ -27,11 +34,19 @@ class MiscController extends DashboardController
         $defaultData = ['message' => 'Type your message here'];
 
         $form = $this->createFormBuilder($defaultData)
-            ->add('task', FileType::class, [
+            ->add('logo', FileType::class, [
                 "attr" => ["class" => "form-control"],
+                "label_attr" => ["class" => "form-control-label required"],
                 "label" => "Image",
+                'required' => false,
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '2M', // 3048k
+                        'mimeTypes' => MiscController::MIME_TYPES,
+                        'mimeTypesMessage' => 'Merci de bien vouloir uploader une image correcte',
+                    ])
+                ],
             ])
-            ->add('save', SubmitType::class, ['label' => 'Create Task'])
             ->getForm();
 
         if ($form->isSubmitted()) {

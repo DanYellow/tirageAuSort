@@ -1,5 +1,26 @@
+{# {% extends '@EasyAdmin/crud/edit.html.twig' %} #}
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
-{% block page_content %}
-    {{ form(form) }}
+{% block page_actions %}
+	<button type="submit" form="form_edit_logo" class="btn btn-secondary">
+		<i class="action-icon far fa-edit"></i>
+		Sauvegarder et modifier
+	</button>
+	<button type="submit" form="form_edit_logo" class="btn btn-primary">
+		Sauvegarder les modifications
+	</button>
+{% endblock %}
+
+{% block content_title %}
+	Éditer le logo du festival
+{% endblock %}
+
+{% block main %}
+	{{ form_start(form, {'attr': {'id': 'form_edit_logo'}}) }}
+	<div class="field-text form-group">
+		{{ form_label(form.logo) }}
+		{{ form_widget(form.logo) }}
+	</div>
+	{{ form_end(form) }}
+	{# {{ form(form, {'attr': {'id': 'form_edit_logo'}}) }} #}
 {% endblock %}
