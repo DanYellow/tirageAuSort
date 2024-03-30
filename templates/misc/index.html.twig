@@ -6,9 +6,16 @@
 {% endblock %}
 
 {% block main %}
-    <ul>
-        <li class="text-3xl">
-            <a href="{{ path('admin_misc_update_logo' )}}">Changer le logo du festival</a>
-        </li>
-    </ul>
+	<div class="grid grid-cols-4 grid-rows-5 gap-3">
+		<a href="{{ path('admin_misc_update_logo')}}" class="flex max-w-sm p-6 bg-white border border-gray-200 rounded-lg hover:bg-gray-300 flex-col">
+			<figure class="mb-2 flex justify-center items-center">
+				<img width="200" src="{{ asset("images/logo-talents-iut.png")}}" alt="">
+			</figure>
+			<p class="font-normal text-xl text-center">Changer le logo du festival</p>
+		</a>
+		<a href="{{ path('admin_misc_update_logo')}}" class="justify-center max-w-sm p-6 bg-white border border-gray-200 rounded-lg hover:bg-gray-300 flex  flex-col">
+			<p class="font-normal text-xl text-center mt-auto">Changer le logo du festival</p>
+		</a>
+	</div>
+
 {% endblock %}
