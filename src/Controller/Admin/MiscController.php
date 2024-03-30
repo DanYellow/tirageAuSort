@@ -84,7 +84,6 @@ class MiscController extends DashboardController
             if ($form->get('saveAndReturn')->isClicked()) {
                 return $this->redirectToRoute("admin_misc");
             }
-
         }
 
         return $this->render('misc/form-logo.html.twig', [
