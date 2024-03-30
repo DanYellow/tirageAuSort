@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\Image;
 
@@ -16,8 +17,6 @@ class MiscController extends DashboardController
 {
     private const MIME_TYPES = [
         'image/png',
-        'image/jpg',
-        'image/jpeg',
     ];
 
     #[Route('/festi-admin/misc/', name: 'admin_misc')]
@@ -29,19 +28,19 @@ class MiscController extends DashboardController
     #[Route('/festi-admin/misc/logo', name: 'admin_misc_update_logo')]
     public function update_logo(Request $request): Response
     {
-        $defaultData = ['message' => 'Type your message here'];
+        $defaultData = [];
 
         $form = $this->createFormBuilder($defaultData)
             ->add('logo', FileType::class, [
                 "attr" => [
                     "class" => "form-control",
                     "data-logo-input" => null,
-                    'accept' => '.png, .jpg, .jpeg',
+                    'accept' => '.png',
                 ],
                 "label_attr" => ["class" => "form-control-label required"],
                 "label" => "Logo",
                 'required' => false,
-                'help' => "Fichiers png, jp(e)g seulement",
+                'help' => "Fichiers png en dessous de 2MB seulement",
                 'constraints' => [
                     new Image([
                         'maxSize' => '2M', // 2048k
@@ -50,12 +49,22 @@ class MiscController extends DashboardController
                     ])
                 ],
             ])
-            ->getForm()
-        ;
+            ->getForm();
 
-        if ($form->isSubmitted()) {
-            dump("ffzzzz");
-            exit;
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $logoFile = $form->get('logo')->getData();
+
+            try {
+                $logoFile->move(
+                    "images",
+                    "logo-talents-iut.png"
+                );
+            } catch (FileException $e) {
+                dump($e->getMessage());
+                // ... handle exception if something happens during file upload
+            }
         }
 
         return $this->render('misc/form-logo.html.twig', [
