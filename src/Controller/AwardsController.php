@@ -59,7 +59,7 @@ class AwardsController extends AbstractController
 
 
         return $this->render('awards/awarded.html.twig', [
-            "award" => $award[0], // [0]["list_winners"]
+            "award" => $award[0] ?? null,
             "categories" => $final_list_awards,
         ]);
     }
