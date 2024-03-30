@@ -12,8 +12,13 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\CallbackTransformer;
 
 class EloquenceContestParticipantType extends AbstractType
 {
@@ -23,19 +28,30 @@ class EloquenceContestParticipantType extends AbstractType
             'label' => 'Nom de famille',
             "label_html" => true,
             'mapped' => true,
-            'required' => true,
             'help' => 'Champ requis',
+            "label_attr" => [
+                "class" => "form-control-label required",
+            ],
+            "attr" => [
+                'required' => true,
+            ],
             'constraints' => [
                 new NotBlank(),
             ],
         ]);
+
         $builder->add('firstname', TextType::class, [
             'label' => 'Prénom',
             'mapped' => true,
-            'required' => true,
             'help' => 'Champ requis',
+            "label_attr" => [
+                "class" => "form-control-label required",
+            ],
+            "attr" => [
+                'required' => true,
+            ],
             'constraints' => [
-                new NotBlank([]),
+                new NotBlank(),
             ],
         ]);
         $builder->add('formation', EntityType::class, [
@@ -77,7 +93,6 @@ class EloquenceContestParticipantType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => EloquenceContestParticipant::class,
-            'allow_extra_fields' => true,
         ]);
     }
 

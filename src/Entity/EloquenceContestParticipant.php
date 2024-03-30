@@ -3,11 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\EloquenceContestParticipantRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
+
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EloquenceContestParticipantRepository::class)]
 class EloquenceContestParticipant
@@ -56,7 +54,7 @@ class EloquenceContestParticipant
         return $this->firstname;
     }
 
-    public function setFirstname(string $firstname): static
+    public function setFirstname(?string $firstname): static
     {
         $this->firstname = $firstname;
 
@@ -68,7 +66,7 @@ class EloquenceContestParticipant
         return $this->lastname;
     }
 
-    public function setLastname(string $lastname): static
+    public function setLastname(?string $lastname): static
     {
         $this->lastname = $lastname;
 

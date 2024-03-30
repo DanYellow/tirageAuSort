@@ -44,7 +44,7 @@
 							<small class="form-text form-help">{{ form_help(form.logo) }}</small>
 						</div>
 						<div class="form-error">
-							{{ form_errors(form.logo) }}
+							{{ form_errors(form.logo, { "attr": { "class": "invalid-feedback d-block" }}) }}
 						</div>
 					</div>
 				</td>
