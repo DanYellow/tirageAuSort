@@ -14,6 +14,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 
 class AwardCrudController extends AbstractCrudController
 {
@@ -33,8 +35,7 @@ class AwardCrudController extends AbstractCrudController
             ->setPageTitle('new', "Créer prix")
             ->showEntityActionsInlined()
             ->setSearchFields(null)
-            ->setFormThemes(['back/award-title-input.html.twig', '@EasyAdmin/crud/form_theme.html.twig'])
-        ;
+            ->setFormThemes(['back/award-title-input.html.twig', '@EasyAdmin/crud/form_theme.html.twig']);
     }
 
     public function configureFields(string $pageName): iterable
@@ -83,5 +84,21 @@ class AwardCrudController extends AbstractCrudController
         $this->addFlash("success", "<b>Prix {$entityInstance->getTitle()} ({$entityInstance->getYear()})</b> a été mis à jour");
 
         parent::persistEntity($em, $entityInstance);
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        $showAwardPage = Action::new('Voir page du prix')
+            ->linkToRoute("awards", function (Award $entity) {
+                return [
+                    "year" => $entity->getYear(),
+                    "category" => $entity->getCategory(),
+                    "slug" => $entity->getSlug(),
+                ];
+            });
+
+        return parent::configureActions($actions)
+            ->add(Crud::PAGE_INDEX, $showAwardPage);
+        ;
     }
 }
