@@ -1,8 +1,8 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
 {% block page_actions %}
-    {{ form_widget(form.saveAndContinue, {"label": "<i class='action-icon far fa-edit'></i> Sauvegarder et modifier"}) }}
-    {{ form_widget(form.saveAndReturn, {"label": "Sauvegarder les modifications"}) }}
+	{{ form_widget(form.saveAndContinue, {"label": "<i class='action-icon far fa-edit'></i> Sauvegarder et modifier"}) }}
+	{{ form_widget(form.saveAndReturn, {"label": "Sauvegarder les modifications"}) }}
 {% endblock %}
 
 {% block content_title %}
@@ -11,6 +11,7 @@
 
 {% block main %}
 	{{ form_start(form, {'attr': {'id': 'form_edit_logo'}}) }}
+	<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 	<table class="table relative table-fixed">
 		<thead>
 			<tr>
@@ -21,21 +22,21 @@
 		<tbody>
 			<tr>
 				<td>
-                    <div class="flex justify-center items-center h-[16rem]">
-					    <img src="" alt="" data-logo-img class="h-full">
-                    </div>
+					<div class="flex justify-center items-center h-[16rem]">
+						<img src="" alt="" data-logo-img class="h-full">
+					</div>
 				</td>
 				<td>
 					<div class="flex justify-center items-center h-[16rem]">
-                        <img src="{{ asset("images/logo-talents-iut.png")}}" class="h-full" alt="">
-                    </div>
+						<img src="{{ asset("images/logo-talents-iut.png")}}" class="h-full" alt="">
+					</div>
 				</td>
 			</tr>
 			<tr>
 				<td class="">
-                    <p class="absolute text-4xl right-2/4 top-2/4 translate-y-2/4 m-0">
-                        <i class="fa-solid fa-arrow-right "></i>
-                    </p>
+					<p class="absolute text-4xl right-2/4 top-2/4 translate-y-2/4 m-0">
+						<i class="fa-solid fa-arrow-right "></i>
+					</p>
 					<div class="field-text form-group">
 						{{ form_label(form.logo) }}
 						<div class="form-widget">
