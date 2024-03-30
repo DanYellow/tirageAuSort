@@ -53,6 +53,8 @@ class MiscController extends DashboardController
                 "attr" => [
                     "class" => "btn btn-primary",
                     "form" => "form_edit_logo",
+                    'label_html' => true,
+                    
                 ],
             ])
             ->add('saveAndContinue', SubmitType::class, [
@@ -60,6 +62,8 @@ class MiscController extends DashboardController
                     "form" => "form_edit_logo",
                     "class" => "btn btn-secondary",
                 ],
+                'label_html' => true,
+                // "label" => "<i class='action-icon far fa-edit'></i> Sauvegarder et modifier"
             ])
             ->getForm();
 
