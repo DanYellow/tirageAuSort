@@ -28,7 +28,7 @@ class MiscController extends DashboardController
     #[Route('/festi-admin/misc/logo', name: 'admin_misc_update_logo')]
     public function update_logo(Request $request): Response
     {
-        $defaultData = [];
+        $defaultData = ['allow_extra_fields' => true];
 
         $form = $this->createFormBuilder($defaultData)
             ->add('logo', FileType::class, [
@@ -49,6 +49,18 @@ class MiscController extends DashboardController
                     ])
                 ],
             ])
+            ->add('saveAndReturn', SubmitType::class, [
+                "attr" => [
+                    "class" => "btn btn-primary",
+                    "form" => "form_edit_logo",
+                ],
+            ])
+            ->add('saveAndContinue', SubmitType::class, [
+                "attr" => [
+                    "form" => "form_edit_logo",
+                    "class" => "btn btn-secondary",
+                ],
+            ])
             ->getForm();
 
         $form->handleRequest($request);
@@ -56,15 +68,23 @@ class MiscController extends DashboardController
         if ($form->isSubmitted() && $form->isValid()) {
             $logoFile = $form->get('logo')->getData();
 
-            try {
-                $logoFile->move(
-                    $this->getParameter('images_directory'),
-                    "logo-talents-iut.png"
-                );
-            } catch (FileException $e) {
-                dump($e->getMessage());
-                // ... handle exception if something happens during file upload
+            if ($logoFile) {
+                try {
+                    $logoFile->move(
+                        $this->getParameter('images_directory'),
+                        "logo-talents-iut.png"
+                    );
+                } catch (FileException $e) {
+                    dump($e->getMessage());
+                }
             }
+
+            $this->addFlash('success', 'Le logo a été mis à jour');
+            /** @var ClickableInterface $button  */
+            if ($form->get('saveAndReturn')->isClicked()) {
+                return $this->redirectToRoute("admin_misc");
+            }
+
         }
 
         return $this->render('misc/form-logo.html.twig', [
