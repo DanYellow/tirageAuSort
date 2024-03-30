@@ -35,19 +35,24 @@ class MiscController extends DashboardController
 
         $form = $this->createFormBuilder($defaultData)
             ->add('logo', FileType::class, [
-                "attr" => ["class" => "form-control"],
+                "attr" => [
+                    "class" => "form-control",
+                    "data-logo-input" => null,
+                ],
                 "label_attr" => ["class" => "form-control-label required"],
-                "label" => "Image",
+                "label" => "Logo",
                 'required' => false,
+                'help' => "Fichiers png, jp(e)g seulement",
                 'constraints' => [
                     new Image([
-                        'maxSize' => '2M', // 3048k
+                        'maxSize' => '2M', // 2048k
                         'mimeTypes' => MiscController::MIME_TYPES,
                         'mimeTypesMessage' => 'Merci de bien vouloir uploader une image correcte',
                     ])
                 ],
             ])
-            ->getForm();
+            ->getForm()
+        ;
 
         if ($form->isSubmitted()) {
             dump("ffzzzz");

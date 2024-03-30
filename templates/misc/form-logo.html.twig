@@ -17,10 +17,54 @@
 
 {% block main %}
 	{{ form_start(form, {'attr': {'id': 'form_edit_logo'}}) }}
-	<div class="field-text form-group">
+	<table class="table relative">
+		<thead>
+			<tr>
+				<th scope="col" class="text-center">Nouveau logo</th>
+				<th scope="col" class="text-center">Logo actuel</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<img src="" alt="" width="200">
+				</td>
+				<td>
+					<div class="flex justify-center">
+                        <img width="200" src="{{ asset("images/logo-talents-iut.png")}}" alt="">
+                    </div>
+				</td>
+			</tr>
+			<tr>
+				<td class="">
+                    <p class="absolute text-4xl right-2/4 top-2/4 translate-y-2/4">
+                        <i class="fa-solid fa-arrow-right "></i>
+                    </p>
+					<div class="field-text form-group">
+						{{ form_label(form.logo) }}
+						<div class="form-widget">
+							{{ form_widget(form.logo) }}
+							<small class="form-text form-help">{{ form_help(form.logo) }}</small>
+						</div>
+						<div class="form-error">
+							{{ form_errors(form.logo) }}
+						</div>
+					</div>
+				</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	{# <div class="field-text form-group">
 		{{ form_label(form.logo) }}
-		{{ form_widget(form.logo) }}
-	</div>
+		<div class="form-widget">
+			{{ form_widget(form.logo) }}
+			<small class="form-text form-help">{{ form_help(form.logo) }}</small>
+		</div>
+		<div class="form-error">
+			{{ form_errors(form.logo) }}
+		</div>
+	</div> #}
 	{{ form_end(form) }}
 	{# {{ form(form, {'attr': {'id': 'form_edit_logo'}}) }} #}
 {% endblock %}
