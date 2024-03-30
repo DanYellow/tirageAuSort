@@ -46,6 +46,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/festi-admin, roles: ROLE_ADMIN }
+        - { path: ^/prix, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
