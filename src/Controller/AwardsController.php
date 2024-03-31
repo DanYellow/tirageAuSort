@@ -38,7 +38,6 @@ class AwardsController extends AbstractController
             ]);
         }
 
-
         $list_awards = $awardRepository->getAwardsForYear($year);
 
         // $list_participants_json = array_map(function ($item) {
@@ -77,7 +76,6 @@ class AwardsController extends AbstractController
         foreach ($list_awards as $element) {
             $final_list_awards[$element->getCategory()->value][] = $element;
         }
-
 
         return $this->render('awards/awarded.html.twig', [
             "award" => $award[0] ?? null,

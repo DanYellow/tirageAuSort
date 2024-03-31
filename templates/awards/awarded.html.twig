@@ -1,7 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{# {% block title %}Prix du {{ award.category.value }} {{ award.title }} {{ award.year }} 
-{% endblock %} #}
+{% block title %}
+    {% if award %} 
+        Prix du {{ award.category.value }} {{ award.title }} {{ award.year }}
+    {% else %}
+        Ce prix n'existe pas 
+    {% endif %}
+{% endblock %}
 {% block head %}
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -11,7 +16,7 @@
 {% endblock %}
 
 {% block body %}
-    <main class="grid min-h-full grid-cols-1 lg:grid-cols-[20%_auto] lg:grid-rows-[auto_70px] grid-rows-[350px_auto_60px] transition-grid-template-columns" data-grid-main-layout>
+    <main class="grid min-h-full grid-cols-1 lg:grid-cols-[22%_auto] lg:grid-rows-[auto_70px] grid-rows-[350px_auto_60px] transition-grid-template-columns" data-grid-main-layout>
         <aside class="bg-blue-50 pb-12 pt-8 flex flex-col px-10 @container" data-side-menu="">
             <h1 class="fullscreen:text-4xl text-3xl mb-4 flex justify-between items-center z-10" data-title>
                 <span>Liste des prix </span>
