@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page non trouvée
+{% endblock %}
+
+{% block body %}
+<main class="">
+    <header class="pb-12 pt-8 px-10 pl-12 flex justify-between flex-col-reverse lg:flex-row bg-blue-50">
+        <h1 class="h-fit">
+            <span class="text-2xl lg:text-3xl">Festival Les Talents de l'IUT</span><br>
+            <span class="text-3xl lg:text-5xl">Page non trouvée</span>
+        </h1>
+        {% include 'front/components/logos.html.twig' %}
+    </header>
+
+    <p class="pb-12 pt-8 px-10 pl-12">
+        <a href="{{ path('homepage') }}" class="text-blue-600 hover:text-blue-900">Retourner à la page d'accueil</a>
+    </p>
+</main>
+{% endblock %}

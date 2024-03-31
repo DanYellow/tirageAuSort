@@ -1,2 +1,2 @@
 - ~~Display in realtime result of award on page~~
-- 
+- Fix navigation problem (Update EA ?)

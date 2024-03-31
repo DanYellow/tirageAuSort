@@ -40,7 +40,6 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        // yield MenuItem::linkToCrud('Gestion des concours', null, EloquenceContest::class);
         yield MenuItem::subMenu('Concours d\'éloquence', "fa-solid fa-trophy")->setSubItems([
             MenuItem::linkToCrud('Gestion des concours', null, EloquenceContest::class),
             MenuItem::linkToCrud('Participants', null, EloquenceContestParticipant::class),
@@ -49,7 +48,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Prix', "fa-solid fa-award", Award::class);
         yield MenuItem::linkToCrud('Formations', "fa-solid fa-certificate", Formation::class);
         yield MenuItem::linkToRoute('Divers', "fa-solid fa-gear", "admin_misc");
-        yield MenuItem::linkToRoute('Accéder au site', "fa-solid fa-globe", "index")
+        yield MenuItem::linkToRoute('Accéder au site', "fa-solid fa-globe", "homepage")
             ->setLinkTarget('_blank');
         yield MenuItem::section();
         yield MenuItem::linkToLogout('Déconnexion', 'fa fa-sign-out');
