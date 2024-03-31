@@ -34,6 +34,7 @@ class DashboardController extends AbstractDashboardController
         return Dashboard::new()
             ->setTranslationDomain('admin')
             ->setTitle('<img src="images/logo-talents-iut.png" alt="" width="60" /><br/><span>Festival Les Talents de l\'IUT - Administration</span>')
+            ->setFaviconPath('images/favicon-admin.png')
             ->disableDarkMode();
     }
 
