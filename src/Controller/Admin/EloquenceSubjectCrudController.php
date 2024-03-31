@@ -28,7 +28,7 @@ class EloquenceSubjectCrudController extends AbstractCrudController
             ->setPageTitle('new', "Créer sujet pour concours d'éloquence")
             ->showEntityActionsInlined()
             ->setSearchFields(null)
-            ->setDefaultSort(['title' => 'ASC', 'year' => 'ASC'])
+            ->setDefaultSort(['year' => 'DESC', 'title' => 'ASC'])
         ;
     }
 

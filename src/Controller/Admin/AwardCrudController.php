@@ -88,7 +88,7 @@ class AwardCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
-        $showAwardPage = Action::new('Voir page du prix')
+        $showAwardPage = Action::new('Voir page')
             ->linkToRoute("awards", function (Award $entity) {
                 return [
                     "year" => $entity->getYear(),
