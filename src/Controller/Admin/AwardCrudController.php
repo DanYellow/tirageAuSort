@@ -43,9 +43,13 @@ class AwardCrudController extends AbstractCrudController
         return $crud
             ->setPageTitle('index', 'Liste des prix')
             ->setEntityLabelInSingular('prix')
-            ->setPageTitle('edit', fn (Award $participant) => sprintf('Modifier prix <b>%s</b>', $participant->__toString()))
+            ->setPageTitle('edit', function (Award $participant) {
+                if(parent::getContext()->getRequest()->query->has('is_duplicate')) {
+                    return "Créer prix";
+                }
+                return sprintf('Modifier prix <b>%s</b>', $participant->__toString());
+            })
             ->setPageTitle('new', "Créer prix")
-            // ->setPageTitle('clone', "Créer prix z")
             ->showEntityActionsInlined()
             ->setSearchFields(null)
             ->setFormThemes(['back/award-title-input.html.twig', '@EasyAdmin/crud/form_theme.html.twig']);
@@ -79,7 +83,7 @@ class AwardCrudController extends AbstractCrudController
         $slugger = new AsciiSlugger();
         $entityInstance->setSlug($slugger->slug($entityInstance->getTitle()));
 
-        $this->addFlash("success", "<b>Prix {$entityInstance->getTitle()} ({$entityInstance->getYear()})</b> a été crée");
+        $this->addFlash("success", "<b>Prix {$entityInstance->getCategory()->value} {$entityInstance->getTitle()} ({$entityInstance->getYear()})</b> a été crée");
 
         parent::persistEntity($em, $entityInstance);
     }
@@ -90,7 +94,7 @@ class AwardCrudController extends AbstractCrudController
             $entity = $context->getEntity()->getInstance();
             /** @var Entity $cloned */
             $cloned = clone $entity;
-            
+
             $context->getEntity()->setInstance($cloned);
         }
 
@@ -112,7 +116,7 @@ class AwardCrudController extends AbstractCrudController
         // $slugger = new AsciiSlugger();
         // $entity->setSlug($slugger->slug($entity->getTitle()));
         // $request = parent::getContext()->getRequest()->query->has('is_duplicate');
-        if(parent::getContext()->getRequest()->query->has('is_duplicate')) {
+        if (parent::getContext()->getRequest()->query->has('is_duplicate')) {
             $slugger = new AsciiSlugger();
             $entityInstance->setSlug($slugger->slug($entityInstance->getTitle()));
         }
@@ -122,22 +126,26 @@ class AwardCrudController extends AbstractCrudController
         $em->flush();
 
         if ($entityInstance->getId() === $original_id) {
-            $this->addFlash("success", "<b>Prix {$entityInstance->getTitle()} ({$entityInstance->getYear()})</b> a été mis à jour");
-        } else {
+            $this->addFlash("success", "<b>Prix {$entityInstance->getCategory()->value} {$entityInstance->getTitle()} ({$entityInstance->getYear()})</b> a été mis à jour");
         }
     }
 
     protected function getRedirectResponseAfterSave(AdminContext $context, string $action): RedirectResponse
     {
+        $entity = $context->getEntity()->getInstance();
         $url = $this->adminUrlGenerator
             ->setAction(Action::EDIT)
-            ->setEntityId($context->getEntity()->getInstance()->getId())
+            ->setEntityId($entity->getId())
             ->unset("is_duplicate")
             ->generateUrl();
 
+        if (parent::getContext()->getRequest()->query->has('is_duplicate')) {
+            $this->addFlash("success", "<b>Prix du {$entity->getCategory()->value} {$entity->getTitle()} ({$entity->getYear()})</b> a été crée");
+        }
+
         return $this->redirect($url);
 
-        return parent::getRedirectResponseAfterSave($context, $action);
+        // return parent::getRedirectResponseAfterSave($context, $action);
     }
 
     public function configureActions(Actions $actions): Actions
