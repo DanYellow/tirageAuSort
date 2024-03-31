@@ -23,6 +23,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+use function Symfony\Component\Translation\t;
+
 class AwardCrudController extends AbstractCrudController
 {
     use Trait\ListYearsTrait;
@@ -47,7 +49,7 @@ class AwardCrudController extends AbstractCrudController
             ->setPageTitle('index', 'Liste des prix')
             ->setEntityLabelInSingular('prix')
             ->setPageTitle('edit', function (Award $participant) {
-                if(parent::getContext()->getRequest()->query->has('is_duplicate')) {
+                if (parent::getContext()->getRequest()->query->has('is_duplicate')) {
                     return "Créer prix";
                 }
                 return sprintf('Modifier prix <b>%s</b>', $participant->__toString());
@@ -136,19 +138,43 @@ class AwardCrudController extends AbstractCrudController
     protected function getRedirectResponseAfterSave(AdminContext $context, string $action): RedirectResponse
     {
         $entity = $context->getEntity()->getInstance();
-        $url = $this->adminUrlGenerator
-            ->setAction(Action::EDIT)
-            ->setEntityId($entity->getId())
-            ->unset("is_duplicate")
-            ->generateUrl();
 
+        $submitButtonName = $context->getRequest()->request->all()['ea']['newForm']['btn'];
+        // dd($submitButtonName);
+        // exit;
+        // saveAndReturn
         if (parent::getContext()->getRequest()->query->has('is_duplicate')) {
             $this->addFlash("success", "<b>Prix du {$entity->getCategory()->value} {$entity->getTitle()} ({$entity->getYear()})</b> a été crée");
+
+            $url = $this->adminUrlGenerator
+                ->setAction(Action::NEW)
+                ->unset("is_duplicate")
+                ->generateUrl();
+            if ($submitButtonName === Action::SAVE_AND_RETURN) {
+                $url = $this->adminUrlGenerator
+                    ->setAction(Action::INDEX)
+                    ->unset("is_duplicate")
+                    ->generateUrl();
+            }
+            return $this->redirect($url);
         }
 
-        return $this->redirect($url);
+        // $url = match ($submitButtonName) {
+        //     Action::SAVE_AND_CONTINUE => $this->container->get(AdminUrlGenerator::class)
+        //         ->setAction(Action::EDIT)
+        //         ->setEntityId($entity->getId())
+        //         ->unset("is_duplicate")
+        //         ->generateUrl(),
+        //     Action::SAVE_AND_RETURN => $context->getReferrer()
+        //         ?? $this->container->get(AdminUrlGenerator::class)->setAction(Action::INDEX)->generateUrl(),
+        // }
 
-        // return parent::getRedirectResponseAfterSave($context, $action);
+        // if (parent::getContext()->getRequest()->query->has('is_duplicate')) {
+        // }
+
+        
+
+        return parent::getRedirectResponseAfterSave($context, $action);
     }
 
     public function configureActions(Actions $actions): Actions
@@ -182,17 +208,16 @@ class AwardCrudController extends AbstractCrudController
             ->add(Crud::PAGE_INDEX, $showAwardPage)
             ->add(Crud::PAGE_INDEX, $duplicate)
             ->update(Crud::PAGE_EDIT, Action::SAVE_AND_RETURN, function (Action $action) {
-                if($this->request->getCurrentRequest()->query->has('is_duplicate')) {
-                    return $action->setLabel(Action::SAVE_AND_RETURN);
+                if ($this->request->getCurrentRequest()->query->has('is_duplicate')) {
+                    return $action->setLabel(t("action.create", domain: 'EasyAdminBundle'))->setIcon(null);
                 }
                 return $action;
             })
             ->update(Crud::PAGE_EDIT, Action::SAVE_AND_CONTINUE, function (Action $action) {
-                if($this->request->getCurrentRequest()->query->has('is_duplicate')) {
-                    return $action->setLabel(Action::SAVE_AND_CONTINUE);
+                if ($this->request->getCurrentRequest()->query->has('is_duplicate')) {
+                    return $action->setLabel(t("action.create_and_add_another", domain: 'EasyAdminBundle'))->setIcon(null);
                 }
                 return $action;
-            })
-        ;
+            });
     }
 }
