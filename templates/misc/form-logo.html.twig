@@ -9,7 +9,8 @@
 {% endblock %}
 
 {% block content_title %}
-	Éditer le logo du festival
+	Éditer le logo du festival<br>
+    
 {% endblock %}
 
 {% block head_stylesheets %}
@@ -62,4 +63,7 @@
 		</tbody>
 	</table>
 	{{ form_end(form) }}
+    <p class="text-sm font-normal">
+        Affiché sur les pages du <a class="text-blue-700 underline" target="_blank" href="{{ path("homepage") }}">tirage au sort</a>, des <a class="text-blue-700 underline" target="_blank" href="{{ path("awards") }}">prix</a> et comme favicon sur les pages suscitées.
+    </p>
 {% endblock %}
