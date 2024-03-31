@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Page non trouvée
+{% block title %}Erreur {{ status_code }} - {{ status_text }}
 {% endblock %}
 
 {% block body %}
@@ -8,7 +8,7 @@
     <header class="pb-12 pt-8 px-10 pl-12 flex justify-between flex-col-reverse lg:flex-row bg-blue-50">
         <h1 class="h-fit">
             <span class="text-2xl lg:text-3xl">Festival Les Talents de l'IUT</span><br>
-            <span class="text-3xl lg:text-5xl">Page non trouvée</span>
+            <span class="text-3xl lg:text-5xl">Erreur {{ status_code }} - {{ status_text }}</span>
         </h1>
         {% include 'front/components/logos.html.twig' %}
     </header>
