@@ -4,6 +4,11 @@
 	Divers
 {% endblock %}
 
+{% block head_stylesheets %}
+    {{ encore_entry_link_tags('tailwindcss') }}
+    {{ parent() }}
+{% endblock %}
+
 {% block main %}
 	<div class="grid grid-cols-4 grid-rows-5 gap-3">
 		<a href="{{ path('admin_misc_update_logo')}}" class="flex max-w-sm p-6 bg-white border border-gray-200 rounded-lg hover:bg-gray-300 flex-col">

@@ -24,6 +24,9 @@ module.exports = {
                 110: "40rem",
                 120: "54rem",
             },
+            colors: {
+                "btn-primary": "#5368d5",
+            },
         },
     },
     plugins: [containerQueries],

@@ -51,10 +51,8 @@ class MiscController extends DashboardController
             ])
             ->add('saveAndReturn', SubmitType::class, [
                 "attr" => [
-                    "class" => "btn btn-primary",
+                    "class" => "btn btn-primary bg-btn-primary",
                     "form" => "form_edit_logo",
-                    'label_html' => true,
-                    
                 ],
             ])
             ->add('saveAndContinue', SubmitType::class, [

@@ -2,11 +2,19 @@
 
 {% block page_actions %}
 	{{ form_widget(form.saveAndContinue, {"label": "<i class='action-icon far fa-edit'></i> Sauvegarder et modifier"}) }}
-	{{ form_widget(form.saveAndReturn, {"label": "Sauvegarder les modifications"}) }}
+	{{ form_widget(form.saveAndReturn, {
+        "label": "Sauvegarder les modifications",
+        "class": "btn btn-primary bg-btn-primary",
+    }) }}
 {% endblock %}
 
 {% block content_title %}
 	Éditer le logo du festival
+{% endblock %}
+
+{% block head_stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('tailwindcss') }}
 {% endblock %}
 
 {% block main %}
