@@ -2,9 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Controller\AwardsController;
 use App\Entity\Award;
-use App\Form\Type\AwardTitleType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -18,7 +16,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
-use EasyCorp\Bundle\EasyAdminBundle\Field\HiddenField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -118,9 +115,6 @@ class AwardCrudController extends AbstractCrudController
 
         $original_id = $entityInstance->getId();
 
-        // $slugger = new AsciiSlugger();
-        // $entity->setSlug($slugger->slug($entity->getTitle()));
-        // $request = parent::getContext()->getRequest()->query->has('is_duplicate');
         if (parent::getContext()->getRequest()->query->has('is_duplicate')) {
             $slugger = new AsciiSlugger();
             $entityInstance->setSlug($slugger->slug($entityInstance->getTitle()));
@@ -138,11 +132,8 @@ class AwardCrudController extends AbstractCrudController
     protected function getRedirectResponseAfterSave(AdminContext $context, string $action): RedirectResponse
     {
         $entity = $context->getEntity()->getInstance();
-
         $submitButtonName = $context->getRequest()->request->all()['ea']['newForm']['btn'];
-        // dd($submitButtonName);
-        // exit;
-        // saveAndReturn
+
         if (parent::getContext()->getRequest()->query->has('is_duplicate')) {
             $this->addFlash("success", "<b>Prix du {$entity->getCategory()->value} {$entity->getTitle()} ({$entity->getYear()})</b> a été crée");
 
@@ -158,21 +149,6 @@ class AwardCrudController extends AbstractCrudController
             }
             return $this->redirect($url);
         }
-
-        // $url = match ($submitButtonName) {
-        //     Action::SAVE_AND_CONTINUE => $this->container->get(AdminUrlGenerator::class)
-        //         ->setAction(Action::EDIT)
-        //         ->setEntityId($entity->getId())
-        //         ->unset("is_duplicate")
-        //         ->generateUrl(),
-        //     Action::SAVE_AND_RETURN => $context->getReferrer()
-        //         ?? $this->container->get(AdminUrlGenerator::class)->setAction(Action::INDEX)->generateUrl(),
-        // }
-
-        // if (parent::getContext()->getRequest()->query->has('is_duplicate')) {
-        // }
-
-        
 
         return parent::getRedirectResponseAfterSave($context, $action);
     }
