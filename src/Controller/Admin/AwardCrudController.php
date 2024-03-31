@@ -21,6 +21,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Field\HiddenField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class AwardCrudController extends AbstractCrudController
 {
@@ -32,10 +33,12 @@ class AwardCrudController extends AbstractCrudController
     }
 
     private $adminUrlGenerator;
+    private $request;
 
-    public function __construct(AdminUrlGenerator $adminUrlGenerator)
+    public function __construct(AdminUrlGenerator $adminUrlGenerator, RequestStack $requestStack)
     {
         $this->adminUrlGenerator = $adminUrlGenerator;
+        $this->request = $requestStack;
     }
 
     public function configureCrud(Crud $crud): Crud
@@ -150,6 +153,8 @@ class AwardCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
+        parent::configureActions($actions);
+
         $showAwardPage = Action::new('Voir page')
             ->setIcon('fa fa-eye')
             ->linkToRoute("awards", function (Award $entity) {
@@ -170,8 +175,24 @@ class AwardCrudController extends AbstractCrudController
                     ->generateUrl()
             );
 
-        return parent::configureActions($actions)
+        // dump($this->request->getCurrentRequest()->query->has('is_duplicate'));
+        // exit;
+
+        return $actions
             ->add(Crud::PAGE_INDEX, $showAwardPage)
-            ->add(Crud::PAGE_INDEX, $duplicate);
+            ->add(Crud::PAGE_INDEX, $duplicate)
+            ->update(Crud::PAGE_EDIT, Action::SAVE_AND_RETURN, function (Action $action) {
+                if($this->request->getCurrentRequest()->query->has('is_duplicate')) {
+                    return $action->setLabel(Action::SAVE_AND_RETURN);
+                }
+                return $action;
+            })
+            ->update(Crud::PAGE_EDIT, Action::SAVE_AND_CONTINUE, function (Action $action) {
+                if($this->request->getCurrentRequest()->query->has('is_duplicate')) {
+                    return $action->setLabel(Action::SAVE_AND_CONTINUE);
+                }
+                return $action;
+            })
+        ;
     }
 }
