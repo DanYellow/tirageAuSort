@@ -18,6 +18,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
+use EasyCorp\Bundle\EasyAdminBundle\Field\HiddenField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -44,6 +45,7 @@ class AwardCrudController extends AbstractCrudController
             ->setEntityLabelInSingular('prix')
             ->setPageTitle('edit', fn (Award $participant) => sprintf('Modifier prix <b>%s</b>', $participant->__toString()))
             ->setPageTitle('new', "Créer prix")
+            // ->setPageTitle('clone', "Créer prix z")
             ->showEntityActionsInlined()
             ->setSearchFields(null)
             ->setFormThemes(['back/award-title-input.html.twig', '@EasyAdmin/crud/form_theme.html.twig']);
@@ -84,10 +86,11 @@ class AwardCrudController extends AbstractCrudController
 
     public function edit(AdminContext $context)
     {
-        if ($context->getRequest()->query->has('duplicate')) {
+        if ($context->getRequest()->query->has('is_duplicate')) {
             $entity = $context->getEntity()->getInstance();
             /** @var Entity $cloned */
             $cloned = clone $entity;
+            
             $context->getEntity()->setInstance($cloned);
         }
 
@@ -106,18 +109,19 @@ class AwardCrudController extends AbstractCrudController
 
         $original_id = $entityInstance->getId();
 
+        // $slugger = new AsciiSlugger();
+        // $entity->setSlug($slugger->slug($entity->getTitle()));
+        // $request = parent::getContext()->getRequest()->query->has('is_duplicate');
+        if(parent::getContext()->getRequest()->query->has('is_duplicate')) {
+            $slugger = new AsciiSlugger();
+            $entityInstance->setSlug($slugger->slug($entityInstance->getTitle()));
+        }
+
         parent::persistEntity($em, $entityInstance);
 
         $em->flush();
 
         if ($entityInstance->getId() === $original_id) {
-            // dump($entityInstance->getId());
-            // exit;
-            // $this->redirectToRoute('awards', [
-            //     'entity' => AwardCrudController::getEntityFqcn(),
-            //     'action' => 'edit',
-            //     'id' => $entityInstance->getId()
-            // ]);
             $this->addFlash("success", "<b>Prix {$entityInstance->getTitle()} ({$entityInstance->getYear()})</b> a été mis à jour");
         } else {
         }
@@ -128,30 +132,12 @@ class AwardCrudController extends AbstractCrudController
         $url = $this->adminUrlGenerator
             ->setAction(Action::EDIT)
             ->setEntityId($context->getEntity()->getInstance()->getId())
-            ->unset("duplicate")
+            ->unset("is_duplicate")
             ->generateUrl();
 
         return $this->redirect($url);
-    }
 
-    protected function redirectToReferrer() {
-        
-    }
-
-    private function redirectToClonedEntity($id): RedirectResponse
-    {
-        $url = $this->adminUrlGenerator
-            ->setController(AwardsController::class)
-            ->setAction(Action::INDEX)
-            ->generateUrl();
-
-        return $this->redirect($url);
-        exit;
-        return $this->redirectToRoute('awards', [
-            'entity' => AwardCrudController::getEntityFqcn(),
-            'action' => 'edit',
-            'id' => $id
-        ]);
+        return parent::getRedirectResponseAfterSave($context, $action);
     }
 
     public function configureActions(Actions $actions): Actions
@@ -166,18 +152,18 @@ class AwardCrudController extends AbstractCrudController
                 ];
             });
 
-        $duplicate = Action::new('Cloner', "Cloner")
+        $duplicate = Action::new('clone', "Cloner")
             ->setIcon('fa fa-copy')
             ->linkToUrl(
                 fn (Award $entity) => $this->adminUrlGenerator
                     ->setAction(Action::EDIT)
                     ->setEntityId($entity->getId())
-                    ->set('duplicate', '1')
+                    ->set('is_duplicate', '1')
                     ->generateUrl()
             );
 
         return parent::configureActions($actions)
             ->add(Crud::PAGE_INDEX, $showAwardPage)
-            ->add(Crud::PAGE_INDEX, $duplicate);;
+            ->add(Crud::PAGE_INDEX, $duplicate);
     }
 }

@@ -7,3 +7,7 @@
 		</p>
 	</div>
 {% endblock %}
+
+{% block _Award_custom_duplicate_widget %}
+	{{ form_widget(form, { "attr": { "value": app.request.get('duplicate') }}) }}
+{% endblock %}
