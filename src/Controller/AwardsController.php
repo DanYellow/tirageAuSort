@@ -9,16 +9,37 @@ use Symfony\Component\HttpFoundation\Request;
 
 
 use App\Repository\AwardRepository;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 
 class AwardsController extends AbstractController
 {
     #[Route(['prix', 'prix/{year}'], name: 'awards', requirements: ['year' => '\d{4}'])]
-    public function index(AwardRepository $awardRepository, Request $request): Response
+    public function index(AwardRepository $awardRepository, Request $request, #[MapQueryParameter] array $routeParams = []): Response
     {
-        $year = $request->get('year');
+        $year = $request->get('year') ?? (array_key_exists('year', $routeParams) && $routeParams["year"]);
+
+        // Fix route params from admin
+        if ($routeParams) {
+            $award = $awardRepository->getAward(
+                $year,
+                $routeParams['category']["value"],
+                $routeParams['slug'],
+            );
+
+            $list_awards = $awardRepository->getAwardsForYear($year);
+            $final_list_awards = array();
+            foreach ($list_awards as $element) {
+                $final_list_awards[$element->getCategory()->value][] = $element;
+            }
+
+            return $this->render('awards/awarded.html.twig', [
+                "award" => $award[0] ?? null,
+                "categories" => $final_list_awards,
+            ]);
+        }
+
 
         $list_awards = $awardRepository->getAwardsForYear($year);
-
 
         // $list_participants_json = array_map(function ($item) {
         //     return array(
