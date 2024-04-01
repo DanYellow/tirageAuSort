@@ -7,9 +7,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 
 use App\Repository\AwardRepository;
-use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use App\Service\DefaultValues;
+
 
 class AwardsController extends AbstractController
 {
@@ -36,7 +38,7 @@ class AwardsController extends AbstractController
 
             return $this->render('awards/awarded.html.twig', [
                 "award" => $award[0] ?? null,
-                'event_name' => $main_data_file["event_name"],
+                'event_name' => DefaultValues::getEventName($main_data_file),
                 "categories" => $final_list_awards,
             ]);
         }
@@ -60,7 +62,7 @@ class AwardsController extends AbstractController
 
         return $this->render('awards/listing.html.twig', [
             "categories" => $final_list_awards,
-            'event_name' => $main_data_file["event_name"],
+            'event_name' => DefaultValues::getEventName($main_data_file),
         ]);
     }
 
@@ -85,7 +87,7 @@ class AwardsController extends AbstractController
 
         return $this->render('awards/awarded.html.twig', [
             "award" => $award[0] ?? null,
-            'event_name' => $main_data_file["event_name"],
+            'event_name' => DefaultValues::getEventName($main_data_file),
             "categories" => $final_list_awards,
         ]);
     }

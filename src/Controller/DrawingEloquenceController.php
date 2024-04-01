@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml;
 
 use App\Repository\EloquenceContestRepository;
+use App\Service\DefaultValues;
 
 class DrawingEloquenceController extends AbstractController
 {
@@ -44,7 +45,7 @@ class DrawingEloquenceController extends AbstractController
 
         return $this->render('drawing_eloquence/index.html.twig', [
             'current_year' => $contest["year"],
-            'event_name' => $main_data_file["event_name"],
+            'event_name' => DefaultValues::getEventName($main_data_file),
             'list_participants' => $contest["participants"],
             'list_participants_json' => json_encode($list_participants_json),
         ]);
