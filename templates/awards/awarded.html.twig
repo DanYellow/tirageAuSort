@@ -25,30 +25,7 @@
             {% set current_path = path(app.request.attributes.get('_route'),
                        app.request.attributes.get('_route_params')) %}
 
-            <ul class="mb-6 overflow-y-auto list-inside list-disc">
-                {% for key, list_awards in categories %}
-                    <li class="pb-1 text-xl text-gray-900 ">
-                        {{ key|capitalize }}
-                        <ul class="text-base ml-6 mb-4 overflow-y-auto list-inside list-disc">
-                            {% for award in list_awards %}
-                                <li>
-                                    {% set award_path = path(
-                                        'awarded',
-                                        {slug: award.slug, year: award.year, category: key}
-                                    ) %}
-                                    <a 
-                                        href="{{ award_path }}" 
-                                        class="hover:text-blue-900 hover:underline hover:underline-offset-1 {% if current_path == award_path %} text-blue-700 font-bold {% endif %}">
-                                        {{award.title}}
-                                    </a>
-                                </li> 
-                            {% endfor %}
-                        </ul>
-                    </li>
-                {% else %}
-                    <li>Pas de prix pour cette année</li>
-                {% endfor %}
-            </ul>
+            {% include 'front/components/list-awards.html.twig' %}
         </aside>
         <section class="lg:col-start-2 lg:row-start-1 pb-12 pt-8 px-10 pl-12 transition-width relative" data-content="">
             <button type="button" class="absolute right-3 top-3 flex items-center gap-1" data-btn-toggle-fullscreen aria-label="Mettre en mode plein écran" title="Mettre en mode plein écran">
