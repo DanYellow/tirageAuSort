@@ -2,16 +2,19 @@
 
 namespace App\Controller\Admin;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Yaml\Yaml;
+
 
 class MiscController extends DashboardController
 {
@@ -89,6 +92,70 @@ class MiscController extends DashboardController
         }
 
         return $this->render('misc/form-logo.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/festi-admin/misc/event', name: 'admin_misc_update_event_name', methods: ['GET', 'POST'])]
+    public function update_event_name(Request $request): Response
+    {
+        $defaultData = ['allow_extra_fields' => true];
+
+        $main_data_file = Yaml::parseFile("{$this->getParameter('data_directory')}/main.yml");
+
+
+        $form = $this->createFormBuilder($defaultData)
+            ->add('name', TextType::class, [
+                "attr" => [
+                    "class" => "form-control",
+                ],
+                "label_attr" => ["class" => "form-control-label required"],
+                "label" => "Nom",
+                'required' => true,
+                'data' => $main_data_file["event_name"],
+                'constraints' => [
+                    new NotBlank()
+                ],
+            ])
+            ->add('saveAndReturn', SubmitType::class, [
+                "attr" => [
+                    "class" => "btn btn-primary bg-btn-primary",
+                    "form" => "form_edit_logo",
+                ],
+            ])
+            ->add('saveAndContinue', SubmitType::class, [
+                "attr" => [
+                    "form" => "form_edit_logo",
+                    "class" => "btn btn-secondary",
+                ],
+                'label_html' => true,
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $logoFile = $form->get('logo')->getData();
+
+            if ($logoFile) {
+                try {
+                    $logoFile->move(
+                        $this->getParameter('images_directory'),
+                        "logo-talents-iut.png"
+                    );
+                } catch (FileException $e) {
+                    dump($e->getMessage());
+                }
+            }
+
+            $this->addFlash('success', 'Le logo a été mis à jour');
+            /** @var ClickableInterface $button  */
+            if ($form->get('saveAndReturn')->isClicked()) {
+                return $this->redirectToRoute("admin_misc");
+            }
+        }
+
+        return $this->render('misc/form-event-name.html.twig', [
             'form' => $form,
         ]);
     }

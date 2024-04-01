@@ -1,0 +1,26 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_actions %}
+	{{ form_widget(form.saveAndContinue, {"label": "<i class='action-icon far fa-edit'></i> Sauvegarder et modifier"}) }}
+	{{ form_widget(form.saveAndReturn, {
+        "label": "Sauvegarder les modifications",
+        "class": "btn btn-primary bg-btn-primary",
+    }) }}
+{% endblock %}
+
+{% block content_title %}
+	Éditer le nom du festival du festival<br>
+{% endblock %}
+
+{% block head_stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('tailwindcss') }}
+{% endblock %}
+
+{% block main %}
+	{{ form(form) }}
+
+    <p class="text-sm font-normal">
+        Affiché sur les pages du <a class="text-blue-700 underline" target="_blank" href="{{ path("homepage") }}">tirage au sort</a> et des <a class="text-blue-700 underline" target="_blank" href="{{ path("awards") }}">prix</a>.
+    </p>
+{% endblock %}
