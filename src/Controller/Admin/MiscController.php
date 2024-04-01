@@ -102,7 +102,6 @@ class MiscController extends DashboardController
         $defaultData = ['allow_extra_fields' => true];
 
         $file_path = "{$this->getParameter('data_directory')}/main.yml";
-
         $main_data_file = Yaml::parseFile($file_path);
 
         $form = $this->createFormBuilder($defaultData)

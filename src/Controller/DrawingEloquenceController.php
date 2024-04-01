@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Yaml\Yaml;
 
 use App\Repository\EloquenceContestRepository;
 
@@ -15,6 +16,8 @@ class DrawingEloquenceController extends AbstractController
     public function homepage(EloquenceContestRepository $eloquenceContestRepository, Request $request, ): Response
     {
         $year = $request->get('year');
+        $file_path = "{$this->getParameter('data_directory')}/main.yml";
+        $main_data_file = Yaml::parseFile($file_path);
 
         $contest = $eloquenceContestRepository->getParticipantsForYear($year);
 
@@ -41,6 +44,7 @@ class DrawingEloquenceController extends AbstractController
 
         return $this->render('drawing_eloquence/index.html.twig', [
             'current_year' => $contest["year"],
+            'event_name' => $main_data_file["event_name"],
             'list_participants' => $contest["participants"],
             'list_participants_json' => json_encode($list_participants_json),
         ]);

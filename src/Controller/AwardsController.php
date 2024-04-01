@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\Yaml\Yaml;
 
 use App\Repository\AwardRepository;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
@@ -17,6 +17,8 @@ class AwardsController extends AbstractController
     public function index(AwardRepository $awardRepository, Request $request, #[MapQueryParameter] array $routeParams = []): Response
     {
         $year = $request->get('year') ?? (array_key_exists('year', $routeParams) && $routeParams["year"]);
+        $file_path = "{$this->getParameter('data_directory')}/main.yml";
+        $main_data_file = Yaml::parseFile($file_path);
 
         // Fix route params from admin
         if ($routeParams) {
@@ -34,6 +36,7 @@ class AwardsController extends AbstractController
 
             return $this->render('awards/awarded.html.twig', [
                 "award" => $award[0] ?? null,
+                'event_name' => $main_data_file["event_name"],
                 "categories" => $final_list_awards,
             ]);
         }
@@ -57,6 +60,7 @@ class AwardsController extends AbstractController
 
         return $this->render('awards/listing.html.twig', [
             "categories" => $final_list_awards,
+            'event_name' => $main_data_file["event_name"],
         ]);
     }
 
@@ -64,6 +68,8 @@ class AwardsController extends AbstractController
     public function awarded(AwardRepository $awardRepository, Request $request): Response
     {
         $year = $request->get('year');
+        $file_path = "{$this->getParameter('data_directory')}/main.yml";
+        $main_data_file = Yaml::parseFile($file_path);
 
         $award = $awardRepository->getAward(
             $year,
@@ -79,6 +85,7 @@ class AwardsController extends AbstractController
 
         return $this->render('awards/awarded.html.twig', [
             "award" => $award[0] ?? null,
+            'event_name' => $main_data_file["event_name"],
             "categories" => $final_list_awards,
         ]);
     }
