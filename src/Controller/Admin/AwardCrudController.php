@@ -24,15 +24,15 @@ use function Symfony\Component\Translation\t;
 
 class AwardCrudController extends AbstractCrudController
 {
+    private $adminUrlGenerator;
+    private $request;
+
     use Trait\ListYearsTrait;
 
     public static function getEntityFqcn(): string
     {
         return Award::class;
     }
-
-    private $adminUrlGenerator;
-    private $request;
 
     public function __construct(AdminUrlGenerator $adminUrlGenerator, RequestStack $requestStack)
     {
@@ -64,6 +64,7 @@ class AwardCrudController extends AbstractCrudController
             TextField::new('title', "Titre")->setFormTypeOptions([
                 'block_name' => 'custom_title',
                 'attr' => ['data-award-title' => null],
+                "error_bubbling" => true,
             ]),
             ChoiceField::new('year', 'Année du concours')->setChoices($this->generateYears()),
             ChoiceField::new("category", "Type de prix"),
@@ -125,15 +126,22 @@ class AwardCrudController extends AbstractCrudController
         $em->flush();
 
         if ($entityInstance->getId() === $original_id) {
-            $this->addFlash("success", "<b>Prix {$entityInstance->getCategory()->value} {$entityInstance->getTitle()} ({$entityInstance->getYear()})</b> a été mis à jour");
+            $this->addFlash("success", "<b>Prix du {$entityInstance->getCategory()->value} {$entityInstance->getTitle()} ({$entityInstance->getYear()})</b> a été mis à jour");
+        } else {
+            $this->addFlash("success", "<b>Prix du {$entityInstance->getCategory()->value} {$entityInstance->getTitle()} ({$entityInstance->getYear()})</b> a été crée");
         }
     }
+
+    // public function setDefaultOptions(OptionsResolverInterface $resolver)
+    // {
+    //     $resolver->setDefaults(array(
+    //         'error_bubbling' => true,
+    //     ));
+    // }
 
     protected function getRedirectResponseAfterSave(AdminContext $context, string $action): RedirectResponse
     {
         if (parent::getContext()->getRequest()->query->has('is_duplicate')) {
-            $entity = $context->getEntity()->getInstance();
-            $this->addFlash("success", "<b>Prix du {$entity->getCategory()->value} {$entity->getTitle()} ({$entity->getYear()})</b> a été crée");
             $submitButtonName = $context->getRequest()->request->all()['ea']['newForm']['btn'];
 
             $is_save_and_return = $submitButtonName === Action::SAVE_AND_RETURN;

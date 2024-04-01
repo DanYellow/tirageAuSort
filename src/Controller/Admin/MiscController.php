@@ -19,7 +19,7 @@ class MiscController extends DashboardController
         'image/png',
     ];
 
-    #[Route('/festi-admin/misc/', name: 'admin_misc', methods: ['GET'])]
+    #[Route('/festi-admin/misc/', name: 'admin_misc')]
     public function index(): Response
     {
         return $this->render('misc/index.html.twig');

@@ -16,12 +16,12 @@ enum AwardCategory: string {
     case Public = 'public';
 }
 
-// #[UniqueEntity('slug')]
+#[UniqueEntity(
+    fields: ['year', 'slug', 'category'],
+    errorPath: 'award_unique',
+    message: 'Ce prix existe déjà, veuillez changer son titre, année et/ou type',
+)]
 #[ORM\Entity(repositoryClass: AwardRepository::class)]
-#[ORM\UniqueConstraint(
-    name: 'award_unique',
-    columns: ['year', 'slug', 'category']
-  )]
 class Award
 {
     #[ORM\Id]
