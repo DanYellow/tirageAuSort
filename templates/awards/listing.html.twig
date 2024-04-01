@@ -26,7 +26,7 @@
                                 <li>
                                     {% set award_path = path(
                                         'awarded',
-                                        {year: 2024, category: key, slug: award.slug}
+                                        {year: award.year, category: key, slug: award.slug}
                                     ) %}
                                     <a href="{{ award_path }}">
                                         {{award.title}}
