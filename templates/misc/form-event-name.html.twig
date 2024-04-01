@@ -9,18 +9,32 @@
 {% endblock %}
 
 {% block content_title %}
-	Éditer le nom du festival du festival<br>
+	Éditer le nom du festival
 {% endblock %}
 
 {% block head_stylesheets %}
-    {{ parent() }}
-    {{ encore_entry_link_tags('tailwindcss') }}
+	{{ parent() }}
+	{{ encore_entry_link_tags('tailwindcss') }}
 {% endblock %}
 
 {% block main %}
-	{{ form(form, {'attr': {'id': 'form_edit_logo'}}) }}
+	{{ form_start(form, {'attr': {'id': 'form_edit_logo', "class": "row"}}) }}
+	<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-    <p class="text-sm font-normal">
-        Affiché sur les pages du <a class="text-blue-700 underline" target="_blank" href="{{ path("homepage") }}">tirage au sort</a> et des <a class="text-blue-700 underline" target="_blank" href="{{ path("awards") }}">prix</a>.
-    </p>
+	<div class="col-md-6 col-xxl-5">
+		<div class="field-text form-group">
+			{{ form_label(form.event_name) }}
+			<div class="form-widget">
+				{{ form_widget(form.event_name) }}
+			</div>
+
+			<p class="text-sm font-normal">
+				Affiché sur les pages du
+				<a class="text-blue-700 underline" target="_blank" href="{{ path("homepage") }}">tirage au sort</a>
+				et des
+				<a class="text-blue-700 underline" target="_blank" href="{{ path("awards") }}">prix</a>.
+			</p>
+		</div>
+	</div>
+	{{ form_end(form) }}
 {% endblock %}

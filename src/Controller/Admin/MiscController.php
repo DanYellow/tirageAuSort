@@ -2,10 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Yaml\Yaml;
 
+use App\Service\DefaultValues;
 
 class MiscController extends DashboardController
 {
@@ -25,7 +26,12 @@ class MiscController extends DashboardController
     #[Route('/festi-admin/misc/', name: 'admin_misc')]
     public function index(): Response
     {
-        return $this->render('misc/index.html.twig');
+        $file_path = "{$this->getParameter('data_directory')}/main.yml";
+        $main_data_file = Yaml::parseFile($file_path);
+
+        return $this->render('misc/index.html.twig', [
+            'event_name' => DefaultValues::getEventName($main_data_file)
+        ]);
     }
 
     #[Route('/festi-admin/misc/logo', name: 'admin_misc_update_logo', methods: ['GET', 'POST'])]
@@ -109,7 +115,7 @@ class MiscController extends DashboardController
                 "attr" => [
                     "class" => "form-control",
                 ],
-                "label_attr" => ["class" => "form-control-label required"],
+                "label_attr" => ["class" => "form-control-label"],
                 "label" => "Nom",
                 'required' => true,
                 'data' => $main_data_file["event_name"],
