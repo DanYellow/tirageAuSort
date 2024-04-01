@@ -132,13 +132,6 @@ class AwardCrudController extends AbstractCrudController
         }
     }
 
-    // public function setDefaultOptions(OptionsResolverInterface $resolver)
-    // {
-    //     $resolver->setDefaults(array(
-    //         'error_bubbling' => true,
-    //     ));
-    // }
-
     protected function getRedirectResponseAfterSave(AdminContext $context, string $action): RedirectResponse
     {
         if (parent::getContext()->getRequest()->query->has('is_duplicate')) {
@@ -148,7 +141,9 @@ class AwardCrudController extends AbstractCrudController
             $url = $this->adminUrlGenerator
                 ->setAction($is_save_and_return ? Action::INDEX : Action::NEW)
                 ->unset("is_duplicate")
-                ->generateUrl();
+                ->unset("entityId")
+                ->generateUrl()
+                ;
 
             return $this->redirect($url);
         }

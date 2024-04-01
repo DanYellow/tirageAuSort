@@ -17,7 +17,7 @@ enum AwardCategory: string {
 }
 
 #[UniqueEntity(
-    fields: ['year', 'slug', 'category'],
+    fields: ['year', 'slug', 'category', "title"],
     errorPath: 'award_unique',
     message: 'Ce prix existe déjà, veuillez changer son titre, année et/ou type',
 )]

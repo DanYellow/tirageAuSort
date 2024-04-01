@@ -40,7 +40,8 @@ class MiscController extends DashboardController
                 "label_attr" => ["class" => "form-control-label required"],
                 "label" => "Logo",
                 'required' => true,
-                'help' => "Fichiers png en dessous de 2MB seulement",
+                'help' => "<b>Fichiers png en dessous de 2MB seulement</b>",
+                'help_html' => true,
                 'constraints' => [
                     new Image([
                         'maxSize' => '2M', // 2048k
