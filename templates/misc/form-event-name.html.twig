@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block main %}
-	{{ form(form) }}
+	{{ form(form, {'attr': {'id': 'form_edit_logo'}}) }}
 
     <p class="text-sm font-normal">
         Affiché sur les pages du <a class="text-blue-700 underline" target="_blank" href="{{ path("homepage") }}">tirage au sort</a> et des <a class="text-blue-700 underline" target="_blank" href="{{ path("awards") }}">prix</a>.

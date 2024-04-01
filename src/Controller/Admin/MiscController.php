@@ -101,11 +101,12 @@ class MiscController extends DashboardController
     {
         $defaultData = ['allow_extra_fields' => true];
 
-        $main_data_file = Yaml::parseFile("{$this->getParameter('data_directory')}/main.yml");
+        $file_path = "{$this->getParameter('data_directory')}/main.yml";
 
+        $main_data_file = Yaml::parseFile($file_path);
 
         $form = $this->createFormBuilder($defaultData)
-            ->add('name', TextType::class, [
+            ->add('event_name', TextType::class, [
                 "attr" => [
                     "class" => "form-control",
                 ],
@@ -135,20 +136,14 @@ class MiscController extends DashboardController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $logoFile = $form->get('logo')->getData();
+            unset($main_data_file["allow_extra_fields"]);
+            $event_new_name = $form->getData()["event_name"]; 
 
-            if ($logoFile) {
-                try {
-                    $logoFile->move(
-                        $this->getParameter('images_directory'),
-                        "logo-talents-iut.png"
-                    );
-                } catch (FileException $e) {
-                    dump($e->getMessage());
-                }
-            }
+            $main_data_file["event_name"] = $event_new_name;
 
-            $this->addFlash('success', 'Le logo a été mis à jour');
+            file_put_contents($file_path, Yaml::dump($main_data_file));
+
+            $this->addFlash('success', "Le nom du festival est devenu <b>{$event_new_name}</b>");
             /** @var ClickableInterface $button  */
             if ($form->get('saveAndReturn')->isClicked()) {
                 return $this->redirectToRoute("admin_misc");
