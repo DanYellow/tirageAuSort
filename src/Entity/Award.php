@@ -137,6 +137,6 @@ class Award
     }
 
     public function __toString(): string {
-        return "{$this->getTitle()}";
+        return "Prix du {$this->getCategory()->value} {$this->getTitle()}";
     }
 }

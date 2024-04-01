@@ -131,22 +131,17 @@ class AwardCrudController extends AbstractCrudController
 
     protected function getRedirectResponseAfterSave(AdminContext $context, string $action): RedirectResponse
     {
-        $entity = $context->getEntity()->getInstance();
-        $submitButtonName = $context->getRequest()->request->all()['ea']['newForm']['btn'];
-
         if (parent::getContext()->getRequest()->query->has('is_duplicate')) {
+            $entity = $context->getEntity()->getInstance();
             $this->addFlash("success", "<b>Prix du {$entity->getCategory()->value} {$entity->getTitle()} ({$entity->getYear()})</b> a été crée");
+            $submitButtonName = $context->getRequest()->request->all()['ea']['newForm']['btn'];
 
+            $is_save_and_return = $submitButtonName === Action::SAVE_AND_RETURN;
             $url = $this->adminUrlGenerator
-                ->setAction(Action::NEW)
+                ->setAction($is_save_and_return ? Action::INDEX : Action::NEW)
                 ->unset("is_duplicate")
                 ->generateUrl();
-            if ($submitButtonName === Action::SAVE_AND_RETURN) {
-                $url = $this->adminUrlGenerator
-                    ->setAction(Action::INDEX)
-                    ->unset("is_duplicate")
-                    ->generateUrl();
-            }
+
             return $this->redirect($url);
         }
 
@@ -176,9 +171,6 @@ class AwardCrudController extends AbstractCrudController
                     ->set('is_duplicate', '1')
                     ->generateUrl()
             );
-
-        // dump($this->request->getCurrentRequest()->query->has('is_duplicate'));
-        // exit;
 
         return $actions
             ->add(Crud::PAGE_INDEX, $showAwardPage)
