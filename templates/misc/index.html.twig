@@ -11,15 +11,24 @@
 
 {% block main %}
 	<div class="grid grid-cols-4 grid-rows-5 gap-3">
-		<a href="{{ path('admin_misc_update_logo')}}" class="flex max-w-sm p-6 bg-white border border-gray-200 rounded-lg hover:bg-gray-300 flex-col">
+		<a 
+            href="{{ path('admin_misc_update_logo')}}" 
+            class="grid grid-cols-1 grid-rows-[75%_auto] gap-2 max-w-sm p-6 bg-white border border-gray-200 rounded-lg hover:bg-gray-300"
+        >
 			<figure class="mb-2 flex justify-center items-center">
-				<img width="200" src="{{ asset("images/logo-talents-iut.png")}}" alt="">
+				<img class="max-h-full" src="{{ asset("images/logo-talents-iut.png")}}" alt="">
 			</figure>
-			<p class="font-normal text-xl text-center">Changer le logo du festival</p>
+			<p class="font-normal text-xl text-center ">Changer le logo du festival</p>
 		</a>
-		<a href="{{ path('admin_misc_update_event_name')}}" class="justify-center max-w-sm p-6 bg-white border border-gray-200 rounded-lg hover:bg-gray-300 flex flex-col">
-			<p class="font-normal text-xl text-center mt-auto mb-0">Changer le nom du festival</p>
+		<a 
+            href="{{ path('admin_misc_update_event_name')}}" 
+            class="grid grid-cols-1 grid-rows-[75%_auto] gap-2 max-w-sm p-6 bg-white border border-gray-200 rounded-lg hover:bg-gray-300"
+        >
+			<div></div>
+			<div>
+                <p class="font-normal text-xl text-center mt-auto mb-0">Changer le nom du festival</p>
             <p class="text-center text-xs mb-0">Nom actuel : "{{event_name}}"</p>
+            </div>
 		</a>
 	</div>
 {% endblock %}
