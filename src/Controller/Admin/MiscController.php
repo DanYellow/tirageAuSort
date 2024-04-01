@@ -19,13 +19,13 @@ class MiscController extends DashboardController
         'image/png',
     ];
 
-    #[Route('/festi-admin/misc/', name: 'admin_misc')]
+    #[Route('/festi-admin/misc/', name: 'admin_misc', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render('misc/index.html.twig');
     }
 
-    #[Route('/festi-admin/misc/logo', name: 'admin_misc_update_logo')]
+    #[Route('/festi-admin/misc/logo', name: 'admin_misc_update_logo', methods: ['GET', 'POST'])]
     public function update_logo(Request $request): Response
     {
         $defaultData = ['allow_extra_fields' => true];
@@ -61,7 +61,6 @@ class MiscController extends DashboardController
                     "class" => "btn btn-secondary",
                 ],
                 'label_html' => true,
-                // "label" => "<i class='action-icon far fa-edit'></i> Sauvegarder et modifier"
             ])
             ->getForm();
 
