@@ -9,7 +9,7 @@
                             'awarded',
                             {slug: award.slug, year: award.year, category: key}
                         ) %}
-						<a href="{{ award_path }}" class="hover:text-blue-900 hover:underline hover:underline-offset-1 {% if current_path is defined and current_path == award_path %} text-blue-700 font-bold {% endif %}">
+						<a href="{{ award_path }}" class="hover:text-blue-900 {% if current_path is defined and current_path == award_path %} text-blue-700 font-bold {% endif %}">
 							{{award.title}}
 						</a>
 					</li>
