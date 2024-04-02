@@ -38,9 +38,9 @@ const displayParticipant = () => {
     if(randomParticipant.subject !== null) {
         participantSubject.textContent = `${randomParticipant.subject}`
         participantSubject.classList.remove("hidden");
-        participantSubject.classList.add("block");
+        participantSubject.classList.add("inline");
     } else {
-        participantSubject.classList.remove("block");
+        participantSubject.classList.remove("inline");
         participantSubject.classList.add("hidden");
     }
 
