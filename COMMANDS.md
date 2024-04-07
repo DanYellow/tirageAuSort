@@ -10,6 +10,8 @@
 - symfony console make:auth
 - php bin/console importmap:require
 - php bin/console importmap:install
+- php bin/console debug:router
+- symfony server:stop
 
 https://symfony.com/bundles/EasyAdminBundle/current/fields.html
 https://github.com/EasyCorp/EasyAdminBundle/issues/4494

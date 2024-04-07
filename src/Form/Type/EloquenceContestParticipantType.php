@@ -86,6 +86,9 @@ class EloquenceContestParticipantType extends AbstractType
             ],
             'placeholder' => false,
             'empty_data' => "1",
+            'attr' => [
+                'data-take-part' => null,
+            ]
         ]);
     }
 

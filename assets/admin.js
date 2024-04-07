@@ -5,6 +5,7 @@ TomSelect.define("remove_button", TomSelect_remove_button);
 import "./bootstrap.js";
 
 import "./scripts/display-logo.js";
+import "./scripts/toggle-participant.js";
 
 import "./styles/admin.css";
 
