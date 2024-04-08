@@ -39,7 +39,14 @@ class EloquenceContestCrudController extends AbstractCrudController
                 ->setColumns(8),
             CollectionField::new('participants', "Participants")
                 ->hideOnIndex()
-                ->setEntryType(EloquenceContestParticipantType::class)->setColumns(8),
+                ->setEntryType(EloquenceContestParticipantType::class)
+                ->setColumns(8)
+                ->setFormTypeOptions([
+                    "label_attr" => [
+                        "data-participants-status" => null,
+                    ],
+                ])
+            ,
             CollectionField::new('participants', "Participants")->hideOnForm()
                 ->formatValue(function ($value, $entity) {
                     $activeParticipants = array_filter($entity->getParticipants()->toArray(), function ($item) {

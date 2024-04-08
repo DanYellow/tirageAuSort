@@ -6,6 +6,7 @@ import "./bootstrap.js";
 
 import "./scripts/display-logo.js";
 import "./scripts/toggle-participant.js";
+import "./scripts/label-detail-number-participants.js";
 
 import "./styles/admin.css";
 
