@@ -21,27 +21,6 @@ if (participantsStatusLabel) {
 
     updateParticipantsIndicator();
 
-    // const enableParticipantObserver = new MutationObserver((mutationList) => {
-    //     mutationList.forEach((mutation) => {
-    //         console.log(mutation);
-    //         switch (mutation.type) {
-    //             case "childList":
-    //             case "attributes":
-    //                 updateParticipantsIndicator();
-    //                 break;
-    //         }
-    //     });
-    // });
-
-    // document.querySelectorAll(".accordion-button").forEach((item) => {
-    //     enableParticipantObserver.observe(item, {
-    //         attributes: true,
-    //         attributeFilter: ["class", "value"],
-    //         childList: true,
-    //         subtree: true,
-    //     });
-    // });
-
     const toggleNbParticipants = new MutationObserver((mutationList) => {
         mutationList.forEach((mutation) => {
             switch (mutation.type) {
