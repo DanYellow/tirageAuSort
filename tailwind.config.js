@@ -16,6 +16,7 @@ export default {
             },
             fontSize: {
                 "11xl": "10rem",
+                "12xl": "11.5rem",
             },
             containers: {
                 "2xs": "12rem",
