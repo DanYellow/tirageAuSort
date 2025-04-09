@@ -45,7 +45,7 @@ body {
 
 @layer components {
     .horizontal-text {
-        @screen lg {
+        @screen xl {
             writing-mode: vertical-rl;
             text-orientation: mixed;
         }

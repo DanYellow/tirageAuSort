@@ -106,19 +106,19 @@ const toggleLayout = () => {
     btnToggleLayout.classList.toggle("rotate-180", isExpanded);
 
     if (isExpanded) {
-        gridMainLayout.classList.add("lg:grid-cols-[6%_auto]")
+        gridMainLayout.classList.add("xl:grid-cols-[6%_auto]")
         gridMainLayout.classList.remove("grid-rows-[350px_auto_80px]")
         gridMainLayout.classList.add("grid-rows-[minmax(13%,_220px)_auto_60px]")
 
-        sideMenu.classList.remove("lg:grid-cols-[20%_auto]");
+        sideMenu.classList.remove("xl:grid-cols-[20%_auto]");
         
         listParticipantsContainer.classList.remove("block");
         listParticipantsContainer.classList.add("hidden");
     } else {
         gridMainLayout.classList.remove("grid-rows-[minmax(13%,_220px)_auto_60px]")
         gridMainLayout.classList.add("grid-rows-[350px_auto_80px]")
-        gridMainLayout.classList.add("lg:grid-cols-[20%_auto]")
-        gridMainLayout.classList.remove("lg:grid-cols-[6%_auto]")
+        gridMainLayout.classList.add("xl:grid-cols-[20%_auto]")
+        gridMainLayout.classList.remove("xl:grid-cols-[6%_auto]")
         gridMainLayout.classList.remove("grid-rows-[35%_auto_60px]")
 
         listParticipantsContainer.classList.remove("hidden");
