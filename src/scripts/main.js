@@ -100,12 +100,14 @@ const generateListParticipants = () => {
 };
 
 const toggleLayout = () => {
-    title.classList.toggle("horizontal-text");
-    title.classList.toggle("text-4xl");
-    btnToggleLayout.classList.toggle("rotate-180");
+    title.classList.toggle("horizontal-text", isExpanded);
+    title.classList.toggle("text-4xl", isExpanded);
+    title.classList.toggle("text-3xl", !isExpanded);
+    btnToggleLayout.classList.toggle("rotate-180", isExpanded);
+
     if (isExpanded) {
         gridMainLayout.classList.add("lg:grid-cols-[6%_auto]")
-        gridMainLayout.classList.remove("grid-rows-[350px_auto_60px]")
+        gridMainLayout.classList.remove("grid-rows-[350px_auto_80px]")
         gridMainLayout.classList.add("grid-rows-[minmax(13%,_220px)_auto_60px]")
 
         sideMenu.classList.remove("lg:grid-cols-[20%_auto]");
@@ -114,7 +116,7 @@ const toggleLayout = () => {
         listParticipantsContainer.classList.add("hidden");
     } else {
         gridMainLayout.classList.remove("grid-rows-[minmax(13%,_220px)_auto_60px]")
-        gridMainLayout.classList.add("grid-rows-[350px_auto_60px]")
+        gridMainLayout.classList.add("grid-rows-[350px_auto_80px]")
         gridMainLayout.classList.add("lg:grid-cols-[20%_auto]")
         gridMainLayout.classList.remove("lg:grid-cols-[6%_auto]")
         gridMainLayout.classList.remove("grid-rows-[35%_auto_60px]")
