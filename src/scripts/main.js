@@ -53,7 +53,7 @@ const displayParticipant = () => {
     participantContainer.classList.add("text-gray-800");
 
     const lastnameSpan = document.createElement("span");
-    lastnameSpan.classList.add("font-bold")
+    lastnameSpan.classList.add("font-semibold");
     lastnameSpan.textContent = randomParticipant.nom
 
     participantName.textContent = `${randomParticipant.prenom} `;
