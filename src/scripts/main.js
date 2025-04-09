@@ -18,7 +18,7 @@ const listParticipantsContainer = document.querySelector(
 );
 const participantContainer = document.querySelector("[data-participant]");
 const participantName = document.querySelector("[data-participant-name]");
-const participantFormation = document.querySelector("[data-participant-formation]");
+const participantSubject = document.querySelector("[data-participant-subject]");
 
 const nbParticipants = document.querySelector("[data-nb-participants]");
 const sideMenu = document.querySelector("[data-side-menu]");
@@ -40,7 +40,7 @@ const loadFile = async (url) => {
 
         return resSorted.map((item, idx) => ({ ...item, id: idx }));
     } catch (error) {
-        const fallbackFile = `${dataFileFolder}/liste.json`;
+        const fallbackFile = `${dataFileFolder}/liste.dist.json`;
         return await loadFile(fallbackFile);
     }
 };
@@ -59,7 +59,7 @@ const displayParticipant = () => {
     participantName.textContent = `${randomParticipant.prenom} `;
     participantName.appendChild(lastnameSpan)
 
-    participantFormation.textContent = randomParticipant.formation
+    participantSubject.textContent = randomParticipant.sujet
 
     const selectedParticipant = document.querySelector(
         `[data-participant-id="${randomParticipant.id}"]`
@@ -147,7 +147,7 @@ btnCancelReload?.addEventListener("click", () => {
 
 (async () => {
     btnFetchParticipant?.setAttribute("disabled", "disabled");
-    const mainFile = `${dataFileFolder}/liste.dist.json`;
+    const mainFile = `${dataFileFolder}/liste.local.json`;
     listParticipants = await loadFile(mainFile);
 
     nbTotalParticipants = listParticipants.length;
