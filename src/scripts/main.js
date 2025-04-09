@@ -80,6 +80,7 @@ const displayParticipant = () => {
 
     if (listParticipants.length === 0) {
         btnFetchParticipant.setAttribute("disabled", "disabled");
+        btnFetchParticipant.textContent = "Concours terminé";
     }
 };
 
