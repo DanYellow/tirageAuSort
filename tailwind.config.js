@@ -2,6 +2,7 @@
 
 import containerQueries from "@tailwindcss/container-queries";
 import forms from "@tailwindcss/forms";
+import plugin from "tailwindcss/plugin";
 
 export default {
     content: ["./src/**/*.{js,ts,jsx,tsx,njk,html}"],
@@ -28,5 +29,11 @@ export default {
             },
         },
     },
-    plugins: [containerQueries, forms],
+    plugins: [
+        containerQueries,
+        forms,
+        plugin(({ addVariant }) => {
+            addVariant("inert", "&:where([inert], [inert] *)");
+        }),
+    ],
 };
