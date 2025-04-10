@@ -21,7 +21,6 @@ const participantName = document.querySelector("[data-participant-name]");
 const participantSubject = document.querySelector("[data-participant-subject]");
 
 const nbParticipants = document.querySelector("[data-nb-participants]");
-const sideMenu = document.querySelector("[data-side-menu]");
 const title = document.querySelector("[data-title]");
 const btnReloadLink = document.querySelector("[data-reload-link]");
 const btnForceReload = document.querySelector("[data-btn-force-reload]");
@@ -59,7 +58,7 @@ const displayParticipant = () => {
     participantName.textContent = `${randomParticipant.prenom} `;
     participantName.appendChild(lastnameSpan)
 
-    participantSubject.textContent = randomParticipant.sujet
+    // participantSubject.textContent = randomParticipant.sujet
 
     const selectedParticipant = document.querySelector(
         `[data-participant-id="${randomParticipant.id}"]`
