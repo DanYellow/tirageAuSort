@@ -54,5 +54,5 @@ body {
 
 .list-participants {
     scrollbar-width: thin;
-    scrollbar-color: theme("colors.blue.700") theme("colors.blue.200") ;
+    scrollbar-color: theme("colors.blue.700") theme("colors.blue.200");
 }

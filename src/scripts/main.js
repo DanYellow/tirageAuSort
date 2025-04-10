@@ -106,19 +106,19 @@ const toggleLayout = () => {
 
     if (isExpanded) {
         gridMainLayout.classList.add("xl:grid-cols-[6%_auto]")
-        gridMainLayout.classList.remove("grid-rows-[350px_auto_80px]")
         gridMainLayout.classList.add("grid-rows-[minmax(13%,_220px)_auto_60px]")
-
-        sideMenu.classList.remove("xl:grid-cols-[20%_auto]");
+        gridMainLayout.classList.add("grid-rows-[35%_auto_60px]");
+        gridMainLayout.classList.remove("grid-rows-[350px_auto_80px]")
+        gridMainLayout.classList.remove("xl:grid-cols-[25%_auto]");
         
         listParticipantsContainer.classList.remove("block");
         listParticipantsContainer.classList.add("hidden");
     } else {
-        gridMainLayout.classList.remove("grid-rows-[minmax(13%,_220px)_auto_60px]")
-        gridMainLayout.classList.add("grid-rows-[350px_auto_80px]")
-        gridMainLayout.classList.add("xl:grid-cols-[20%_auto]")
-        gridMainLayout.classList.remove("xl:grid-cols-[6%_auto]")
-        gridMainLayout.classList.remove("grid-rows-[35%_auto_60px]")
+        gridMainLayout.classList.add("grid-rows-[350px_auto_80px]");
+        gridMainLayout.classList.add("xl:grid-cols-[25%_auto]");
+        gridMainLayout.classList.remove("grid-rows-[minmax(13%,_220px)_auto_60px]");
+        gridMainLayout.classList.remove("xl:grid-cols-[6%_auto]");
+        gridMainLayout.classList.remove("grid-rows-[35%_auto_60px]");
 
         listParticipantsContainer.classList.remove("hidden");
         listParticipantsContainer.classList.add("block");
