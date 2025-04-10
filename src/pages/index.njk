@@ -8,7 +8,7 @@
         <link rel="shortcut icon" href="images/logo-talents-iut.png" type="image/x-icon">
     </head>
     <body class="h-screen">
-        <main class="grid min-h-full grid-cols-1 xl:grid-cols-[25%_auto] xl:grid-rows-[auto_70px] grid-rows-[350px_auto_80px] transition-grid-template-columns" data-grid-main-layout>
+        <main class="grid min-h-full grid-cols-1 xl:grid-cols-[25%_auto] xl:grid-rows-[auto_max-content] grid-rows-[350px_auto_max-content] transition-grid-template-columns" data-grid-main-layout>
             <aside class="bg-blue-50 py-8 flex flex-col px-10 @container" data-side-menu="">
                 <p class="text-3xl mb-4 flex justify-between items-center z-10" data-title>
                     <span>Orateurs en lice <span data-nb-participants></span></span>
@@ -50,7 +50,7 @@
                 </div>
                 <button data-btn-random-participant class="bg-blue-700 rounded-lg text-slate-50 py-5 px-11 hover:bg-blue-900 disabled:opacity-75 text-lg outline-offset-2 mt-auto self-start">Tirer au sort</button>
             </section>
-            <footer class="xl:col-span-2 xl:col-start-1 xl:row-start-2 bg-blue-700 text-white text-center flex justify-center flex-col">
+            <footer class="xl:col-span-2 xl:col-start-1 xl:row-start-2 bg-blue-700 text-white text-center flex justify-center flex-col py-2">
                 {% include 'components/footer-content.njk' %}
             </footer>
         </main>
