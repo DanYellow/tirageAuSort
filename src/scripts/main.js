@@ -30,6 +30,10 @@ const tplParticipantRaw = document.querySelector("[data-tpl-id='participant']");
 
 const warningModal = document.querySelector("[data-warning-modal]");
 
+const bgCurrentParticipant = "bg-yellow-300";
+
+let previousParticipant = null;
+
 const loadFile = async (url) => {
     try {
         const res = await fetch(url);
@@ -57,14 +61,17 @@ const displayParticipant = () => {
 
     participantName.textContent = `${randomParticipant.prenom} `;
     participantName.appendChild(lastnameSpan)
-
     // participantSubject.textContent = randomParticipant.sujet
+
+    if(previousParticipant != null) {
+        previousParticipant.classList.replace(bgCurrentParticipant, "line-through");
+    }
 
     const selectedParticipant = document.querySelector(
         `[data-participant-id="${randomParticipant.id}"]`
     );
 
-    selectedParticipant.classList.add("line-through");
+    selectedParticipant.classList.add(bgCurrentParticipant);
     selectedParticipant.scrollIntoView({
         behavior: "auto",
     });
@@ -76,6 +83,8 @@ const displayParticipant = () => {
     );
     listParticipants.splice(randomIndex, 1);
     nbParticipants.textContent = `(${listParticipants.length}/${nbTotalParticipants})`;
+
+    previousParticipant = selectedParticipant;
 
     if (listParticipants.length === 0) {
         btnFetchParticipant.classList.add("hidden");
