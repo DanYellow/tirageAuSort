@@ -78,8 +78,7 @@ const displayParticipant = () => {
     nbParticipants.textContent = `(${listParticipants.length}/${nbTotalParticipants})`;
 
     if (listParticipants.length === 0) {
-        btnFetchParticipant.setAttribute("inert", "");
-        btnFetchParticipant.textContent = "Concours terminé";
+        btnFetchParticipant.classList.add("hidden");
     }
 };
 
