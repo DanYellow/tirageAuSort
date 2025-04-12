@@ -1,5 +1,0 @@
-{
-    "category": "du meilleur artiste",
-    "file": "artiste",
-    "template": "layouts/ranking.njk"
-}

@@ -44,6 +44,7 @@ const loadFile = async (url) => {
         return resSorted.map((item, idx) => ({ ...item, id: idx }));
     } catch (error) {
         const fallbackFile = `${dataFileFolder}/liste.dist.json`;
+
         return await loadFile(fallbackFile);
     }
 };
