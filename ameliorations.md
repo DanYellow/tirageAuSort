@@ -1,3 +1,3 @@
-- Afficher sujet, nom, prénom et photo de l'étudiant
+- Afficher sujet, nom, prénom et photo du participant
 - ~~Rajouter les puces sur la liste sur le côté~~
 - ~~Ajouter le responsive~~

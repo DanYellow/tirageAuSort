@@ -30,7 +30,7 @@ const tplParticipantRaw = document.querySelector("[data-tpl-id='participant']");
 
 const warningModal = document.querySelector("[data-warning-modal]");
 
-const bgCurrentParticipant = "bg-yellow-300";
+const bgCurrentParticipant = "bg-sky-300";
 
 let previousParticipant = null;
 
@@ -58,13 +58,13 @@ const displayParticipant = () => {
 
     const lastnameSpan = document.createElement("span");
     lastnameSpan.classList.add("font-semibold");
-    lastnameSpan.textContent = randomParticipant.nom
+    lastnameSpan.textContent = randomParticipant.nom;
 
     participantName.textContent = `${randomParticipant.prenom} `;
-    participantName.appendChild(lastnameSpan)
+    participantName.appendChild(lastnameSpan);
     // participantSubject.textContent = randomParticipant.sujet
 
-    if(previousParticipant != null) {
+    if (previousParticipant != null) {
         previousParticipant.classList.replace(bgCurrentParticipant, "line-through");
     }
 

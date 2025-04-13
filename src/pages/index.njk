@@ -9,7 +9,7 @@
     </head>
     <body class="h-screen">
         <main class="grid min-h-full grid-cols-1 xl:grid-cols-[25%_auto] xl:grid-rows-[auto_max-content] grid-rows-[350px_auto_max-content] transition-grid-template-columns" data-grid-main-layout>
-            <aside class="bg-blue-50 py-8 flex flex-col px-10 @container" data-side-menu="">
+            <aside class="bg-blue-50 py-8 flex flex-col px-7 @container" data-side-menu="">
                 <p class="text-3xl mb-4 flex justify-between items-center z-10" data-title>
                     <span>Orateurs en lice <span data-nb-participants></span></span>
                     <button type="button" data-btn-toggle-layout class="hover:text-blue-800 mt-5 @xs:mt-0">
@@ -67,7 +67,7 @@
         <script type="module" src="/src/scripts/main.js"></script>
 
         <template data-tpl-id="participant">
-            <li class="pb-1 text-gray-900 fullscreen:text-xl" data-participant-id>
+            <li class="mb-1 text-gray-900 fullscreen:text-xl rounded-lg pr-5 w-fit" data-participant-id>
                 <span data-firstname=""></span>
                 <span data-lastname="" class="font-bold"></span>
             </li>
