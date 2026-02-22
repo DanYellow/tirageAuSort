@@ -1,19 +1,34 @@
-version: '3'
-
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    ports:
-      - "5432"
 ###< doctrine/doctrine-bundle ###
 
 ###> symfony/mailer ###
   mailer:
     image: axllent/mailpit
     ports:
-      - "1025"
-      - "8025"
+      - "1025:1025"
+      - "8025:8025"
     environment:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
+      MAILPIT_RELAY: 127.0.0.1:25
 ###< symfony/mailer ###
+  composer:
+    image: composer:latest
+    container_name: symfony_composer
+    working_dir: /app
+    volumes:
+        - .:/app
+        # - ./composer.json:/home/composer.json
+        # - ./composer.lock:/home/composer.lock
+        - vendor:/app/vendor
+    command: composer install
+
+  node:
+    image: node:20
+    container_name: symfony_node
+    working_dir: /var/www/html
+    user: "33:33"         # runs as www-data
+    volumes:
+      - .:/var/www/html
+    command: npm install && npm run dev && npm run watch
+
